@@ -1,0 +1,67 @@
+
+<!-- section regarding modal CSS and JS was moved in file: crud_start_page.html -->
+
+
+
+<!-----------------------------------------[ form for user data input for New / Edit actions ]------------------->
+
+    <!-- Modal -->
+    <div
+            class="modal fade"
+            id="neweditform"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="dataModalLabel"
+            aria-hidden="true"
+            >
+        <div class="modal-dialog modal-lg" role="document">
+            <form id="neweditform-data-area" method="POST" action="/crud_data_form/salesproject/operation_or_pk">
+            <!--
+                NOTE: action attribute is dinamically changed at execution and *operation_or_pk* can be:
+                    - form_op_new - for considering an insert into database
+                    - form_op_edit - for considering an update into database
+            -->
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="dataModalLabel">Generic Data Form</h5> <!-- will be changed at runtime -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        {{ form.csrf_token }}
+                        <div class="form-inline row" hidden>
+                            {{ form.pk.label(class="col-sm-2") }} {{ form.pk(class="form-control col-sm-10") }}
+                        </div>
+                        <div class="form-inline row">
+                            {{ form.code.label(class="col-sm-2") }} {{ form.code(size=30, class="form-control col-sm-10") }}
+                        </div>
+                        <div class="form-inline row">
+                            {{ form.description.label(class="col-sm-2") }} {{ form.description(size=30, class="form-control col-sm-10") }}
+                        </div>
+                        <div class="form-inline row">
+                            {{ form.notes.label(class="col-sm-2") }} {{ form.notes(size=30, class="form-control col-sm-10") }}
+                        </div>
+                        <div class="form-inline row">
+                            {{ form.disabled.label(class="col-sm-2") }} {{ form.disabled(class="form-check-input col-sm-10") }}
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <!-- buton de submit ce face request pe ruta din atribut conform metodei specifcate -->
+                        <button id="save" type="submit" class="btn btn-primary">Save</button>
+                        <!-- data-dismiss="modal" inchide modalul SI NU efectueaza actionul indifierent ce face acolo -->
+                        <button id="cancel" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div> <!-- end of modal content -->
+
+            </form>
+        </div>
+    </div>
+
+

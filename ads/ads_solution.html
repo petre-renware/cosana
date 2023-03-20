@@ -1,0 +1,426 @@
+<!--- [ ads_solution ] --->
+<!-- Jinja data comes in solution_details_data & lov_ads_solution -->
+
+<input id="ads_solution__pk" type="text" class="form-control" placeholder="PK will automatically come here..." hidden>
+
+
+
+<!------------------------------------------------------------------------------ MASTER area fields ---->
+<!---- name field ---->
+<div class="input-group input-group-sm mb-2">
+	<div class="input-group-prepend">
+		<span class="input-group-text" id="ads_solution_name_label">Solution Name</span>
+	</div>
+	<input id="ads_solution_name" class="form-control" aria-label="ads_solution_name_label"
+			placeholder="Enter here Solution name as known in your organization...">
+</div>
+<!---- description field ---->
+<div class="input-group input-group-sm mb-2">
+	<div class="input-group-prepend">
+		<span class="input-group-text" id="ads_solution_description_label">Description</span>
+	</div>
+	<textarea id="ads_solution_description" type="text" class="form-control" aria-label="ads_solution_description_label"
+			placeholder="Enter here a description of solution..."></textarea>
+</div>
+<!---- remarks field ---->
+<div class="input-group input-group-sm mb-2">
+	<div class="input-group-prepend">
+		<span class="input-group-text" id="ads_solution_remarks_label">Remarks</span>
+	</div>
+	<textarea id="ads_solution_remarks" type="text" class="form-control" aria-label="ads_solution_remarks_label"
+			placeholder="Enter here any useful comments..."></textarea>
+</div>
+
+
+
+<!------------------------------------------------------------------------------ DETAILS / TABLE area fields ---->
+<!---- ads solution map details field ---->
+<table id="ads_solution_ads_solution_details_data" class="table table-sm table-striped table-hover border">
+	<thead>
+		<tr>
+			<th scope="col">Solution element</th>
+            <th scope="col">Strength</th>
+            <th scope="col">Feature type</th>
+			<!---- global actions for ads_solution_details, like New, Save, Discard ---->
+			<th scope="col">
+				<button id="ads-solution-detail-new-rec-button" onclick="solution_details_NEW_record()"
+					class="btn btn-sm btn-outline-primary float-right" type="button" data-toggle="modal" data-target="#solution_detail_entry_new_modal">
+					<strong>+</strong></button>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for detail_item in solution_details_data %}
+			<tr id="ads_solution_details_{{ detail_item._pk }}">
+				<td contenteditable="true">
+ 					<input type="text" class="form-control" contenteditable="true" onchange="solution_details_activate_save_butt('{{ detail_item._pk }}')"
+					value="{{ detail_item.name }}" id="ads_solution_details_name_{{ detail_item._pk }}" name="ads_solution_details_name">
+				</td>
+
+                <td>
+					<select class="form-control" id="ads_solution_details_strength_{{ detail_item._pk }}" onchange="solution_details_activate_save_butt('{{ detail_item._pk }}')">
+						{% for selector_item in lov_ads_solution['strength'].selector_data %}
+							{% if selector_item.code == detail_item.strength %}
+								<option value="{{ selector_item.code }}" selected>{{ selector_item.text }}</option>
+							{% else %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+                    <!-- <br><small>{{ detail_item.strength_info.text }} / Sore {{ detail_item.strength_info.score }}</small> DEBUGGING_INFO-->
+                </td>
+
+                <td>
+					<select class="form-control" id="ads_solution_details_feature_type_{{ detail_item._pk }}" onchange="solution_details_activate_save_butt('{{ detail_item._pk }}')">
+						{% for selector_item in lov_ads_solution['feature_type'].selector_data %}
+							{% if selector_item.code == detail_item.feature_type %}
+								<option value="{{ selector_item.code }}" selected>{{ selector_item.text }}</option>
+							{% else %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+                    <!-- <br><small>{{ detail_item.feature_type_info.text }} / Sore {{ detail_item.feature_type_info.score }}</small> DEBUGGING_INFO-->
+                </td>
+
+
+
+				<td>
+					<button onclick="solution_details_DEL_record('{{ detail_item._pk }}', '{{ detail_item.name }}')"
+						class="d-sm-inline px-2 btn btn-sm btn-outline-danger">Del</button>
+
+					<button onclick="solution_details_SAV_record('{{ detail_item._pk }}')"
+						class="d-sm-inline px-2 btn btn-sm btn-outline-success active"
+						id="sav_button_solution_{{ detail_item._pk }}" disabled>Sav</button>
+
+					<small><small><small>Upd by {{ detail_item._updated_by }} @ {{ detail_item._updated_at }}</small></small></small>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+
+
+
+<!---- audit data info fields: ads_solution_updated_by, ads_solution_updated_at ---->
+<div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend">
+        <span class="input-group-text bg-secondary text-warning" id="_updated_label">Updated by... at...</span>
+    </div>
+    <input id="ads_solution__updated_by" type="text" class="form-control" aria-describedby="_updated_by_label"
+            placeholder="updated by info" readonly>
+    <input id="ads_solution__updated_at" type="text" class="form-control" aria-describedby="_updated_label"
+            placeholder="updated time info" readonly>
+</div>
+
+
+
+
+
+<!-- here start the form where to enter new data -->
+
+<div class="modal modal-lg" id="solution_detail_entry_new_modal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="modal-header bg-light">
+				<h6 class="modal-title">New Solution Entry</h6>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<div class="modal-body">
+				<div id="ads_solution_new_data_form" class="px-1 my-1" style="display:none">
+					<!-- Name -->
+					<div class="input-group input-group-sm mb-2">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="label-for-name">Solution Element</span>
+						</div>
+						<input id="ads_solution_details_new_name" type="text" class="form-control" contenteditable="true"
+								placeholder="Enter here Element name..." aria-label="label-for-name" aria-describedby="label-for-name">
+					</div>
+
+					<div class="input-group input-group-sm mb-2">
+						<!-- Strength -->
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="label-for-name">Strength</span>
+						</div>
+						<select class="form-control" id="ads_solution_details_new_strength">
+							<option value="" disabled selected>Enter Strength for element...</option>
+							{% for selector_item in lov_ads_solution['strength'].selector_data %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+							{% endfor %}
+						</select>
+						<!-- Feature type -->
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="label-for-name">Feature type</span>
+						</div>
+						<select class="form-control" id="ads_solution_details_new_feature_type">
+						<option value="" disabled selected>Enter Feature type for element...</option>
+							{% for selector_item in lov_ads_solution['feature_type'].selector_data %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer bg-light">
+				<button onclick="solution_details_ProcessNewFormData(true)" data-dismiss="modal" type="button" value="Submit" class="d-sm-inline mx-1 btn btn-sm btn-primary">Submit</button>
+				<button onclick="solution_details_ProcessNewFormData(false)" data-dismiss="modal" type="button" value="Cancel" class="d-sm-inline mx-1 btn btn-sm btn-outline-danger">Cancel</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!-- here ends the form where to enter new data -->
+
+
+
+
+
+
+
+<script>
+
+
+//----[ global data ]-----------------------------------------------
+let local_ads_solution_details_data = null; // probably not the best name but will not be confused with the one from ads_start_page.hrml
+let local_ads_solution_pk = null; // this is list with all table rows data
+let ads_solution_details_api_post_route = 'api/ads_solution_details_post/';
+let ads_solution_details_api_delete_route = '/api/ads_solution_details_delete/';
+
+
+
+//----[ operations ]-----------------------------------------------
+
+//*--- initialize ads_solution_details section page
+//
+function solution_details_Init(param_ads_solution_pk, param_ads_solution_details_data) {
+	local_ads_solution_details_data = param_ads_solution_details_data;
+	local_ads_solution_pk = param_ads_solution_pk;
+	if (param_ads_solution_pk == null) { // if no ads orga map master record, details are disabled to add
+		$('#ads-solution-detail-new-rec-button').prop('disabled', true);
+	} else {
+		$('#ads-solution-detail-new-rec-button').prop('disabled', false);
+	}
+}
+
+
+//*-- collect entered data - return a dictionary with that data
+//
+function solution_details_CollectData(rec_pk) {
+	let _localCollectedData = {};
+	if (rec_pk == null) {
+		// each row cell has id = "ads_solution_details_new_...field..."
+		_localCollectedData['name'] = $('#ads_solution_details_new_' + 'name').val();
+		_localCollectedData['strength'] = $('#ads_solution_details_new_' + 'strength').val();
+		_localCollectedData['feature_type'] = $('#ads_solution_details_new_' + 'feature_type').val();
+
+	}
+	else {
+		// each row cell has id = "ads_solution_details_...field..._...detail_item._pk..."
+		_localCollectedData['name'] = $('#ads_solution_details_' + 'name' + '_' + rec_pk).val();
+		_localCollectedData['strength'] = $('#ads_solution_details_' + 'strength' + '_' + rec_pk).val();
+		_localCollectedData['feature_type'] = $('#ads_solution_details_' + 'feature_type' + '_' + rec_pk).val();
+
+	}
+	return _localCollectedData
+}
+
+
+//*--- process new form data entried data
+//
+function solution_details_ProcessNewFormData(returnState) {
+	if (! returnState) { // hide form and leave it
+		snackbar('error', 'Operation cancelled...', 8000);
+		$('#ads_solution_new_data_form').hide();
+		return false
+	}
+	// collet data entried
+	_localCollectedData = solution_details_CollectData();
+	// request for save
+	$.ajax({
+		async: true,
+		url: ads_solution_details_api_post_route + local_ads_solution_pk,
+		type: 'POST',
+		crossDomain: true,
+		contentType: 'application/json',
+		processData: false,
+		dataType: 'json',
+		data:  JSON.stringify(_localCollectedData),
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Solution Detail successfully saved', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at saving ADS Solution Detail...', 8000);
+			return false;
+		},
+	});
+	// hide form and reload page
+	$('#ads_solution_new_data_form').hide();
+	location.reload();
+	return true
+}
+
+
+//*-- collect entered data - return a dictionary with that data
+//
+function solution_details_NEW_record() {
+	// empty form
+	solution_details_EmptyNewEntryForm();
+	// go to first item on form
+	$('#ads_solution_details_new_name').focus();
+	// show form
+	$('#ads_solution_new_data_form').show();
+}
+
+
+//*-- empty the new data entry form
+//
+function solution_details_EmptyNewEntryForm() {
+	$('#ads_solution_details_new_name').val('');
+	$('#ads_solution_details_new_position').val('');
+	$('#ads_solution_details_new_strength').val('');
+	$('#ads_solution_details_new_feature_type').val('');
+	$('#ads_solution_details_new_our_status_in_relation').val('');
+}
+
+
+//*--- save a record after edit
+//
+function solution_details_SAV_record(rec_pk) {
+	// select the parent of parent which is <tr> for "in subject" record
+	let _localCollectedData = {};
+	_localCollectedData = solution_details_CollectData(rec_pk);
+	// request for save
+	$.ajax({
+		async: true,
+		url: ads_solution_details_api_post_route + local_ads_solution_pk + '/' + rec_pk,
+		type: 'POST',
+		crossDomain: true,
+		contentType: 'application/json',
+		processData: false,
+		dataType: 'json',
+		data:  JSON.stringify(_localCollectedData),
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Solution Detail successfully saved', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at saving ADS Solution Detail...', 8000);
+			return false;
+		},
+	});
+}
+
+
+//*--- delete a record
+//
+function solution_details_DEL_record(rec_pk, rec_name) {
+	let _resp = confirm('Are you sure you want to delete record with name: ' + rec_name + ' ?');
+	if (! _resp) {
+		snackbar('error', 'Operation cancelled...', 8000);
+		return false;
+	}
+	//
+	// request for delete
+	$.ajax({
+		async: true,
+		url: ads_solution_details_api_delete_route + rec_pk,
+		type: 'DELETE',
+		crossDomain: true,
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Solution Detail successfully deleted', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at deleting ADS Solution Detail...', 8000);
+			return false;
+		},
+	});
+	return true
+}
+
+
+//*--- activate button Save for table record (row) with specified PK
+//
+function solution_details_activate_save_butt(rec_pk) {
+	$('#sav_button_solution_' + rec_pk).removeAttr('disabled');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+
+
+
+
+
+
+</script>

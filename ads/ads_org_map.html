@@ -1,0 +1,374 @@
+<!--- [ ads_org_map ] --->
+<!-- Jinja data comes in org_map_details_data -->
+
+<input id="ads_org_map__pk" type="text" class="form-control" placeholder="PK will automatically come here..." hidden>
+
+
+<!---- remarks field ---->
+<div class="input-group input-group-sm mb-2">
+	<!---- remarks field ---->
+	<div class="input-group-prepend">
+		<span class="input-group-text" id="ads_org_map_remarks_label">Remarks</span>
+	</div>
+	<textarea id="ads_org_map_remarks" class="form-control" aria-label="ads_org_map_remarks_label"
+			placeholder="Write here any comments usefull for current evaluation and SAVE TO GENERATE A NEW ORGANIZATION MAP"></textarea>
+</div>
+
+
+<!---- ads organization map details field ---->
+<table id="ads_org_map_ads_org_map_details_data" class="table table-sm table-striped table-hover border">
+	<thead>
+		<tr>
+			<th scope="col">Code</th>
+			<th scope="col">Name</th>
+			<th scope="col">DM</th>
+			<th scope="col">NS</th>
+			<th scope="col">TE</th>
+			<th scope="col">FE</th>
+			<th scope="col">CNS</th>
+			<!---- global actions for ads_org_map_details, like New, Save, Discard ---->
+			<th scope="col">
+				<button id="ads-org-map-detail-new-rec-button" onclick="org_map_details_NEW_record()"
+					class="btn btn-sm btn-outline-primary float-right" type="button" data-toggle="modal" data-target="#org_map_detail_entry_new_modal">
+						<strong>+</strong></button>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for detail_item in org_map_details_data %}
+			<tr id="ads_org_map_details_{{ detail_item._pk }}">
+				<th scope="row">
+					<input type="text" class="form-control" contenteditable="true" onchange="org_map_details_activate_save_butt('{{ detail_item._pk }}')"
+					value="{{ detail_item.code }}" id="ads_org_map_details_code_{{ detail_item._pk }}" name="ads_org_map_details_code">
+				</th>
+				<td contenteditable="true">
+					<input type="text" class="form-control" contenteditable="true" onchange="org_map_details_activate_save_butt('{{ detail_item._pk }}')"
+					value="{{ detail_item.name }}" id="ads_org_map_details_name_{{ detail_item._pk }}" name="ads_org_map_details_name">
+				</td>
+				<td>
+					<input type="checkbox" contenteditable="true" onchange="org_map_details_activate_save_butt('{{ detail_item._pk }}')"
+					{{ "checked" if detail_item.decision_make == 1 }}
+					value="{{ detail_item.decision_make }}" id="ads_org_map_details_decision_make_{{ detail_item._pk }}" name="ads_org_map_details_decision_make">
+				</td>
+				<td>
+					<input type="checkbox" contenteditable="true" onchange="org_map_details_activate_save_butt('{{ detail_item._pk }}')"
+					{{ "checked" if detail_item.need_to_sign == 1 }}
+					value="{{ detail_item.need_to_sign }}" id="ads_org_map_details_need_to_sign_{{ detail_item._pk }}" name="ads_org_map_details_need_to_sign">
+				</td>
+				<td>
+					<input type="checkbox" contenteditable="true" onchange="org_map_details_activate_save_butt('{{ detail_item._pk }}')"
+					{{ "checked" if detail_item.technical_evaluation == 1 }}
+					value="{{ detail_item.technical_evaluation }}" id="ads_org_map_details_technical_evaluation_{{ detail_item._pk }}" name="ads_org_map_details_technical_evaluation">
+				</td>
+				<td>
+					<input type="checkbox" contenteditable="true" onchange="org_map_details_activate_save_butt('{{ detail_item._pk }}')"
+					{{ "checked" if detail_item.financial_evaluation == 1 }}
+					value="{{ detail_item.financial_evaluation }}" id="ads_org_map_details_financial_evaluation_{{ detail_item._pk }}" name="ads_org_map_details_financial_evaluation">
+				</td>
+				<td>
+					<input type="checkbox" contenteditable="true" onchange="org_map_details_activate_save_butt('{{ detail_item._pk }}')"
+					{{ "checked" if detail_item.consultant == 1 }}
+					value="{{ detail_item.consultant }}" id="ads_org_map_details_consultant_{{ detail_item._pk }}" name="ads_org_map_details_consultant">
+				</td>
+				<td>
+					<button onclick="org_map_details_DEL_record('{{ detail_item._pk }}', '{{ detail_item.code }}')"
+						class="d-sm-inline px-2 btn btn-sm btn-outline-danger">Del</button>
+
+					<button onclick="org_map_details_SAV_record('{{ detail_item._pk }}', '{{ detail_item.code }}')"
+						class="d-sm-inline px-2 btn btn-sm btn-outline-success active"
+						id="sav_button_org_map_{{ detail_item._pk }}" disabled>Sav</button>
+
+					<small><small><small>Upd by {{ detail_item._updated_by }} @ {{ detail_item._updated_at }}</small></small></small>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+
+<!---- audit data info fields: ads_org_map_updated_by, ads_org_map_updated_at ---->
+<div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend">
+        <span class="input-group-text bg-secondary text-warning" id="_updated_label">Updated by... at...</span>
+    </div>
+    <input id="ads_org_map__updated_by" type="text" class="form-control" aria-describedby="_updated_by_label"
+            placeholder="updated by info" readonly>
+    <input id="ads_org_map__updated_at" type="text" class="form-control" aria-describedby="_updated_label"
+            placeholder="updated time info" readonly>
+</div>
+
+
+<!-- here start the form where to enter new data -->
+
+
+
+
+<div class="modal modal-lg" id="org_map_detail_entry_new_modal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="modal-header bg-light">
+				<h6 class="modal-title">New Organization Map Entry</h6>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<div class="modal-body">
+				<div id="ads_org_map_new_data_form" class="px-1 my-1" style="display:none">
+					<div class="input-group input-group-sm mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="label-for-code">Code</span>
+						</div>
+						<input id="ads_org_map_details_new_code" type="text" class="form-control" placeholder="Enter code (short description) here" aria-label="label-for-code" aria-describedby="label-for-code">
+						<div class="input-group-prepend ml-2">
+							<span class="input-group-text" id="label-for-name">Name</span>
+						</div>
+						<input id="ads_org_map_details_new_name" type="text" class="form-control" placeholder="Enter a name (long description) here" aria-label="label-for-name" aria-describedby="label-for-name">
+					</div>
+					<div class="input-group input-group-sm mb-3">
+						<div class="ml-2">
+							<input id="ads_org_map_details_new_decision_make" type="checkbox" name="ads_org_map_details_new_decision_make">
+							<label class="checkbox-inline mr-2" for="ads_org_map_details_new_decision_make"><small>DM</small></label>
+							<input id="ads_org_map_details_new_need_to_sign" type="checkbox" name="ads_org_map_details_new_need_to_sign">
+							<label class="checkbox-inline mr-2" for="ads_org_map_details_new_need_to_sign"><small>NS</small></label>
+							<input id="ads_org_map_details_new_technical_evaluation" type="checkbox" name="ads_org_map_details_new_technical_evaluation">
+							<label class="checkbox-inline mr-2" for="ads_org_map_details_new_technical_evaluation"><small>TE</small></label>
+							<input id="ads_org_map_details_new_financial_evaluation" type="checkbox" name="financial_evaluation">
+							<label class="checkbox-inline mr-2" for="financial_evaluation"><small>FE</small></label>
+							<input id="ads_org_map_details_new_consultant" type="checkbox" name="ads_org_map_details_new_consultant">
+							<label class="checkbox-inline mr-2" for="ads_org_map_details_new_consultant"><small>CNS</small></label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer bg-light">
+				<button onclick="org_map_details_ProcessNewFormData(true)" data-dismiss="modal" type="button" value="Submit" class="d-sm-inline mx-1 btn btn-sm btn-primary">Submit</button>
+				<button onclick="org_map_details_ProcessNewFormData(false)" data-dismiss="modal" type="button" value="Cancel" class="d-sm-inline mx-1 btn btn-sm btn-outline-danger">Cancel</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+<!-- here ends the form where to enter new data -->
+
+
+<!---- legend area ---->
+<p class="border px-2 my-2 bg-info text-white font-weight-light"><small><small>
+	<strong>Legend:</strong><br>
+	DM = decision making /
+	NS = needed to sign /
+	TE = make technical evaluation /
+	FE = make financial evaluation /
+	CNS = act as consultant
+</small></small></p>
+
+
+
+
+
+
+<script>
+
+
+//----[ global data ]-----------------------------------------------
+let local_ads_org_map_details_data = null; // probably not the best name but will not be confused with the one from ads_start_page.hrml
+let local_ads_org_map_pk = null; // this is list with all table rows data
+let ads_org_map_details_api_post_route = 'api/ads_org_map_details_post/';
+let ads_org_map_details_api_delete_route = '/api/ads_org_map_details_delete/';
+
+
+
+//----[ operations ]-----------------------------------------------
+
+//*--- initialize ads_org_map_details section page
+//
+function org_map_details_Init(param_ads_org_map_pk, param_ads_org_map_details_data) {
+	local_ads_org_map_details_data = param_ads_org_map_details_data;
+	local_ads_org_map_pk = param_ads_org_map_pk;
+	if (param_ads_org_map_pk == null) { // if no ads orga map master record, details are disabled to add
+		$('#ads-org-map-detail-new-rec-button').prop('disabled', true);
+	} else {
+		$('#ads-org-map-detail-new-rec-button').prop('disabled', false);
+	}
+}
+
+
+//*-- collect entered data - return a dictionary with that data
+//
+function org_map_details_CollectData(rec_pk) {
+	let _localCollectedData = {};
+	if (rec_pk == null) {
+		// each row cell has id = "ads_org_map_details_new_...field..."
+		_localCollectedData['code'] = $('#ads_org_map_details_new_' + 'code').val();
+		_localCollectedData['name'] = $('#ads_org_map_details_new_' + 'name').val();
+		_localCollectedData['consultant'] = $('#ads_org_map_details_new_' + 'consultant').is(':checked');
+		_localCollectedData['decision_make'] = $('#ads_org_map_details_new_' + 'decision_make').is(':checked');
+		_localCollectedData['financial_evaluation'] = $('#ads_org_map_details_new_' + 'financial_evaluation').is(':checked');
+		_localCollectedData['need_to_sign'] = $('#ads_org_map_details_new_' + 'need_to_sign').is(':checked');
+		_localCollectedData['technical_evaluation'] = $('#ads_org_map_details_new_' + 'technical_evaluation').is(':checked');
+	}
+	else {
+		// each row cell has id = "ads_org_map_details_...field..._...detail_item._pk..."
+		_localCollectedData['code'] = $('#ads_org_map_details_' + 'code' + '_' + rec_pk).val();
+		_localCollectedData['name'] = $('#ads_org_map_details_' + 'name' + '_' + rec_pk).val();
+		_localCollectedData['consultant'] = $('#ads_org_map_details_' + 'consultant' + '_' + rec_pk).is(':checked');
+		_localCollectedData['decision_make'] = $('#ads_org_map_details_' + 'decision_make' + '_' + rec_pk).is(':checked');
+		_localCollectedData['financial_evaluation'] = $('#ads_org_map_details_' + 'financial_evaluation' + '_' + rec_pk).is(':checked');
+		_localCollectedData['need_to_sign'] = $('#ads_org_map_details_' + 'need_to_sign' + '_' + rec_pk).is(':checked');
+		_localCollectedData['technical_evaluation'] = $('#ads_org_map_details_' + 'technical_evaluation' + '_' + rec_pk).is(':checked');
+	}
+	return _localCollectedData
+}
+
+
+//*--- process new form data entried data
+//
+function org_map_details_ProcessNewFormData(returnState) {
+	if (! returnState) { // hide form and leave it
+		snackbar('error', 'Operation cancelled...', 8000);
+		$('#ads_org_map_new_data_form').hide();
+		return false
+	}
+	// collet data entried
+	_localCollectedData = org_map_details_CollectData();
+	// request for save
+	$.ajax({
+		async: true,
+		url: ads_org_map_details_api_post_route + local_ads_org_map_pk,
+		type: 'POST',
+		crossDomain: true,
+		contentType: 'application/json',
+		processData: false,
+		dataType: 'json',
+		data:  JSON.stringify(_localCollectedData),
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Organization Map Detail successfully saved', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at saving ADS Organization Map Detail...', 8000);
+			return false;
+		},
+	});
+	// hide form and reload page
+	$('#ads_org_map_new_data_form').hide();
+	location.reload();
+	return true
+}
+
+
+//*-- collect entered data - return a dictionary with that data
+//
+function org_map_details_NEW_record() {
+	// empty form
+	org_map_details_EmptyNewEntryForm();
+	// go to first item on form
+	$('#ads_org_map_details_new_code').focus();
+	// show form
+	$('#ads_org_map_new_data_form').show();
+}
+
+
+//*-- empty the new data entry form
+//
+function org_map_details_EmptyNewEntryForm() {
+	$('#ads_org_map_details_new_code').val('');
+	$('#ads_org_map_details_new_name').val('');
+	$('#ads_org_map_details_new_decision_make').prop('checked', false);
+	$('#ads_org_map_details_new_need_to_sign').prop('checked', false);
+	$('#ads_org_map_details_new_technical_evaluation').prop('checked', false);
+	$('#ads_org_map_details_new_financial_evaluation').prop('checked', false);
+	$('#ads_org_map_details_new_consultant').prop('checked', false);
+}
+
+
+//*--- save a record after edit
+//
+function org_map_details_SAV_record(rec_pk) {
+	// select the parent of parent which is <tr> for "in subject" record
+	let _localCollectedData = {};
+	_localCollectedData = org_map_details_CollectData(rec_pk);
+	// request for save
+	$.ajax({
+		async: true,
+		url: ads_org_map_details_api_post_route + local_ads_org_map_pk + '/' + rec_pk,
+		type: 'POST',
+		crossDomain: true,
+		contentType: 'application/json',
+		processData: false,
+		dataType: 'json',
+		data:  JSON.stringify(_localCollectedData),
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Organization Map Detail successfully saved', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at saving ADS Organization Map Detail...', 8000);
+			return false;
+		},
+	});
+}
+
+
+//*--- delete a record
+//
+function org_map_details_DEL_record(rec_pk, rec_code) {
+	let _resp = confirm('Are you sure you want to delete record with code: ' + rec_code + ' ?');
+	if (! _resp) {
+		snackbar('error', 'Operation cancelled...', 8000);
+		return false;
+	}
+	//
+	// request for delete
+	$.ajax({
+		async: true,
+		url: ads_org_map_details_api_delete_route + rec_pk,
+		type: 'DELETE',
+		crossDomain: true,
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Organization Map Detail successfully deleted', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at deleting ADS Organization Map Detail...', 8000);
+			return false;
+		},
+	});
+	return true
+}
+
+
+//*--- activate button Save for table record (row) with specified PK
+//
+function org_map_details_activate_save_butt(rec_pk) {
+	$('#sav_button_org_map_' + rec_pk).removeAttr('disabled');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

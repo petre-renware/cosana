@@ -1,0 +1,1 @@
+FLASK_APP=sys_core/init_system

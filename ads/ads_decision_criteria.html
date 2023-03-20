@@ -1,0 +1,400 @@
+<!--- [ ads_decision_criteria ] --->
+<!-- Jinja data comes in:
+    - **lov_ads_decision_criteria**
+    - **ads_decision_criteria_details_1criterialist_data**
+    - **ads_decision_criteria_details_2maptoperson_data** is LIST (many attribute) for each element of `ads_decision_criteria_details_1criterialist_data`
+	- **relationships_details_data used in table head to have all persons "involved", regardles they have established an actual "client_importance" attribute set
+-->
+
+
+
+
+
+
+<input id="ads_decision_criteria__pk" type="text" class="form-control" placeholder="PK will automatically come here..." hidden>
+
+
+
+<!------------------------------------------------------------------------------ MASTER object fields ---->
+    <!---- _remarks & score fields ---->
+    <div class="input-group input-group-sm mb-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="ads_decision_criteria_remarks_label">Remarks</span>
+        </div>
+        <textarea id="ads_decision_criteria_remarks" class="form-control" aria-label="ads_decision_criteria_remarks_label"
+            placeholder="Write here any comments and remarks regarding decision criteria and SAVE TO GENERATE A NEW DECISION CRITERIA object"></textarea>
+    </div>
+
+
+<!------------------------------------------------------------------------------ DECISION CRITERIA object fields ---->
+<table id="ads_decision_criteria_details_1criterialist_data" class="table table-sm table-striped table-hover border">
+	<thead>
+		<tr>
+			<th scope="col">Name</th>
+			<th scope="col">Our status</th>
+            <!-- list of persons as columns -->
+			{% set ns = namespace(person_index=1) %}
+			{% for people_item in relationships_details_data %}
+				<th scope="col"><strong>({{ ns.person_index }}*)</strong></th> <!-- person name will be found in legend -->
+				{% set ns.person_index = ns.person_index + 1 %}
+			{% endfor %}
+			<!---- global actions for ads_relationships_details, like New, Save, Discard ---->
+			<th scope="col">
+				<button id="ads-decision_criteria_details_1criterialist-new-rec-button" onclick="decision_criteria_details_NEW_record()"
+					class="btn btn-sm btn-outline-primary float-right" type="button" data-toggle="modal" data-target="#decision_criteria_detail_entry_new_modal">
+					<strong>+</strong></button>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for detail_item in ads_decision_criteria_details_1criterialist_data %}
+			<tr id="ads_decision_criteria_details_1criterialist_{{ detail_item._pk }}">
+				<!-- name attribute -->
+				<td contenteditable="true">
+ 					<input type="text" class="form-control" contenteditable="true" onchange="decision_criteria_details_activate_save_butt('{{ detail_item._pk }}')"
+					value="{{ detail_item.name }}" id="ads_decision_criteria_details_1criterialist_name_{{ detail_item._pk }}" name="ads_decision_criteria_details_1criterialist_name">
+				</td>
+				<!-- our_status attribute -->
+				<td>
+					<select class="form-control" id="ads_decision_criteria_details_1criterialist_our_status_{{ detail_item._pk }}" onchange="decision_criteria_details_activate_save_butt('{{ detail_item._pk }}')">
+						{% for selector_item in lov_ads_decision_criteria['our_status'].selector_data %}
+							{% if selector_item.code == detail_item.our_status %}
+								<option value="{{ selector_item.code }}" selected>{{ selector_item.text }}</option>
+							{% else %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+
+				<!-- PEOPLE TO DECISION_CRITERIA: client_importance attribute sparse matrix / actual data in *relationships_details_data* -->
+				{% for person_item in relationships_details_data %}
+					<!-- test to see if person is on decision criteria MAP and if so ... get its client_importance (otherwise set empty string) -->
+					{% set ns = namespace(person_found=0) %}
+					{% set ns = namespace(client_importance='') %}
+					{% set ns = namespace(importance_color='') %}
+					{% set ns = namespace(person_pk=person_item._pk) %}
+					{% for map_item in detail_item.ads_decision_criteria_details_2maptoperson_data %}
+						{% if person_item._pk == map_item.ads_relationships_details_fk %}
+							{% set ns.person_found = 1 %}
+							{% set ns.client_importance = map_item.client_importance %}
+							{% set ns.importance_color = map_item.client_importance_info.color %}
+						{% endif %}
+					{% endfor %}
+					<!-- client_importance attribute (as selector) -->
+					<td class="{{ ns.importance_color }}">
+						<select class="form-control"
+							id="ads_decision_criteria_details_1criterialist_client_importance_{{ detail_item._pk }}"
+							onchange="decision_criteria_details_activate_save_butt('{{ detail_item._pk }}')"
+							data-person_pk="{{ ns.person_pk }}">
+							<option value="UNKNOWN" hidden>?</option>
+							{% for selector_item in lov_ads_decision_criteria['client_importance'].selector_data %}
+								{% if ns.person_found == 1 and (ns.client_importance == selector_item.code)  %}
+									<option value="{{ selector_item.code }}" selected>{{ selector_item.text }}</option>
+								{% else %}
+									<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</td>
+				{% endfor %}
+
+
+
+
+				<td>
+					<button onclick="decision_criteria_details_DEL_record('{{ detail_item._pk }}', '{{ detail_item.name }}')"
+						class="d-sm-inline px-2 btn btn-sm btn-outline-danger">Del</button>
+
+					<button onclick="decision_criteria_details_SAV_record('{{ detail_item._pk }}')"
+						class="d-sm-inline px-2 btn btn-sm btn-outline-success active"
+						id="sav_button_decision_criteria_{{ detail_item._pk }}" disabled>Sav</button>
+
+					<small><small><small>Upd by {{ detail_item._updated_by }} @ {{ detail_item._updated_at }}</small></small></small>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+<!---- audit data info fields: ads_decision_criteria_updated_by, ads_decision_criteria_updated_at ---->
+<div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend">
+        <span class="input-group-text bg-secondary text-warning" id="_updated_label">Updated by... at...</span>
+    </div>
+    <input id="ads_decision_criteria__updated_by" type="text" class="form-control" aria-describedby="_updated_by_label"
+            placeholder="updated by info" readonly>
+    <input id="ads_decision_criteria__updated_at" type="text" class="form-control" aria-describedby="_updated_label"
+            placeholder="updated time info" readonly>
+</div>
+
+
+
+
+
+<!-- here start the form where to enter new data -->
+<div class="modal modal-lg" id="decision_criteria_detail_entry_new_modal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="modal-header bg-light">
+				<h6 class="modal-title">New Decision Criteria Entry</h6>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<div class="modal-body">
+				<div id="ads_decision_criteria_new_data_form" class="px-1 my-1" style="display:none">
+					<!-- name -->
+					<div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="label-for-name">Decision Element</span>
+                        </div>
+						<input id="ads_decision_criteria_new_name" type="text" class="form-control" contenteditable="true"
+							placeholder="Enter here Decision Criteria name..." aria-label="label-for-name" aria-describedby="label-for-name">
+					</div>
+
+                    <!-- our_status -->
+					<div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="label-for-name">Strength</span>
+                        </div>
+                        <select class="form-control" id="ads_decision_criteria_new_our_status">
+                            <option value="" disabled selected>Enter decision_criteria status vs decision criteria...</option>
+                            {% for selector_item in lov_ads_decision_criteria['our_status'].selector_data %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+                            {% endfor %}
+                        </select>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer bg-light">
+				<button onclick="decision_criteria_details_ProcessNewFormData(true)" data-dismiss="modal" type="button" value="Submit" class="d-sm-inline mx-1 btn btn-sm btn-primary">Submit</button>
+				<button onclick="decision_criteria_details_ProcessNewFormData(false)" data-dismiss="modal" type="button" value="Cancel" class="d-sm-inline mx-1 btn btn-sm btn-outline-danger">Cancel</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- here ends the form where to enter new data -->
+
+
+<!---- legend area ---->
+<div class="bg-info text-white font-weight-light">
+	<p class="border px-2 my-2"><small><small><strong>Legend:</strong><br>
+		<ul>
+			{% set ns = namespace(person_index=1) %}
+			{% for people_item in relationships_details_data %}
+				<li><strong>({{ ns.person_index }}*)</strong> = {{ people_item.name }}</li>
+				{% set ns.person_index = ns.person_index + 1 %}
+			{% endfor %}
+		</ul>
+	</small></small></p>
+</div>
+
+
+
+
+
+
+<script>
+
+
+//----[ global data ]-----------------------------------------------
+let local_ads_decision_criteria_details_data = null; // probably not the best name but will not be confused with the one from ads_start_page.hrml
+let local_ads_decision_criteria_pk = null; // this is list with all table rows data
+let ads_decision_criteria_details_api_post_route = '/api/ads_decision_criteria_details_1criterialist_post/';
+let ads_decision_criteria_details_1criterialist_delete_route = '/api/ads_decision_criteria_details_1criterialist_delete/';
+
+
+//----[ operations ]-----------------------------------------------
+
+//*--- initialize ads_decision_criteria_details section
+//
+function decision_criteria_details_Init(param_ads_decision_criteria_pk, param_ads_decision_criteria_details_data) {
+	local_ads_decision_criteria_details_data = param_ads_decision_criteria_details_data;
+	local_ads_decision_criteria_pk = param_ads_decision_criteria_pk;
+	if (param_ads_decision_criteria_pk == null) { // if no ads orga map master record, details are disabled to add
+		$('#ads-decision_criteria_details_1criterialist-new-rec-button').prop('disabled', true);
+	} else {
+		$('#ads-decision_criteria_details_1criterialist-new-rec-button').prop('disabled', false);
+	}
+}
+
+
+//*-- collect entered data - return a dictionary with that data
+//
+function decision_criteria_details_CollectData(rec_pk) {
+	let _localCollectedData = {};
+	if (rec_pk == null) {
+		// each row cell has id = "ads_decision_criteria_new_...field..."
+		_localCollectedData['name'] = $('#ads_decision_criteria_new_' + 'name').val();
+		_localCollectedData['our_status'] = $('#ads_decision_criteria_new_' + 'our_status').val();
+		_localCollectedData['ads_decision_criteria_details_2maptoperson_data'] = []; // this is set to empty list and should be edited by user after save using normal edit functionality
+	}
+	else {
+		// each row cell has id = "ads_decision_criteria_details_...field..._...detail_item._pk..."
+		_localCollectedData['name'] = $('#ads_decision_criteria_details_1criterialist_' + 'name' + '_' + rec_pk).val();
+		_localCollectedData['our_status'] = $('#ads_decision_criteria_details_1criterialist_' + 'our_status' + '_' + rec_pk).val();
+		// level2 (MAP) data sent will be collection of dictionaries `{ads_relationships_details_fk, client_importance}`
+		let ads_decision_criteria_details_2maptoperson_data = new Array() // initialize as empty list
+		$('[id=ads_decision_criteria_details_1criterialist_' + 'client_importance' + '_' + rec_pk + ']').each(function () {
+			var $this = $(this);
+			let mapClientImportance = $this.val(); // cient_importance
+			let mapPersonPK = $this.data('person_pk'); // ads_relationships_details_fk
+			let valToStore = {
+				ads_decision_criteria_details_1criterialist_fk: rec_pk,
+				ads_relationships_details_fk: mapPersonPK,
+				client_importance: mapClientImportance,
+			}
+			ads_decision_criteria_details_2maptoperson_data.push(valToStore) // append with push()
+		})
+		_localCollectedData['ads_decision_criteria_details_2maptoperson_data'] = ads_decision_criteria_details_2maptoperson_data;
+	}
+	return _localCollectedData
+}
+
+
+//*--- process new form data entried data
+//
+function decision_criteria_details_ProcessNewFormData(returnState) {
+	if (! returnState) { // hide form and leave it
+		snackbar('error', 'Operation cancelled...', 8000);
+		$('#ads_decision_criteria_new_data_form').hide();
+		return false
+	}
+	// collet data entried
+	_localCollectedData = decision_criteria_details_CollectData();
+	// request for save
+	$.ajax({
+		async: true,
+		url: ads_decision_criteria_details_api_post_route + local_ads_decision_criteria_pk,
+		type: 'POST',
+		crossDomain: true,
+		contentType: 'application/json',
+		processData: false,
+		dataType: 'json',
+		data:  JSON.stringify(_localCollectedData),
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Solution Detail successfully saved', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at saving ADS Solution Detail...', 8000);
+			return false;
+		},
+	});
+	// hide form and reload page
+	$('#ads_decision_criteria_new_data_form').hide();
+	location.reload();
+	return true
+}
+
+
+
+//*-- collect entered data - return a dictionary with that data
+//
+function decision_criteria_details_NEW_record() {
+	// empty form
+	decision_criteria_details_EmptyNewEntryForm();
+	// go to first item on form
+	$('#ads_decision_criteria_new_name').focus();
+	// show form
+	$('#ads_decision_criteria_new_data_form').show();
+}
+
+
+//*-- empty the new data entry form
+//
+function decision_criteria_details_EmptyNewEntryForm() {
+	$('#ads_decision_criteria_new_name').val('');
+	$('#ads_decision_criteria_new_our_status').val('');
+}
+
+
+//*--- save a record after edit
+//
+function decision_criteria_details_SAV_record(rec_pk) {
+	// select the parent of parent which is <tr> for "in subject" record
+	let _localCollectedData = {};
+	_localCollectedData = decision_criteria_details_CollectData(rec_pk);
+	// request for save
+	$.ajax({
+		async: true,
+		url: ads_decision_criteria_details_api_post_route + local_ads_decision_criteria_pk + '/' + rec_pk,
+		type: 'POST',
+		crossDomain: true,
+		contentType: 'application/json',
+		processData: false,
+		dataType: 'json',
+		data:  JSON.stringify(_localCollectedData),
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Decision Criteria Detail successfully saved', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at saving ADS Decision Criteria Detail...', 8000);
+			return false;
+		},
+	});
+}
+
+
+//*--- delete a record
+//
+function decision_criteria_details_DEL_record(rec_pk, rec_name) {
+	let _resp = confirm('Are you sure you want to delete record with name: ' + rec_name + ' ?');
+	if (! _resp) {
+		snackbar('error', 'Operation cancelled...', 8000);
+		return false;
+	}
+	//
+	// request for delete
+	$.ajax({
+		async: true,
+		url: ads_decision_criteria_details_1criterialist_delete_route + rec_pk,
+		type: 'DELETE',
+		crossDomain: true,
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Decision Criteria Detail successfully deleted', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at deleting ADS Decision Criteria Detail...', 8000);
+			return false;
+		},
+	});
+	return true
+}
+
+
+//*--- activate button Save for table record (row) with specified PK
+//
+function decision_criteria_details_activate_save_butt(rec_pk) {
+	$('#sav_button_decision_criteria_' + rec_pk).removeAttr('disabled');
+}
+
+
+
+
+
+
+
+</script>

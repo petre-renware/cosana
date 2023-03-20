@@ -1,0 +1,1419 @@
+{% extends "base/_base01_jinja.html" %}
+
+
+
+{% block content %}
+
+<!-----------------------------------------[ main TABLE code ]--------------------------------------------------->
+<div class="container p-1">
+
+    <!--- (i1) zone / title and Sales Project ------------>
+    <h1>{{ page_title }}</h1>
+    {% if (ads_general_data is defined) and (sales_project_pk != 'unknown') %}
+        <h5 id="sales_project_id">... project loading ...</h5>
+    {% else %}
+        <h5 id="sales_project_id">unknown Sales Project</h5>
+    {% endif %}
+
+
+    <!--- (i3) zone / actions ---------------------------->
+    <div id="ads_actions_area" class="float-right">
+        <button id="ads_save_button" onclick="save_ads_all_data('{{ sales_project_pk }}')" type="button" class="btn btn-primary">Save</button>
+        <button id="ads_revert_button" onclick="revert_page()" type="button" class="btn btn-secondary">Revert</button>
+    </div>
+
+
+    <!--- (i2) zone - (i2.a) navigation area  ------------>
+    <ul id="ads_nav_area" class="nav nav-tabs">
+        <li class="nav-item active">
+            <a class="nav-link active text-primary" data-toggle="tab" href="#ads_general_data_tab">General data</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-primary" data-toggle="tab" href="#ads_evaluation_tab">Evaluation</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-primary" data-toggle="tab" href="#ads_org_map_tab">Organization map</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-primary" data-toggle="tab" href="#ads_revenue_tab">Revenue</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-primary" data-toggle="tab" href="#ads_relationships_tab">Relationships approach</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-primary" data-toggle="tab" href="#ads_solution_tab">Solution</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-primary" data-toggle="tab" href="#ads_decision_criteria_tab">Decision criteria</a>
+        </li>
+    </ul>
+
+
+
+
+    <!--- (i2) zone -------------------------------------->
+    <div id="ads_content_area" class="tab-content border px-2 bg-light">
+
+        <!-------- ADS business domain: General data -->
+        <div id="ads_general_data_tab" class="tab-pane fade in show active">
+            <h4 class="d-inline py-2">General data</h4>
+            <p id="score_max_ads_general_data" class="bg-info text-light d-inline float-right align-middle px-2 my-2">of x</p> <!-- //? see RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2"> of </p>
+            <p id="score_crt_ads_general_data" class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score x</p> <!-- //? RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score </p>
+            {{ ads_general_data|safe }}
+        </div>
+
+        <!-------- ADS busines domain: Evaluation -->
+        <div id="ads_evaluation_tab" class="tab-pane fade">
+            <h4 class="d-inline py-2">Evaluation</h4>
+            <p id="score_max_ads_evaluation" class="bg-info text-light d-inline float-right align-middle px-2 my-2">of x</p> <!-- //? see RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2"> of </p>
+            <p id="score_crt_ads_evaluation" class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score x</p> <!-- //? RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score </p>
+            {{ ads_evaluation|safe }}
+        </div>
+
+        <!-------- ADS busines domain: ----- Organization map -->
+        <div id="ads_org_map_tab" class="tab-pane fade">
+            <h4 class="d-inline py-2">Organization map</h4>
+            <p id="score_max_ads_org_map" class="bg-info text-light d-inline float-right align-middle px-2 my-2">of x</p> <!-- //? see RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2"> of </p>
+            <p id="score_crt_ads_org_map" class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score x</p> <!-- //? RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score </p>
+            {{ ads_org_map|safe }}
+        </div>
+
+        <!-------- ADS busines domain: Revenue -->
+        <div id="ads_revenue_tab" class="tab-pane fade">
+            <h4 class="d-inline py-2">Revenue</h4>
+            <p id="score_max_ads_revenue" class="bg-info text-light d-inline float-right align-middle px-2 my-2">of x</p> <!-- //? see RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2"> of </p>
+            <p id="score_crt_ads_revenue" class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score x</p> <!-- //? RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score </p>
+            {{ ads_revenue|safe}}
+        </div>
+
+        <!-------- ADS busines domain: ----- Relationships approach -->
+        <div id="ads_relationships_tab" class="tab-pane fade">
+            <h4 class="d-inline py-2">Relationships approach</h4>
+            <p id="score_max_ads_relationships" class="bg-info text-light d-inline float-right align-middle px-2 my-2">of x</p> <!-- //? see RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2"> of </p>
+            <p id="score_crt_ads_relationships" class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score x</p> <!-- //? RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score </p>
+            {{ ads_relationships|safe }}
+        </div>
+
+        <!-------- ADS busines domain: ----- Solution -->
+        <div id="ads_solution_tab" class="tab-pane fade">
+            <h4 class="d-inline py-2">Solution</h4>
+            <p id="score_max_ads_solution" class="bg-info text-light d-inline float-right align-middle px-2 my-2">of x</p> <!-- //? see RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2"> of </p>
+            <p id="score_crt_ads_solution" class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score x</p> <!-- //? RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score </p>
+            {{ ads_solution|safe}}
+        </div>
+
+        <!-------- ADS busines domain: ----- Decision criteria -->
+        <div id="ads_decision_criteria_tab" class="tab-pane fade">
+            <h4 class="d-inline py-2">Decision criteria</h4>
+            <p id="score_max_ads_decision_criteria" class="bg-info text-light d-inline float-right align-middle px-2 my-2">of x</p> <!-- //? see RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2"> of </p>
+            <p id="score_crt_ads_decision_criteria" class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score x</p> <!-- //? RMAP.003 - ADS scoring / text will be replaced dynamically -->
+            <p class="bg-info text-light d-inline float-right align-middle px-2 my-2">Score </p>
+            {{ ads_decision_criteria|safe}}
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+{% block body_level_custom_scripts %}
+
+<script>
+    //*--------------------------------------------- INITIALIZERS & GLOBAL DATA --------------------------------------------------
+    //
+    //*--- API routes
+    let sales_project_pk = '{{ sales_project_pk }}';
+    let sales_project_api_get_route = '/api/salesproject/';
+    //
+    let ads_general_data_api_get_route = '/api/ads_general_data_get/';
+    let ads_general_data_api_post_route = '/api/ads_general_data_post/';
+    //
+    let ads_evaluation_api_get_route = '/api/ads_evaluation_get/';
+    let ads_evaluation_api_post_route = '/api/ads_evaluation_post/';
+    //
+    let ads_org_map_api_get_route = '/api/ads_org_map_get/';
+    let ads_org_map_api_post_route = '/api/ads_org_map_post/';
+    //
+    let ads_revenue_api_get_route = '/api/ads_revenue_get/';
+    let ads_revenue_api_post_route = '/api/ads_revenue_post/';
+    //
+    let ads_relationships_api_get_route = '/api/ads_relationships_get/';
+    let ads_relationships_api_post_route = '/api/ads_relationships_post/';
+    //
+    let ads_solution_api_get_route = '/api/ads_solution_get/';
+    let ads_solution_api_post_route = '/api/ads_solution_post/';
+    //
+    let ads_decision_criteria_api_get_route = '/api/ads_decision_criteria_get/';
+    let ads_decision_criteria_api_post_route = '/api/ads_decision_criteria_post/';
+    //
+    let sales_project_info = {
+        code: '',
+        _disabled: true
+    };
+    //
+    let page_dirty = false;
+    let ads_all_data = empty_ads_all_data();
+    //
+    //*--- initialize and set as empty **ads_all_data** object
+    function empty_ads_all_data() {
+        //
+        function inner_add_new_keys(_ads_all_data, base_key) {
+            let _ids_key = base_key + '_ids';
+            let _dirty_key = base_key + '_dirty';
+            let _idmap_key = base_key + '_ids_map';
+            // construct ..._ids structure
+            let _tmp_for_ids_structure = Object.keys(_ads_all_data[base_key]);
+            _tmp_for_ids_structure.forEach(function(elem, index) {
+            this[index] = base_key + '_' + this[index];
+            }, _tmp_for_ids_structure);
+            // construct ...ids_map structure
+            let _tmp_scratch = Object.keys(_ads_all_data[base_key]);
+            let _new_obj_for_ids_map_structure ={};
+            _tmp_scratch.forEach(function(elem, index) {
+            _new_obj_for_ids_map_structure[this[index]] = base_key + '_' + this[index];
+            }, _tmp_scratch);
+            // add ...ids_map to object
+            _ads_all_data[_ids_key] = _tmp_for_ids_structure;
+            _ads_all_data[_idmap_key] = _new_obj_for_ids_map_structure;
+            // add new key to retain changing status
+            _ads_all_data[_dirty_key] = false;
+        }
+        //
+        let _ads_all_data = new Object();
+        //
+        _ads_all_data['ads_general_data'] = {
+            //--- technical attributes
+            _pk: null,
+            _disabled: null,
+            _updated_at: null,
+            _updated_by: null,
+            //--- business attributes
+            score: null,
+            decisive_event: null,
+            competition: null,
+            potential_problems: null,
+            team_members: null,
+            client_company: null,
+            score: {
+                crt_score: 0, // default test values
+                max_score: 'n/a', // default test values
+            },
+        };
+        //
+        _ads_all_data['ads_evaluation'] = {
+            //--- technical attributes
+            _pk: null,
+            _disabled: null,
+            _updated_at: null,
+            _updated_by: null,
+            //--- business attributes
+            remarks: null,
+            score: null,
+            // SELECTORS
+            _final_applicability: null,
+            _customer_business: null,
+            _customer_financials: null,
+            _access_to_funds: null,
+            _decisive_event: null,
+            _formal_decision_making_criteria: null,
+            _solution_matching: null,
+            _resources_required_to_sell: null,
+            _current_relation_with_customer: null,
+            _value_of_business_proposal: null,
+            _internal_support: null,
+            _credibility: null,
+            _cultural_compatibility: null,
+            _approach_decision_making_criteria: null,
+            _political_aspects: null,
+            _short_term_revenue: null,
+            _long_term_revenue: null,
+            _risk: null,
+            _profitability: null,
+            _strategical_value: null,
+            // GROUP Scores (non editable columns)
+            opportunity_realism_score: null,
+            compete_capability_score: null,
+            win_capability_score: null,
+            win_worth_score: null,
+            score: {
+                crt_score: 0, // default test values
+                max_score: 'n/a', // default test values
+            },
+        };
+        //
+        _ads_all_data['ads_org_map'] = {
+            //--- technical attributes
+            _pk: null,
+            _disabled: null,
+            _updated_at: null,
+            _updated_by: null,
+            //--- business attributes
+            "remarks": null,
+            "ads_org_map_details_data": null,
+            score: {
+                crt_score: 0, // default test values
+                max_score: 'n/a', // default test values
+            },
+        };
+        //
+        _ads_all_data['ads_revenue'] = {
+            //--- technical attributes
+            _pk: null,
+            _disabled: null,
+            _updated_at: null,
+            _updated_by: null,
+            //--- business attributes
+            "remarks": null,
+            "max_expected": null,
+            "min_expected": null,
+            "allocated_budget": null,
+            "market_price": null,
+            "customer_min_expectation": null,
+            "customer_max_expectation": null,
+            score: {
+                crt_score: 0, // default test values
+                max_score: 'n/a', // default test values
+            },
+        };
+        //
+        _ads_all_data['ads_relationships'] = {
+            //--- technical attributes
+            _pk: null,
+            _disabled: null,
+            _updated_at: null,
+            _updated_by: null,
+            //--- business attributes
+            "remarks": null,
+            "ads_relationships_details_data": null,
+            score: {
+                crt_score: 0, // default test values
+                max_score: 'n/a', // default test values
+            },
+        };
+        //
+        _ads_all_data['ads_solution'] = {
+            //--- technical attributes
+            _pk: null,
+            _disabled: null,
+            _updated_at: null,
+            _updated_by: null,
+            //--- business attributes
+            "remarks": null,
+            "name": null,
+            "description": null,
+            "ads_solution_details_data": null,
+            score: {
+                crt_score: 0, // default test values
+                max_score: 'n/a', // default test values
+            },
+        };
+        //
+        _ads_all_data['ads_decision_criteria'] = {
+            //--- technical attributes
+            _pk: null,
+            _disabled: null,
+            _updated_at: null,
+            _updated_by: null,
+            //--- business attributes
+            "remarks": null,
+            "ads_decision_criteria_details_1criterialist_data": null,
+            score: {
+                crt_score: 0, // default test values
+                max_score: 'n/a', // default test values
+            },
+        };
+        //
+        // ADS General Data business domain
+        inner_add_new_keys(_ads_all_data, 'ads_general_data');
+        // ADS Evaluation business domain
+        inner_add_new_keys(_ads_all_data, 'ads_evaluation');
+        // ADS Organization Map business domain
+        inner_add_new_keys(_ads_all_data, 'ads_org_map');
+        // ADS Revenue business domain
+        inner_add_new_keys(_ads_all_data, 'ads_revenue');
+        // ADS Relationships business domain
+        inner_add_new_keys(_ads_all_data, 'ads_relationships');
+        // ADS Solution business domain
+        inner_add_new_keys(_ads_all_data, 'ads_solution');
+        // ADS Solution business domain
+        inner_add_new_keys(_ads_all_data, 'ads_decision_criteria');
+        //
+        // return new resulted object
+        return _ads_all_data;
+    }
+
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- do as first steps after page loading
+    //
+    $(document).ready(function () {
+        init_page();
+    })
+
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- initailize the page (issue 230117piu_a)
+    //
+    function init_page() {
+        // mark project as loading
+        $('#sales_project_id').text('... project loading ...');
+        //
+        // suppose Sales Project as not specified up to "detect" its pk
+        sales_project_info = {
+            code: '',
+            _disabled: true
+        };
+        page_dirty = false;
+        //
+        // call to initialize data as required
+        get_sales_project(sales_project_pk);
+        if (sales_project_info._disabled) {
+            // process stops here, project being non-existent or disabled
+            return false;
+        }
+        get_ads_all_data(sales_project_pk);
+        //
+        // mark page as clean
+        mark_page_dirty(false);
+    }
+
+
+    //*--------------------------------------------------- GETTERS -------------------------------------------------------
+    //
+    //*--- get Sales Project data
+    //
+    function get_sales_project(sales_project_pk) {
+        /* --- load requeste Sales Project data (code and if is enabled)
+        --- */
+        let ret_value = $.ajax({
+            async: false,
+            url: sales_project_api_get_route + sales_project_pk,
+            success: function(result) {
+                // if length of data is null or is undefined return as sales project unknown
+                if ((result.data === undefined) || (result.data.length <= 0)) {
+                    sales_project_info = {
+                        code: '',
+                        _disabled: true
+                    };
+                    // HERE NO PROJECT WAS SPECIFIED, so init and empty page in case if client browser is "moving too slow"
+                    $('#sales_project_id').text('unknown project');
+                    // hide ads_nav_area, ads_tabs_area and ads_actions_area areas ...
+                    $('#ads_nav_area').hide();
+                    $('#ads_content_area').hide();
+                    $('#ads_actions_area').hide();
+                    // alert user ref redirecting and user will be redirected to page /crud_admin/salesproject
+                    alert('A sales project for requested PK was not found. YOU WILL BE REDIRECTED TO CHOOSE ONE.');
+                    window.location.replace('/crud_admin/salesproject');
+                    return sales_project_info;
+                }
+                // set page zone (i1) - title and Sales Project area ONLY if sales project is enabled
+                sales_project_info.code = result.data[0].code;
+                sales_project_info._disabled = result.data[0]._disabled;
+                if (sales_project_info._disabled == false) {
+                    $('#sales_project_id').text('for ' + sales_project_info.code + ' project');
+                    // show ads_nav_area, ads_tabs_area and ads_actions_area areas ...
+                    $('#ads_nav_area').show();
+                    $('#ads_content_area').show();
+                    $('#ads_actions_area').show();
+                } else {
+                    sales_project_info = {
+                        code: '',
+                        _disabled: true
+                    };
+                    $('#sales_project_id').text('project disabled');
+                    // hide ads_nav_area, ads_tabs_area and ads_actions_area areas ...
+                    $('#ads_nav_area').hide();
+                    $('#ads_content_area').hide();
+                    $('#ads_actions_area').hide();
+                }
+                return sales_project_info;
+            },
+            error: function(result) {
+                snackbar('info', 'A sales project for requested PK was not found', 8000);
+                sales_project_info = {
+                    code: '',
+                    _disabled: true
+                };
+                // set page zone (i1) - title and Sales Project area
+                $('#sales_project_id').text('unknown project');
+                return sales_project_info;
+            }
+        });
+        return ret_value;
+    }
+
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- load requeste Sales Project ADS whole information
+    //
+    function get_ads_all_data(sales_project_pk) {
+        /* --- load requeste Sales Project ADS information
+        --- */
+        // load tab content data correspondig to that domain
+        get_ads_general_data(sales_project_pk);
+        get_ads_evaluation(sales_project_pk);
+        get_ads_org_map(sales_project_pk);
+        get_ads_revenue(sales_project_pk);
+        get_ads_relationships(sales_project_pk);
+        get_ads_solution(sales_project_pk);
+        get_ads_decision_criteria(sales_project_pk);
+    }
+
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_ads_general_data - see function get_ads_all_data for details
+    //
+    function get_ads_general_data(sales_project_pk) {
+        // make an api call and load data from database
+        $.get(
+            ads_general_data_api_get_route + sales_project_pk,
+            function(response_data, status) {
+                if ((typeof response_data.data === undefined) || (response_data.data.length <= 0) || (status != 'success')) {
+                    snackbar('info', 'This sales project contains no General Data info', 8000);
+                    empty_ads_all_data();
+                } else {
+                    ads_all_data.ads_general_data = response_data.data[0];
+                }
+                // check for a disabled record (disabling is "abnormal" and is possible only with intervention at database level)
+                if (ads_all_data.ads_general_data._disabled == true) {
+                    snackbar('error', 'This sales project has DISABLED General Data. IGNORED but an Administrator must be informed', 8000);
+                }
+                // set data in corresponding fields
+                for (const [_item_key, _item_value] of Object.entries(ads_all_data.ads_general_data_ids_map)) {
+                    $('#' + _item_value).val(ads_all_data.ads_general_data[_item_key]);
+                }
+                // load score - fixed in all get_ads_...bss domain... functions
+                let _crt_score = ads_all_data.ads_general_data.score.crt_score;
+                let _max_score = ads_all_data.ads_general_data.score.max_score;
+                $('#score_crt_' + 'ads_general_data').text(_crt_score.toString());
+                $('#score_max_' + 'ads_general_data').text(_max_score.toString());
+            }
+        );
+        return true;
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_ads_evaluation - see function get_ads_all_data for details
+    //
+    function get_ads_evaluation(sales_project_pk) {
+        // make an api call and load data from database
+        $.get(
+            ads_evaluation_api_get_route + sales_project_pk,
+            function(response_data, status) {
+                if ((typeof response_data.data === undefined) || (response_data.data.length <= 0) || (status != 'success')) {
+                    snackbar('info', 'This sales project contains no Evaluation info', 8000);
+                    empty_ads_all_data();
+                } else {
+                    ads_all_data.ads_evaluation = response_data.data[0];
+                }
+                // check for a disabled record (disabling is "abnormal" and is possible only with intervention at database level)
+                if (ads_all_data.ads_evaluation._disabled == true) {
+                    snackbar('error', 'This sales project has DISABLED Evaluation. IGNORED but an Administrator must be informed', 8000);
+                }
+                // set data in corresponding fields - identification and audit fields
+                for (const [_item_key, _item_value] of Object.entries(ads_all_data.ads_evaluation_ids_map)) {
+                    $('#' + _item_value).val(ads_all_data.ads_evaluation[_item_key]);
+                }
+                // load score - fixed in all get_ads_...bss domain... functions
+                let _crt_score = ads_all_data.ads_evaluation.score.crt_score;
+                let _max_score = ads_all_data.ads_evaluation.score.max_score;
+                $('#score_crt_' + 'ads_evaluation').text(_crt_score.toString());
+                $('#score_max_' + 'ads_evaluation').text(_max_score.toString());
+            }
+        );
+        return true;
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_ads_ads_org_map - see function get_ads_all_data for details
+    //
+    function get_ads_org_map(sales_project_pk) {
+        // make an api call and load data from database
+        $.get(
+            ads_org_map_api_get_route + sales_project_pk,
+            function(response_data, status) {
+                if ((typeof response_data.data === undefined) || (response_data.data.length <= 0) || (status != 'success')) {
+                    snackbar('info', 'This sales project contains no Organization Map info', 8000);
+                    empty_ads_all_data();
+                } else {
+                    ads_all_data.ads_org_map = response_data.data[0];
+                }
+                // check for a disabled record (disabling is "abnormal" and is possible only with intervention at database level)
+                if (ads_all_data.ads_org_map._disabled == true) {
+                    snackbar('error', 'This sales project has DISABLED Organization Map. IGNORED but an Administrator must be informed', 8000);
+                }
+                // set data in corresponding fields - identification and audit fields
+                for (const [_item_key, _item_value] of Object.entries(ads_all_data.ads_org_map_ids_map)) {
+                    $('#' + _item_value).val(ads_all_data.ads_org_map[_item_key]);
+                }
+                // call org_map_details_Init(param_ads_org_map_pk, param_ads_org_map_details_data) from ads_org_map.html
+                org_map_details_Init(ads_all_data.ads_org_map._pk, ads_all_data.ads_org_map.ads_org_map_details_data);
+                // load score - fixed in all get_ads_...bss domain... functions
+                let _crt_score = ads_all_data.ads_org_map.score.crt_score;
+                let _max_score = ads_all_data.ads_org_map.score.max_score;
+                $('#score_crt_' + 'ads_org_map').text(_crt_score.toString());
+                $('#score_max_' + 'ads_org_map').text(_max_score.toString());
+            }
+        );
+        return true;
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_ads_ads_revenue - see function get_ads_all_data for details
+    //
+    function get_ads_revenue(sales_project_pk) {
+        // make an api call and load data from database
+        $.get(
+            ads_revenue_api_get_route + sales_project_pk,
+            function(response_data, status) {
+                if ((typeof response_data.data === undefined) || (response_data.data.length <= 0) || (status != 'success')) {
+                    snackbar('info', 'This sales project contains no Revenue info', 8000);
+                    empty_ads_all_data();
+                } else {
+                    ads_all_data.ads_revenue = response_data.data[0];
+                }
+                // check for a disabled record (disabling is "abnormal" and is possible only with intervention at database level)
+                if (ads_all_data.ads_revenue._disabled == true) {
+                    snackbar('error', 'This sales project has DISABLED Evaluation. IGNORED but an Administrator must be informed', 8000);
+                }
+                // set data in corresponding fields - identification and audit fields
+                for (const [_item_key, _item_value] of Object.entries(ads_all_data.ads_revenue_ids_map)) {
+                    $('#' + _item_value).val(ads_all_data.ads_revenue[_item_key]);
+                }
+                // load score - fixed in all get_ads_...bss domain... functions
+                let _crt_score = ads_all_data.ads_revenue.score.crt_score;
+                let _max_score = ads_all_data.ads_revenue.score.max_score;
+                $('#score_crt_' + 'ads_revenue').text(_crt_score.toString());
+                $('#score_max_' + 'ads_revenue').text(_max_score.toString());
+            }
+        );
+        return true;
+    }
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_ads_ads_relationships - see function get_ads_all_data for details
+    //
+    function get_ads_relationships(sales_project_pk) {
+        // make an api call and load data from database
+        $.get(
+            ads_relationships_api_get_route + sales_project_pk,
+            function(response_data, status) {
+                if ((typeof response_data.data === undefined) || (response_data.data.length <= 0) || (status != 'success')) {
+                    snackbar('info', 'This sales project contains no Relationships info', 8000);
+                    empty_ads_all_data();
+                } else {
+                    ads_all_data.ads_relationships = response_data.data[0];
+                }
+                // check for a disabled record (disabling is "abnormal" and is possible only with intervention at database level)
+                if (ads_all_data.ads_relationships._disabled == true) {
+                    snackbar('error', 'This sales project has DISABLED Relationships. IGNORED but an Administrator must be informed', 8000);
+                }
+                // set data in corresponding fields - identification and audit fields
+                for (const [_item_key, _item_value] of Object.entries(ads_all_data.ads_relationships_ids_map)) {
+                    $('#' + _item_value).val(ads_all_data.ads_relationships[_item_key]);
+                }
+                // call relationships_details_Init(param_ads_relationships_pk, param_ads_relationships_details_data) from ads_relationships.html
+                relationships_details_Init(ads_all_data.ads_relationships._pk, ads_all_data.ads_relationships.ads_relationships_details_data);
+                // load score - fixed in all get_ads_...bss domain... functions
+                let _crt_score = ads_all_data.ads_relationships.score.crt_score;
+                let _max_score = ads_all_data.ads_relationships.score.max_score;
+                $('#score_crt_' + 'ads_relationships').text(_crt_score.toString());
+                $('#score_max_' + 'ads_relationships').text(_max_score.toString());
+            }
+        );
+        return true;
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_ads_ads_solution - see function get_ads_all_data for details
+    //
+    function get_ads_solution(sales_project_pk) {
+        // make an api call and load data from database
+        $.get(
+            ads_solution_api_get_route + sales_project_pk,
+            function(response_data, status) {
+                if ((typeof response_data.data === undefined) || (response_data.data.length <= 0) || (status != 'success')) {
+                    snackbar('info', 'This sales project contains no Solution info', 8000);
+                    empty_ads_all_data();
+                } else {
+                    ads_all_data.ads_solution = response_data.data[0];
+                }
+                // check for a disabled record (disabling is "abnormal" and is possible only with intervention at database level)
+                if (ads_all_data.ads_solution._disabled == true) {
+                    snackbar('error', 'This sales project has DISABLED Relationships. IGNORED but an Administrator must be informed', 8000);
+                }
+                // set data in corresponding fields - identification and audit fields
+                for (const [_item_key, _item_value] of Object.entries(ads_all_data.ads_solution_ids_map)) {
+                    $('#' + _item_value).val(ads_all_data.ads_solution[_item_key]);
+                }
+                // call solution_details_Init(param_ads_solution_pk, param_ads_solution_details_data) from ads_solution.html
+                solution_details_Init(ads_all_data.ads_solution._pk, ads_all_data.ads_solution.ads_solution_details_data);
+                // load score - fixed in all get_ads_...bss domain... functions
+                let _crt_score = ads_all_data.ads_solution.score.crt_score;
+                let _max_score = ads_all_data.ads_solution.score.max_score;
+                $('#score_crt_' + 'ads_solution').text(_crt_score.toString());
+                $('#score_max_' + 'ads_solution').text(_max_score.toString());
+            }
+        );
+        return true;
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_ads_ads_decision_criteria - see function get_ads_all_data for details
+    //
+    function get_ads_decision_criteria(sales_project_pk) {
+        // make an api call and load data from database
+        $.get(
+            ads_decision_criteria_api_get_route + sales_project_pk,
+            function(response_data, status) {
+                if ((typeof response_data.data === undefined) || (response_data.data.length <= 0) || (status != 'success')) {
+                    snackbar('info', 'This sales project contains no Solution info', 8000);
+                    empty_ads_all_data();
+                } else {
+                    ads_all_data.ads_decision_criteria = response_data.data[0];
+                }
+                // check for a disabled record (disabling is "abnormal" and is possible only with intervention at database level)
+                if (ads_all_data.ads_decision_criteria._disabled == true) {
+                    snackbar('error', 'This sales project has DISABLED Relationships. IGNORED but an Administrator must be informed', 8000);
+                }
+                // set data in corresponding fields - identification and audit fields
+                for (const [_item_key, _item_value] of Object.entries(ads_all_data.ads_decision_criteria_ids_map)) {
+                    $('#' + _item_value).val(ads_all_data.ads_decision_criteria[_item_key]);
+                }
+                // call solution_details_Init(param_ads_decision_criteria_pk, param_ads_decision_criteria_details_data) from ads_decision_criteria.html
+                decision_criteria_details_Init(ads_all_data.ads_decision_criteria._pk, ads_all_data.ads_decision_criteria.ads_decision_criteria_details_1criterialist_data);
+                // load score - fixed in all get_ads_...bss domain... functions
+                let _crt_score = ads_all_data.ads_decision_criteria.score.crt_score;
+                let _max_score = ads_all_data.ads_decision_criteria.score.max_score;
+                $('#score_crt_' + 'ads_decision_criteria').text(_crt_score.toString());
+                $('#score_max_' + 'ads_decision_criteria').text(_max_score.toString());
+            }
+        );
+        return true;
+    }
+
+
+
+
+
+
+
+    //*--------------------------------------------------- SAVERS -------------------------------------------------------
+    //
+    //*--- save Sales Project ADS whole
+    //
+    function save_ads_all_data(sales_project_pk) {
+         /* --- load requeste Sales Project ADS information
+        --- */
+        //* function initialization
+        let _at_least_one_save_succesfull = false;
+        //
+        //* save all business domains - there will be a series of calls for each business domain
+        //? start ADS General Data
+        _data_to_save = get_new_ads_general_data();
+        if ( Boolean(_data_to_save) ) {
+            // save data to local variable
+            ads_all_data.ads_general_data = Object.assign({}, _data_to_save);
+            // prepare data and make ajax POST request to save data
+            _data_to_send = ads_all_data.ads_general_data;
+            // send request as async ajax
+            $.ajax({
+                async: true,
+                url: ads_general_data_api_post_route + sales_project_pk,
+                type: 'POST',
+                crossDomain: true,
+                contentType: 'application/json',
+                processData: false,
+                dataType: 'json',
+                data:  JSON.stringify(_data_to_send),
+                success: function(response_data, txtStatus) {
+                    // if request was succesfull, clear dirty flag of this business domain
+                    if (txtStatus. includes('success')) {
+                        _at_least_one_save_succesfull = true;
+                        ads_all_data.ads_general_data_dirty = false;
+                        $('a[href="#ads_general_data_tab"]').removeClass('text-danger');
+                        snackbar('success', 'ADS General Data successfully saved', 8000);
+                    }
+                    return true;
+                },
+                error: function() {
+                    snackbar('error', 'ERROR at saving ADS General Data...', 8000);
+                    // let all other states as it was before initiating save operation
+                    return false;
+                },
+            });
+        }
+        //? end ADS General Data
+        //
+        //? start ADS Evaluation
+        _data_to_save = get_new_ads_evaluation();
+        if ( Boolean(_data_to_save) ) {
+            // save data to local variable
+            ads_all_data.ads_evaluation = Object.assign({}, _data_to_save);
+            // prepare data and make ajax POST request to save data
+            _data_to_send = ads_all_data.ads_evaluation;
+            // send request as async ajax
+            $.ajax({
+                async: true,
+                url: ads_evaluation_api_post_route + sales_project_pk,
+                type: 'POST',
+                crossDomain: true,
+                contentType: 'application/json',
+                processData: false,
+                dataType: 'json',
+                data: JSON.stringify(_data_to_send),
+                success: function(response_data, txtStatus) {
+                    // if request was succesfull, clear dirty flag of this business domain
+                    if (txtStatus. includes('success')) {
+                        _at_least_one_save_succesfull = true;
+                        ads_all_data.ads_evaluation_dirty = false;
+                        $('a[href="#ads_evaluation_tab"]').removeClass('text-danger');
+                        snackbar('success', 'ADS Evaluation successfully saved', 8000);
+                    }
+                    return true;
+                },
+                error: function() {
+                    snackbar('error', 'ERROR at saving Evaluation...', 8000);
+                    // let all other states as it was before initiating save operation
+                    return false;
+                },
+            });
+        }
+        //? end ADS Evaluation
+        //
+        //? start ADS Organization Map
+        // check to see if something dirty at DETAILS level and so the deny saving -- this is only for MASTER - DETAIL business domains
+        let _test_if_something_to_save_on_org_map_details = ! $('button[id ^= "sav_button_org_map_"]').prop('disabled');
+        let _test_if_exist_any__org_map_details = (Array.isArray(ads_all_data.ads_org_map.ads_org_map_details_data)) && (!! ads_all_data.ads_org_map.ads_org_map_details_data.length); // means is array and length is different of 0
+        if (_test_if_exist_any__org_map_details && _test_if_something_to_save_on_org_map_details) {
+            alert('There are details NOT SAVED. Process aborted. Please save them individually and continue process.');
+        } else {
+            // continue saving of MASTER
+            _data_to_save = get_new_ads_org_map();
+            if ( Boolean(_data_to_save) ) {
+                // save data to local variable
+                ads_all_data.ads_org_map = Object.assign({}, _data_to_save);
+                // prepare data and make ajax POST request to save data
+                _data_to_send = ads_all_data.ads_org_map;
+                // send request as async ajax
+                $.ajax({
+                    async: true,
+                    url: ads_org_map_api_post_route + sales_project_pk,
+                    type: 'POST',
+                    crossDomain: true,
+                    contentType: 'application/json',
+                    processData: false,
+                    dataType: 'json',
+                    data: JSON.stringify(_data_to_send),
+                    success: function(response_data, txtStatus) {
+                        // if request was succesfull, clear dirty flag of this business domain
+                        if (txtStatus. includes('success')) {
+                            _at_least_one_save_succesfull = true;
+                            ads_all_data.ads_org_map_dirty = false;
+                            $('a[href="#ads_org_map_tab"]').removeClass('text-danger');
+                            snackbar('success', 'ADS Organization Map successfully saved', 8000);
+                        }
+                        return true;
+                    },
+                    error: function() {
+                        snackbar('error', 'ERROR at saving Organization Map...', 8000);
+                        // let all other states as it was before initiating save operation
+                        return false;
+                    },
+                });
+            }
+        }
+        //? end ADS Organization Map
+        //
+        //? start ADS Revenue
+        _data_to_save = get_new_ads_revenue();
+        if ( Boolean(_data_to_save) ) {
+            // save data to local variable
+            ads_all_data.ads_revenue = Object.assign({}, _data_to_save);
+            // prepare data and make ajax POST request to save data
+            _data_to_send = ads_all_data.ads_revenue;
+            // send request as async ajax
+            $.ajax({
+                async: true,
+                url: ads_revenue_api_post_route + sales_project_pk,
+                type: 'POST',
+                crossDomain: true,
+                contentType: 'application/json',
+                processData: false,
+                dataType: 'json',
+                data: JSON.stringify(_data_to_send),
+                success: function(response_data, txtStatus) {
+                    // if request was succesfull, clear dirty flag of this business domain
+                    if (txtStatus. includes('success')) {
+                        _at_least_one_save_succesfull = true;
+                        ads_all_data.ads_revenue_dirty = false;
+                        $('a[href="#ads_revenue_tab"]').removeClass('text-danger');
+                        snackbar('success', 'ADS Revenue successfully saved', 8000);
+                    }
+                    return true;
+                },
+                error: function() {
+                    snackbar('error', 'ERROR at saving Revenue...', 8000);
+                    // let all other states as it was before initiating save operation
+                    return false;
+                },
+            });
+        }
+        //? end ADS Revenue
+        //
+        //? start ADS Relationships
+        // check to see if something dirty at DETAILS level and so the deny saving -- this is only for MASTER - DETAIL business domains
+        let _test_if_something_to_save_on_relationships_details = ! $('button[id ^= "sav_button_relationships_"]').prop('disabled');
+        let _test_if_exist_any_relationships_details = (Array.isArray(ads_all_data.ads_relationships.ads_relationships_details_data)) && (!! ads_all_data.ads_relationships.ads_relationships_details_data.length); // means is array and length is different of 0
+        if (_test_if_exist_any_relationships_details && _test_if_something_to_save_on_relationships_details) {
+            alert('There are details NOT SAVED. Process aborted. Please save them individually and continue process.');
+        } else {
+            // continue saving of MASTER
+            _data_to_save = get_new_ads_relationships();
+            if ( Boolean(_data_to_save) ) {
+                // save data to local variable
+                ads_all_data.ads_relationships = Object.assign({}, _data_to_save);
+                // prepare data and make ajax POST request to save data
+                _data_to_send = ads_all_data.ads_relationships;
+                // send request as async ajax
+                $.ajax({
+                    async: true,
+                    url: ads_relationships_api_post_route + sales_project_pk,
+                    type: 'POST',
+                    crossDomain: true,
+                    contentType: 'application/json',
+                    processData: false,
+                    dataType: 'json',
+                    data: JSON.stringify(_data_to_send),
+                    success: function(response_data, txtStatus) {
+                        // if request was succesfull, clear dirty flag of this business domain
+                        if (txtStatus. includes('success')) {
+                            _at_least_one_save_succesfull = true;
+                            ads_all_data.ads_relationships_dirty = false;
+                            $('a[href="#ads_relationships_tab"]').removeClass('text-danger');
+                            snackbar('success', 'ADS Relationships successfully saved', 8000);
+                        }
+                        return true;
+                    },
+                    error: function() {
+                        snackbar('error', 'ERROR at saving Relationships...', 8000);
+                        // let all other states as it was before initiating save operation
+                        return false;
+                    },
+                });
+            }
+        }
+        //? end ADS Relationships
+        //
+        //? start ADS Solution
+        // check to see if something dirty at DETAILS level and so the deny saving -- this is only for MASTER - DETAIL business domains
+        let _test_if_something_to_save_on_solution_details = ! $('button[id ^= "sav_button_solution_"]').prop('disabled');
+        let _test_if_exist_any_solution_details = (Array.isArray(ads_all_data.ads_solution.ads_solution_details_data)) && (!! ads_all_data.ads_solution.ads_solution_details_data.length); // means is array and length is different of 0
+        if (_test_if_exist_any_solution_details && _test_if_something_to_save_on_solution_details) {
+            alert('There are details NOT SAVED. Process aborted. Please save them individually and continue process.');
+        } else {
+            // continue saving of MASTER
+            _data_to_save = get_new_ads_solution();
+            if ( Boolean(_data_to_save) ) {
+                // save data to local variable
+                ads_all_data.ads_solution = Object.assign({}, _data_to_save);
+                // prepare data and make ajax POST request to save data
+                _data_to_send = ads_all_data.ads_solution;
+                // send request as async ajax
+                $.ajax({
+                    async: true,
+                    url: ads_solution_api_post_route + sales_project_pk,
+                    type: 'POST',
+                    crossDomain: true,
+                    contentType: 'application/json',
+                    processData: false,
+                    dataType: 'json',
+                    data: JSON.stringify(_data_to_send),
+                    success: function(response_data, txtStatus) {
+                        // if request was succesfull, clear dirty flag of this business domain
+                        if (txtStatus. includes('success')) {
+                            _at_least_one_save_succesfull = true;
+                            ads_all_data.ads_solution_dirty = false;
+                            $('a[href="#ads_solution_tab"]').removeClass('text-danger');
+                            snackbar('success', 'ADS Solution successfully saved', 8000);
+                        }
+                        return true;
+                    },
+                    error: function() {
+                        snackbar('error', 'ERROR at saving Solution...', 8000);
+                        // let all other states as it was before initiating save operation
+                        return false;
+                    },
+                });
+            }
+        }
+        //? end ADS Solution
+        //
+        //? start ADS Decision Criteria
+        // check to see if something dirty at DETAILS level and so the deny saving -- this is only for MASTER - DETAIL business domains
+        let _test_if_something_to_save_on_decision_criteria_details = ! $('button[id ^= "sav_button_decision_criteria_"]').prop('disabled');
+        let _test_if_exist_any_decision_criteria_details = (Array.isArray(ads_all_data.ads_decision_criteria.ads_decision_criteria_details_data)) && (!! ads_all_data.ads_decision_criteria.ads_decision_criteria_details_data.length); // means is array and length is different of 0
+        if (_test_if_exist_any_decision_criteria_details && _test_if_something_to_save_on_decision_criteria_details) {
+            alert('There are details NOT SAVED. Process aborted. Please save them individually and continue process.');
+        } else {
+            // continue saving of MASTER
+            _data_to_save = get_new_ads_decision_criteria();
+            if ( Boolean(_data_to_save) ) {
+                // save data to local variable
+                ads_all_data.ads_decision_criteria = Object.assign({}, _data_to_save);
+                // prepare data and make ajax POST request to save data
+                _data_to_send = ads_all_data.ads_decision_criteria;
+                // send request as async ajax
+                $.ajax({
+                    async: true,
+                    url: ads_decision_criteria_api_post_route + sales_project_pk,
+                    type: 'POST',
+                    crossDomain: true,
+                    contentType: 'application/json',
+                    processData: false,
+                    dataType: 'json',
+                    data: JSON.stringify(_data_to_send),
+                    success: function(response_data, txtStatus) {
+                        // if request was succesfull, clear dirty flag of this business domain
+                        if (txtStatus. includes('success')) {
+                            _at_least_one_save_succesfull = true;
+                            ads_all_data.ads_decision_criteria_dirty = false;
+                            $('a[href="#ads_decision_criteria_tab"]').removeClass('text-danger');
+                            snackbar('success', 'ADS Decision Criteria successfully saved', 8000);
+                        }
+                        return true;
+                    },
+                    error: function() {
+                        snackbar('error', 'ERROR at saving Decision Criteria...', 8000);
+                        // let all other states as it was before initiating save operation
+                        return false;
+                    },
+                });
+            }
+        }
+        //? end ADS Decision Criteria
+        //
+        //* reload / initialize the page if at least one save was succesfull
+        if ( _at_least_one_save_succesfull ) {
+            init_page();
+        }
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_new_ads_general_data - see function save_ads_all_data for details - returns real data if it has been CHANGED
+    //
+    function get_new_ads_general_data() {
+        // first test if loaded objet is "dirty" and ONLY if is continue (normally cannot access "Save" button, but...)
+        if ( ! ads_all_data.ads_general_data_dirty ) {
+            return false;
+        }
+        //
+        // make copy of data (as it was last set in corresponding global variable)
+        let _localData = Object.assign({}, ads_all_data.ads_general_data);
+        //
+        // collect entered data and local save it by traversing structure ads_all_data.ads_general_data_ids_map to execute sequences like: `_localData._pk = $('#ads_general_data__pk').val()`
+        for (let _item in ads_all_data.ads_general_data_ids_map) {
+            _tmp_scratch = '#' + ads_all_data.ads_general_data_ids_map[_item];
+            if ( $(_tmp_scratch).length > 0 ) {
+                _localData[_item] = $(_tmp_scratch).val();
+            } else {
+                _localData[_item] = null;
+            }
+        }
+        //
+        // test for real changes (! data should be as loaded from DB)
+        _there_are_changes = ! ( JSON.stringify(_localData) == JSON.stringify(ads_all_data.ads_general_data) );
+        if ( ! _there_are_changes ) {
+            // restore the tab at its initial status then return
+            $('a[href="#ads_general_data_tab"]').removeClass('text-danger');
+            ads_all_data.ads_general_data_dirty = false;
+            return false;
+        }
+        // set the tab at its edited status then return
+        $('a[href="#ads_general_data_tab"]').addClass('text-danger');
+        ads_all_data.ads_general_data_dirty = true;
+        return _localData;
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_new_ads_evaluation - see function save_ads_all_data for details - returns real data if it has been CHANGED
+    //
+    function get_new_ads_evaluation() {
+        // first test if loaded objet is "dirty" and ONLY if is continue (normally cannot access "Save" button, but...)
+        if ( ! ads_all_data.ads_evaluation_dirty ) {
+            return false;
+        }
+        //
+        // make copy of data (as it was last set in corresponding global variable)
+        let _localData = Object.assign({}, ads_all_data.ads_evaluation);
+        // collect entered data and local save it by traversing structure ads_all_data.ads_general_data_ids_map to execute sequences like: `_localData._pk = $('#ads_general_data__pk').val()`
+        for (let _item in ads_all_data.ads_evaluation_ids_map) {
+            _tmp_scratch = '#' + ads_all_data.ads_evaluation_ids_map[_item];
+            if ( $(_tmp_scratch).length > 0 ) {
+                _localData[_item] = $(_tmp_scratch).val();
+            } else {
+                _localData[_item] = null;
+            }
+        }
+        //
+        // test for real changes (! data should be as loaded from DB)
+        _there_are_changes = ! ( JSON.stringify(_localData) == JSON.stringify(ads_all_data.ads_evaluation) );
+        if ( ! _there_are_changes ) {
+            // restore the tab at its initial status then return
+            $('a[href="#ads_evaluation_tab"]').removeClass('text-danger');
+            ads_all_data.ads_evaluation_dirty = false;
+            return false;
+        }
+        // set the tab at its edited status then return
+        $('a[href="#ads_evaluation_tab"]').addClass('text-danger');
+        ads_all_data.ads_evaluation_dirty = true;
+        return _localData;
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_new_ads_org_map - see function save_ads_all_data for details - returns real data if it has been CHANGED
+    //
+    function get_new_ads_org_map() {
+        // first test if loaded objet is "dirty" and ONLY if is continue (normally cannot access "Save" button, but...)
+        if ( ! ads_all_data.ads_org_map_dirty ) {
+            return false;
+        }
+        //
+        // make copy of data (as it was last set in corresponding global variable)
+        let _localData = Object.assign({}, ads_all_data.ads_org_map);
+        // collect entered data and local save it by traversing structure ads_all_data.ads_general_data_ids_map to execute sequences like: `_localData._pk = $('#ads_general_data__pk').val()`
+        for (let _item in ads_all_data.ads_org_map_ids_map) {
+            //!#TODO RMAP.004 - ADS Organization Map save all function (here you should thid what are doing with ads_org_map_details_data)
+            if (_item == 'ads_org_map_ads_org_map_details_data') {
+                _localData[_item] = null;
+                continue;
+            }
+            //!#TODO RMAP.004 - END of issue implementation
+            _tmp_scratch = '#' + ads_all_data.ads_org_map_ids_map[_item];
+            if ( $(_tmp_scratch).length > 0 ) {
+                _localData[_item] = $(_tmp_scratch).val();
+            } else {
+                _localData[_item] = null;
+            }
+        }
+        //
+        // test for real changes (! data should be as loaded from DB)
+        _there_are_changes = ! ( JSON.stringify(_localData) == JSON.stringify(ads_all_data.ads_org_map) );
+        if ( ! _there_are_changes ) {
+            // restore the tab at its initial status then return
+            $('a[href="#ads_org_map_tab"]').removeClass('text-danger');
+            ads_all_data.ads_org_map_dirty = false;
+            return false;
+        }
+        // set the tab at its edited status then return
+        $('a[href="ads_org_map_tab"]').addClass('text-danger');
+        ads_all_data.ads_org_map_dirty = true;
+        return _localData;
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_new_ads_revenue - see function save_ads_all_data for details - returns real data if it has been CHANGED
+    //
+    function get_new_ads_revenue() {
+        // first test if loaded objet is "dirty" and ONLY if is continue (normally cannot access "Save" button, but...)
+        if ( ! ads_all_data.ads_revenue_dirty ) {
+            return false;
+        }
+        //
+        // make copy of data (as it was last set in corresponding global variable)
+        let _localData = Object.assign({}, ads_all_data.ads_revenue);
+        //
+        // collect entered data and local save it by traversing structure ads_all_data.ads_revenue_ids_map to execute sequences like: `_localData._pk = $('#ads_revenue__pk').val()`
+        for (let _item in ads_all_data.ads_revenue_ids_map) {
+            _tmp_scratch = '#' + ads_all_data.ads_revenue_ids_map[_item];
+            if ( $(_tmp_scratch).length > 0 ) {
+                _localData[_item] = $(_tmp_scratch).val();
+            } else {
+                _localData[_item] = null;
+            }
+        }
+        //
+        // test for real changes (! data should be as loaded from DB)
+        _there_are_changes = ! ( JSON.stringify(_localData) == JSON.stringify(ads_all_data.ads_revenue) );
+        if ( ! _there_are_changes ) {
+            // restore the tab at its initial status then return
+            $('a[href="#ads_revenue_tab"]').removeClass('text-danger');
+            ads_all_data.ads_revenue_dirty = false;
+            return false;
+        }
+        // set the tab at its edited status then return
+        $('a[href="#ads_revenue_tab"]').addClass('text-danger');
+        ads_all_data.ads_revenue_dirty = true;
+        return _localData;
+    }
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_new_ads_relationships - see function save_ads_all_data for details - returns real data if it has been CHANGED
+    //
+    function get_new_ads_relationships() {
+        // first test if loaded objet is "dirty" and ONLY if is continue (normally cannot access "Save" button, but...)
+        if ( ! ads_all_data.ads_relationships_dirty ) {
+            return false;
+        }
+        //
+        // make copy of data (as it was last set in corresponding global variable)
+        let _localData = Object.assign({}, ads_all_data.ads_relationships);
+        // collect entered data and local save it by traversing structure ads_all_data.ads_general_data_ids_map to execute sequences like: `_localData._pk = $('#ads_general_data__pk').val()`
+        for (let _item in ads_all_data.ads_relationships_ids_map) {
+            //!#TODO RMAP.005 - ADS Relationships Approach save all function (here you should do that with ads_relationships_details_data)
+            if (_item == 'ads_relationships_ads_relationships_details_data') {
+                _localData[_item] = null;
+                continue;
+            }
+            //!#TODO RMAP.005 - END of issue implementation
+            _tmp_scratch = '#' + ads_all_data.ads_relationships_ids_map[_item];
+            if ( $(_tmp_scratch).length > 0 ) {
+                _localData[_item] = $(_tmp_scratch).val();
+            } else {
+                _localData[_item] = null;
+            }
+        }
+        //
+        // test for real changes (! data should be as loaded from DB)
+        _there_are_changes = ! ( JSON.stringify(_localData) == JSON.stringify(ads_all_data.ads_relationships) );
+        if ( ! _there_are_changes ) {
+            // restore the tab at its initial status then return
+            $('a[href="#ads_relationships_tab"]').removeClass('text-danger');
+            ads_all_data.ads_relationships_dirty = false;
+            return false;
+        }
+        // set the tab at its edited status then return
+        $('a[href="ads_relationships_tab"]').addClass('text-danger');
+        ads_all_data.ads_relationships_dirty = true;
+        return _localData;
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_new_ads_solution - see function save_ads_all_data for details - returns real data if it has been CHANGED
+    //
+    function get_new_ads_solution() {
+        // first test if loaded objet is "dirty" and ONLY if is continue (normally cannot access "Save" button, but...)
+        if ( ! ads_all_data.ads_solution_dirty ) {
+            return false;
+        }
+        //
+        // make copy of data (as it was last set in corresponding global variable)
+        let _localData = Object.assign({}, ads_all_data.ads_solution);
+        // collect entered data and local save it by traversing structure ads_all_data.ads_general_data_ids_map to execute sequences like: `_localData._pk = $('#ads_general_data__pk').val()`
+        for (let _item in ads_all_data.ads_solution_ids_map) {
+            //!#TODO RMAP.006 - ADS Solution save all function save all function (here you should do that with ads_solution_details_data)
+            if (_item == 'ads_solution_ads_solution_details_data') {
+                _localData[_item] = null;
+                continue;
+            }
+            //!#TODO RMAP.006 - END of issue implementation
+            _tmp_scratch = '#' + ads_all_data.ads_solution_ids_map[_item];
+            if ( $(_tmp_scratch).length > 0 ) {
+                _localData[_item] = $(_tmp_scratch).val();
+            } else {
+                _localData[_item] = null;
+            }
+        }
+        //
+        // test for real changes (! data should be as loaded from DB)
+        _there_are_changes = ! ( JSON.stringify(_localData) == JSON.stringify(ads_all_data.ads_solution) );
+        if ( ! _there_are_changes ) {
+            // restore the tab at its initial status then return
+            $('a[href="#ads_solution_tab"]').removeClass('text-danger');
+            ads_all_data.ads_solution_dirty = false;
+            return false;
+        }
+        // set the tab at its edited status then return
+        $('a[href="ads_solution_tab"]').addClass('text-danger');
+        ads_all_data.ads_solution_dirty = true;
+        return _localData;
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- get_new_ads_decision_criteria - see function save_ads_all_data for details - returns real data if it has been CHANGED
+    //
+    function get_new_ads_decision_criteria() {
+        // first test if loaded objet is "dirty" and ONLY if is continue (normally cannot access "Save" button, but...)
+        if ( ! ads_all_data.ads_decision_criteria_dirty ) {
+            return false;
+        }
+        //
+        // make copy of data (as it was last set in corresponding global variable)
+        let _localData = Object.assign({}, ads_all_data.ads_decision_criteria);
+        // collect entered data and local save it by traversing structure ads_all_data.ads_general_data_ids_map to execute sequences like: `_localData._pk = $('#ads_general_data__pk').val()`
+        for (let _item in ads_all_data.ads_decision_criteria_ids_map) {
+            //!#TODO RMAP.007 - ADS Decision Criteria save all function save all function save all function (here you should do that with ads_decision_criteria_details_1criterialist_data)
+            if (_item == 'ads_decision_criteria_details_1criterialist_data') {
+                _localData[_item] = null;
+                continue;
+            }
+            //!#TODO RMAP.007 - END of issue implementation
+            _tmp_scratch = '#' + ads_all_data.ads_decision_criteria_ids_map[_item];
+            if ( $(_tmp_scratch).length > 0 ) {
+                _localData[_item] = $(_tmp_scratch).val();
+            } else {
+                _localData[_item] = null;
+            }
+        }
+        //
+        // test for real changes (! data should be as loaded from DB)
+        _there_are_changes = ! ( JSON.stringify(_localData) == JSON.stringify(ads_all_data.ads_decision_criteria) );
+        if ( ! _there_are_changes ) {
+            // restore the tab at its initial status then return
+            $('a[href="#ads_decision_criteria_tab"]').removeClass('text-danger');
+            ads_all_data.ads_decision_criteria_dirty = false;
+            return false;
+        }
+        // set the tab at its edited status then return
+        $('a[href="ads_decision_criteria_tab"]').addClass('text-danger');
+        ads_all_data.ads_decision_criteria_dirty = true;
+        return _localData;
+
+    }
+
+
+
+
+
+
+
+    //*--------------------------------------------------- HELPERS -------------------------------------------------------
+    //
+    //*--- revert all page Sales Project ADS information (called on click on ads_revert_button)
+    //
+    function revert_page() {
+        if (page_dirty) {
+            let _rslt = confirm('Are you sure to revert all data? (You will loose all entered information)');
+            if (_rslt) {
+                init_page();
+                return true;
+            }
+            return false;
+        }
+    }
+
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- marks page as *dirty* or *clean* and enable or disable its *Save* button
+    //
+    function mark_page_dirty(dirty) {
+        if (dirty) {
+            // mark as global state and save button
+            page_dirty = true;
+            $('#ads_save_button').prop("disabled", false);
+            //
+            // mark the tab with class text-danger if one...
+            Object.keys(ads_all_data).forEach(function(key) {
+                if (key.includes('_dirty') && (ads_all_data[key])) { // test if current key contains word "_dirty"
+                    // mark tab with class - looks for property href='#' + 'ads-...name_of_business_domanin'
+                    _tmp = '#' + key.slice(0, -6) + "_tab"; // reduce word "_dirty" of 6 characters
+                    _tmp1 = 'a[data-toggle="tab"][href="' + _tmp + '"]';
+                    $(_tmp1).addClass('text-danger');
+                }
+            });
+        } else {
+            // mark as global state and save button
+            page_dirty = false;
+            $('#ads_save_button').prop("disabled", true);
+            //
+            // remove 'text-danger' class remaining original class text-primary if one
+            $('a[data-toggle="tab"]').removeClass('text-danger');
+            //
+            // and clear all tabs dirty flag
+            Object.keys(ads_all_data).forEach(function(key) {
+                if (key.includes('_dirty')) {
+                    ads_all_data[key] = false;
+                }
+            });
+        }
+    }
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- function the detects any change on ADS input elements
+    //
+    $('input, textarea, .form-control').on('change', function(event_data) {
+        changed_target_id = event_data.target.id;
+        //
+        // test for ads_general_data business domain
+        if (ads_all_data.ads_general_data_ids.includes(changed_target_id)) {
+            ads_all_data.ads_general_data_dirty = true;
+        }
+        // test for ads_evaluation business domain
+        if (ads_all_data.ads_evaluation_ids.includes(changed_target_id)) {
+            ads_all_data.ads_evaluation_dirty = true;
+        }
+        // test for ads_org_map business domain
+        if (ads_all_data.ads_org_map_ids.includes(changed_target_id)) {
+            ads_all_data.ads_org_map_dirty = true;
+        }
+        // test for ads_revenue business domain
+        if (ads_all_data.ads_revenue_ids.includes(changed_target_id)) {
+            ads_all_data.ads_revenue_dirty = true;
+        }
+        // test for ads_revenue business domain
+        if (ads_all_data.ads_relationships_ids.includes(changed_target_id)) {
+            ads_all_data.ads_relationships_dirty = true;
+        }
+        // test for ads_solution business domain
+        if (ads_all_data.ads_solution_ids.includes(changed_target_id)) {
+            ads_all_data.ads_solution_dirty = true;
+        }
+        // test for ads_decision_criteria business domain
+        if (ads_all_data.ads_decision_criteria_ids.includes(changed_target_id)) {
+            ads_all_data.ads_decision_criteria_dirty = true;
+        }
+        //
+        mark_page_dirty(true);
+    });
+
+
+
+
+
+
+</script>
+
+
+{% endblock %}
+
+
+
+
+
+

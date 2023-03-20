@@ -123,12 +123,9 @@ dmypy.json
 .pyre/
 
 
-# database physical files
-data/kv_db.rdb
-data/*.rdb
+# database physical files #!#FIXME activate when finished with data models...
 # data/*.db # [piu] still make changes...
 
 .vscode
 .vscode/
-
 

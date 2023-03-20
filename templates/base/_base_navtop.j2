@@ -1,0 +1,100 @@
+
+<!-- Top navigation bar -->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <!--#TODO removed "navbar-fixed-top" class up to solving display 'conflict' with snackbar-fader -->
+    <div class="container">
+        <a class="navbar-brand" href="{{ url_for("wip") }}">
+            <img src="{{ url_for('static', filename='pictures/cosana.jpg') }}" width="60" height="30" alt="">
+            cosana
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <!----------------  HOME ---------------->
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for("home") }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <!---------------- SALES ACCOUNTS ---------------->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ url_for("wip") }}" role="button" data-toggle="dropdown" aria-expanded="false">
+                    Sales accounts
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/ads">Accounts Data Sheet Review</a>
+                        <a class="dropdown-item" href="/crud_admin/salesproject">Sales projects</a>
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">here tbd...</a> <!-- #!#FIXME tbd... -->
+                    </div>
+                </li>
+
+                <!---------------- MASTER DATA ---------------->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ url_for("wip") }}" role="button" data-toggle="dropdown" aria-expanded="false">
+                    Master data
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">Companies tbd...</a> <!-- #!#FIXME tbd... -->
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">Solutions tbd...</a> <!-- #!#FIXME tbd... -->
+                    </div>
+                </li>
+
+                <!---------------- USER ---------------->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ url_for("wip") }}" role="button" data-toggle="dropdown" aria-expanded="false">
+                    User
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ url_for("whoami") }}">Who am I</a>
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">Login tbd...</a> <!-- #!#FIXME tbd... -->
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">Logout tbd...</a> <!-- #!#FIXME tbd... -->
+                        <hr class="dropdown-divider">
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">Preferences tbd...</a> <!-- #!#FIXME tbd... -->
+                    </div>
+                </li>
+
+                <!---------------- SYSTEM ---------------->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ url_for("wip") }}" role="button" data-toggle="dropdown" aria-expanded="false">
+                    System
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ url_for("show_commons") }}">Inspect  global data</a>
+                        <a class="dropdown-item" href="{{ url_for("whoami") }}">Show heartbeat message</a>
+                        <a class="dropdown-item" href="{{ url_for("sitemap") }}">Site map</a>
+                        <hr class="dropdown-divider">
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">Data healthcheck tbd...</a> <!-- #!#FIXME tbd... -->
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">Master data import tbd...</a> <!-- #!#FIXME tbd... -->
+                        <hr class="dropdown-divider">
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">System setings tbd...</a> <!-- #!#FIXME tbd... -->
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">Users administration tbd...</a> <!-- #!#FIXME tbd... -->
+                    </div>
+                </li>
+
+                <!---------------- HELP ---------------->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ url_for("wip") }}" role="button" data-toggle="dropdown" aria-expanded="false">
+                    Help
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ url_for("system_doc_viewer", docfile = "/euma/880.30_EUMA_Index.md") }}">User manual</a> <!-- #!#FIXME tbd... -->
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">Work procedures tbd...</a> <!-- #!#FIXME tbd... -->
+                        <a class="dropdown-item" href="{{ url_for("system_doc_viewer", docfile = "/adma/880.30_ADMA_Index.md") }}">System administration</a>
+                        <hr class="dropdown-divider">
+                        <a class="dropdown-item" href="{{ url_for("system_doc_viewer", docfile = "/810_DSGN/810_Design_index.md") }}">Technical documentation</a>
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">COSANA methodology tbd...</a> <!-- #!#FIXME tbd... -->
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">Avaiilable trainings and schedule tbd...</a> <!-- #!#FIXME tbd... -->
+                        <hr class="dropdown-divider">
+                        <a class="dropdown-item" href="{{ url_for("wip") }}">About cosana... tbd...</a> <!-- #!#FIXME tbd... -->
+                        <a class="dropdown-item" href="https://renware.eu" target="_blank">Contact</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
