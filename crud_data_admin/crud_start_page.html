@@ -1,0 +1,225 @@
+{% extends "base/_base01_jinja.html" %}
+
+
+
+{% block content %}
+
+<!-----------------------------------------[ main TABLE code ]--------------------------------------------------->
+<div class="container p-1">
+    <h1>{{ page_title }} administration</h1>
+
+    <!-- area to keep status and data from last operation performed on server side -->
+    {% if last_op_status is defined %} <!-- check if variable exists / was sent with some relevant data -->
+        {% if last_op_status.visible == 'YES' %}
+            {% set last_op_status_visibility = '' %}
+        {% else %}
+            {% set last_op_status_visibility = 'hidden' %}
+        {% endif %}
+        {% if last_op_status.pk != '' %} <!-- set visibility and the message to be shown -->
+            {% set last_op_status_message = 'Last operation successfully performed for code ' ~ last_op_status.code %} {# ~ is concatenation op in Jinja #}
+        {% else %}
+            {% set last_op_status_message = 'Last operation failed at server side ' ~ last_op_status.pk %} {# ~ is concatenation op in Jinja #}
+        {% endif %}
+    {% else %}
+        {% set last_op_status_visibility = 'hidden' %}
+    {% endif %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert" {{ last_op_status_visibility }}>
+        {{ last_op_status_message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <!-- NEW record button -->
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#neweditform" data-oper="NEW" data-recpk="">New record</button>
+
+    <table id="master_table" class="table table-sm display table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                {% for col_item in column_options %}
+                    <th>{{ col_item["title"]  }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+    </table>
+
+    <!-----------------------------------------[ form used for NEW / EDIT data fields input ] ------------------->
+    {{ form_template_HTML|safe }}
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+{% block body_level_custom_scripts %}
+
+<!-----------------------------------------[ specific bootstrap modal CSS and JS ]------------------->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> <!-- modal events are not captured without it -->
+
+<script>
+
+    //
+    //*-----------------------------------------[ DataTable main driving function ]------------------------------------
+    $(document).ready(function () {
+        $('#master_table').DataTable( {
+            // ajax configuration (including running on server side option)
+            ajax: '{{ ajax_options["ajax_url"] }}',
+            serverSide: {{ ajax_options["run_at_server_side"] }},
+
+            // columns and data definition and loading mapper
+            columns: [
+                {% for col_item in column_options %}
+                    {
+                        data: '{{ col_item["id"] }}',
+                        orderable: {{ col_item["orderable"] }},
+                        searchable: {{ col_item["searchable"] }},
+                        visible: {{ col_item["visible"] }},
+                    },
+                {% endfor %}
+            ],
+
+            // various formatting options
+            info: true,
+            pagingType: 'full_numbers',
+            fixedHeader: true,
+            footer: true,
+            scrollY: '350px',
+        } );
+
+    } );
+
+
+
+    //
+    //*-----------------------------------------[ Modal Data Form driving code ]---------------------------------------------
+    //
+    //--- data pre-loading actions
+    $('#neweditform').on('show.bs.modal', function (event) {
+        /* --- assures right form route & data pre-loading
+        --- */
+        // set local environmet data variables
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var _rec_pk = button.data('recpk'); // Extract info from data-recpk attribute
+        var _oper = button.data('oper'); // Extract info from data-oper attribute
+        var modal = $(this);
+
+        var _form_title = 'Unknown operation'
+        if ( _oper == 'NEW') { //*--------------------------------------------------- NEW operation requested
+            _form_title = _oper + ' New record';
+            _action_route = '/crud_data_form/salesproject/form_op_new';
+            // initialize form data fields (as empty or defaults)
+            $('#pk').val('');
+            $('#code').val('');
+            $('#description').val('');
+            $('#notes').val('');
+            $('#disabled').prop('checked', false);
+        } else if ( _oper == 'EDIT') { //*------------------------------------------- EDIT operation requested
+            _form_title = _oper + ' Edit record ' + _rec_pk;
+            _action_route = '/crud_data_form/salesproject/form_op_edit';
+            // complete form data fields (pk, code, description, notes) with existing data in table
+            let table = $('#master_table').DataTable();
+            let row_data = table.row('#' + _rec_pk).data();
+            let attribute_pk = _rec_pk;
+            let attribute_code = row_data.code;
+            let attribute_description = row_data.description;
+            let attribute_notes = row_data.notes;
+            let attribute_disabled = row_data._disabled;
+            if ((row_data._disabled == 'true') || (row_data._disabled == true)) {
+                attribute_disabled = true;
+            } else {
+                attribute_disabled = false;
+            }
+            // put them in form fields
+            $('#pk').val(attribute_pk);
+            $('#code').val(attribute_code);
+            $('#description').val(attribute_description);
+            $('#notes').val(attribute_notes);
+            $('#disabled').prop('checked', attribute_disabled);
+        }
+        modal.find('.modal-header h5').html(_form_title); // set form title
+        _effective_form_tag = $('#neweditform-data-area')
+        _effective_form_tag.attr('action', _action_route); // set form action route
+    } );
+
+
+    //
+    //*--- canceling form action (for NEW and EDIT operations, close without save)
+    $('#neweditform').on('hidden.bs.modal', function (event) {
+        /* --- just show a dismiss info that operation was canceled
+        --- */
+        snackbar('info', 'Operation canceled', 8000);
+	} );
+
+
+    //
+    //*--- data saving actions (DEL operation)
+    function delete_data_row(data_row_pk) {
+        /* --- initiates the data saving process for DEL operation
+        --- */
+        let _db_data = null;
+        let _form_route = '/crud_data_form/salesproject/' + data_row_pk;
+
+        function do_delete(data_row_pk) {
+            /* --- effective perform delete of record --- */
+            $.ajax({
+                async: true,
+                url: _form_route,
+                type: 'DELETE',
+                crossDomain: true,
+                success: function(result) {
+                    snackbar('success', 'Delete operation performed for PK = ' + data_row_pk, 8000);
+                    let table = $('#master_table').DataTable();
+                    table
+                        .row('#' + data_row_pk)
+                        .remove()
+                        .draw();
+                },
+                error: function(result) {
+                    snackbar('error', 'Delete operation could not be performed for PK = ' + data_row_pk, 8000);
+                    // message ca a mers stergerea
+                }
+            });
+        }
+
+        // get from database attribute code data (as very fresh data)
+        $.ajax({
+            async: false,
+            url: _form_route,
+            success: function(result) {
+                _db_data = result.data;
+                var _rslt = confirm('Are you sure you want to delete the record with code: ' + _db_data.code + ' (PK: ' + data_row_pk + ')');
+                if (!_rslt) {
+                    snackbar('info', 'Delete operation canceled', 8000);
+                    return false;
+                } else {
+                    _rslt = do_delete(data_row_pk) // do effective deletion of record
+                    return result.data; // returns all object with existing data for ...@221230h06:25 now I do not know but latter...
+                }
+            },
+            error: function(result) {
+                _db_data = null;
+                console.log('Exit with ERROR from AJAX call - with result: ' + String(result));
+                return false; // and exit
+            }
+        });
+        return // return nothing as normally there is no reason to get ehere
+    };
+
+
+    //
+    //*--- set focus on close button
+    $('#neweditform').on('shown.bs.modal', function () {
+        $('#cancel-submit').trigger('focus');
+    });
+
+
+
+</script>
+{% endblock %}
+
+
+

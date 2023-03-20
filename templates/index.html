@@ -1,0 +1,33 @@
+{% extends "base/_base01_jinja.html" %}
+
+
+{% block content %}
+
+<header>
+    <div class="jumbotron color-cosana-1">
+
+        <div class="container">
+            <h1>COSANA emerald</h1>
+            <h3>Comprehensive Sales Analyzer</h3>
+            <p></p>
+
+            <h4 class="bg-sembre">Project Development References</h4>
+            <a class="btn btn-primary btn-sm" href="{{ url_for("system_doc_viewer", docfile = "/README.md") }}" role="button">main README</a>
+            <a class="btn btn-primary btn-sm" href="{{ url_for("system_doc_viewer", docfile = "/CHANGELOG.md") }}" role="button">main CHANGELOG</a>
+            <p></p>
+
+        </div>
+    </div>
+</header>
+
+
+
+<div class="container">
+    <!-- #!#FIXME put an adecvate content... -->
+    <h1>What you intend to do today?</h1>
+</div>
+
+{% endblock %}
+
+
+

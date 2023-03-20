@@ -1,0 +1,60 @@
+<!--- [ ads_evaluation ] --->
+<!-- lov_ads_evaluation is structure sent by server -->
+
+<input id="ads_evaluation__pk" type="text" class="form-control" placeholder="PK will automatically come here..." hidden>
+
+
+<!---- _remarks & score fields ---->
+<div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="ads_evaluation_remarks_label">Remarks</span>
+    </div>
+    <textarea id="ads_evaluation_remarks" class="form-control" aria-label="ads_evaluation_remarks_label"
+            placeholder="Write here any comments and remarks regarding current evaluation"></textarea>
+</div>
+
+<!---- business ADS Evaluation fields -------------------------------------------->
+<!//!---- 1st for level GROUP (each group starts with a "div card") -->
+{% for evaluation_group_k, evaluation_group_v in lov_ads_evaluation.items() %}
+<div class="card text-center mb-1">
+    <div class="card-header" id="ads_evaluation_group_{{ evaluation_group_k }}">
+        <div class="mb-0">
+            <button class="btn btn-sm btn-link" data-toggle="collapse" data-target="#ads_evaluation_{{ evaluation_group_k }}" aria-expanded="true" aria-controls="collapseOne">
+            <strong>{{ evaluation_group_v.label }}</strong>
+            </button>
+        </div>
+    </div>
+    <div id="ads_evaluation_{{ evaluation_group_k }}" class="input-group input-group-sm mb-2 px-2 py-2">
+        <!//!---- 2nd for level SELECTOR (each group starts with a "div input-group mb-3") -->
+        {% for selector_k, selector_v in evaluation_group_v.items() %}
+            {% if selector_k != 'label' %}
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="label_for_{{ selector_k }}">{{ selector_k | replace('_', ' ')}}</span>
+                    </div>
+                    <select class="form-control" id="ads_evaluation_{{ selector_k }}" aria-describedby="label_for_{{ selector_k }}">
+                        <!//!---- 3rd for level fir selctor ITEMS (what appears in combo)< -->
+                        {% for selector_item in selector_v %} #}
+                            <option value="{{ selector_item[0] }}">{{ selector_item[1] }}</option>
+                        {% endfor %} {# SELECTOR ITEMS level #}
+                    </select>
+                </div>
+            {% endif %}
+        {% endfor %} {# SELECTOR level #}
+    </div>
+</div>
+{% endfor %} {# GROUP level #}
+
+<!---- audit data info fields: ads_evaluation_updated_by, ads_evaluation_updated_at ---->
+<div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend">
+        <span class="input-group-text bg-secondary text-warning" id="_updated_label">Updated by... at...</span>
+    </div>
+    <input id="ads_evaluation__updated_by" type="text" class="form-control" aria-describedby="_updated_by_label"
+            placeholder="updated by info" readonly>
+    <input id="ads_evaluation__updated_at" type="text" class="form-control" aria-describedby="_updated_label"
+            placeholder="updated time info" readonly>
+</div>
+
+
+

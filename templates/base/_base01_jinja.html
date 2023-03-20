@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="cosana COSANA">
+    <meta name="author" content="RENware Software">
+    <title>COSANA</title>
+
+    <!-- head level CSS -->
+    {% include "base/_base_css.j2" %}
+
+    <!----- pyscript libraries and pyodide runtime DISABLED @230113 for future use; if will be used, theses should be copied locally -->
+    <!--
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    -->
+
+    <!-- snackbar fader - CSS module -->
+    <style>{% include "snackbar_fader/snackbar_fader.css" %}</style>
+
+</head>
+
+
+
+<body>
+    <!-- general application top navigation bar -->
+    {% include "base/_base_navtop.j2" %}
+
+
+
+    <!-- snackbar fader - HTML module -->
+    {% include "snackbar_fader/snackbar_fader_main.html" %}
+
+    <!-- reserved for developer CONTENT area -->
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer class="bg-dark p-1">
+        <div class="container-fluid">
+            <img src="{{ url_for('static', filename='pictures/REN_logo_transparent.jpg') }}" width="110" height="30" alt="">
+            <small-txt class="text-white align-middle">
+            Copyright &copy; 2022 RENware Software Systems
+            </small-txt>
+        </div>
+    </footer>
+
+    <!----- pyscript libraries and pyodide runtime DISABLED @230113 for future use; if will be used theses should be copied locally -->
+    <!--
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <py-config>
+        [[runtimes]]
+        src = "https://cdn.jsdelivr.net/pyodide/v0.22.0a3/full/pyodide.js"
+        name = "pyodide-0.22.0a3"
+        lang = "python"
+    </py-config>
+    -->
+
+    <!-- body level library JS -->
+    {% include "base/_base_js_libs.html" %}
+
+    <!-- snackbar fader - JS module -->
+    <script>{% include "snackbar_fader/snackbar_fader.js" %}</script>
+
+    {% block body_level_custom_scripts %}{% endblock %}
+</body>
+
+
+</html>

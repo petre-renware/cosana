@@ -1,0 +1,423 @@
+<!--- [ ads_relationships ] --->
+<!-- Jinja data comes in org_map_details_data, relationships_details_data & lov_ads_relationships -->
+
+<input id="ads_relationships__pk" type="text" class="form-control" placeholder="PK will automatically come here..." hidden>
+
+
+<!---- remarks field ---->
+<div class="input-group input-group-sm mb-2">
+	<!---- remarks field ---->
+	<div class="input-group-prepend">
+		<span class="input-group-text" id="ads_relationships_remarks_label">Remarks</span>
+	</div>
+	<textarea id="ads_relationships_remarks" class="form-control" aria-label="ads_relationships_remarks_label"
+			placeholder="Write here any comments usefull for current evaluation and SAVE TO GENERATE A NEW ORGANIZATION MAP"></textarea>
+</div>
+
+
+
+<!---- ads relationships map details field ---->
+<table id="ads_relationships_ads_relationships_details_data" class="table table-sm table-striped table-hover border">
+	<thead>
+		<tr>
+			<th scope="col">Name</th>
+            <th scope="col">Position</th>
+            <th scope="col">CA</th>
+            <th scope="col">CS</th>
+            <th scope="col">SR</th>
+			<!---- global actions for ads_relationships_details, like New, Save, Discard ---->
+			<th scope="col">
+				<button id="ads-relationships-detail-new-rec-button" onclick="relationships_details_NEW_record()"
+					class="btn btn-sm btn-outline-primary float-right" type="button" data-toggle="modal" data-target="#relationships_detail_entry_new_modal">
+					<strong>+</strong></button>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for detail_item in relationships_details_data %}
+			<tr id="ads_relationships_details_{{ detail_item._pk }}">
+				<td contenteditable="true">
+ 					<input type="text" class="form-control" contenteditable="true" onchange="relationships_details_activate_save_butt('{{ detail_item._pk }}')"
+					value="{{ detail_item.name }}" id="ads_relationships_details_name_{{ detail_item._pk }}" name="ads_relationships_details_name">
+				</td>
+
+                <td>
+					<select class="form-control" id="ads_relationships_details_position_{{ detail_item._pk }}" onchange="relationships_details_activate_save_butt('{{ detail_item._pk }}')">
+						{% for selector_item in org_map_details_data %} <!-- here is not a mistype / need get data from ads_org_map_details -->
+							{% if detail_item.position == selector_item._pk %}
+								<option value="{{ selector_item._pk }}" selected>{{ selector_item.code }} - {{ selector_item.name }}</option>
+							{% else %}
+								<option value="{{ selector_item._pk }}">{{ selector_item.code }} - {{ selector_item.name }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+                    <!-- <br><small>{{ detail_item.position_info.position_code }} / {{ detail_item.position_info.position_name }} / {{ detail_item.position_info.position_qualifyers }}</small> DEBUGGING_INFO-->
+                </td>
+
+                <td>
+					<select class="form-control" id="ads_relationships_details_change_adaptability_{{ detail_item._pk }}" onchange="relationships_details_activate_save_butt('{{ detail_item._pk }}')">
+						{% for selector_item in lov_ads_relationships['change_adaptability'].selector_data %}
+							{% if selector_item.code == detail_item.change_adaptability %}
+								<option value="{{ selector_item.code }}" selected>{{ selector_item.text }}</option>
+							{% else %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+                    <!-- <br><small>{{ detail_item.change_adaptability_info.text }} / Sore {{ detail_item.change_adaptability_info.score }}</small> DEBUGGING_INFO-->
+                </td>
+
+                <td>
+					<select class="form-control" id="ads_relationships_details_contact_status_{{ detail_item._pk }}" onchange="relationships_details_activate_save_butt('{{ detail_item._pk }}')">
+						{% for selector_item in lov_ads_relationships['contact_status'].selector_data %}
+							{% if selector_item.code == detail_item.contact_status %}
+								<option value="{{ selector_item.code }}" selected>{{ selector_item.text }}</option>
+							{% else %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+                    <!-- <br><small>{{ detail_item.contact_status_info.text }} / Sore {{ detail_item.contact_status_info.score }}</small> DEBUGGING_INFO-->
+                </td>
+
+                <td>
+					<select class="form-control" id="ads_relationships_details_our_status_in_relation_{{ detail_item._pk }}" onchange="relationships_details_activate_save_butt('{{ detail_item._pk }}')">
+						{% for selector_item in lov_ads_relationships['our_status_in_relation'].selector_data %}
+							{% if selector_item.code == detail_item.our_status_in_relation %}
+								<option value="{{ selector_item.code }}" selected>{{ selector_item.text }}</option>
+							{% else %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+                    <!-- <br><small>{{ detail_item.our_status_in_relation_info.text }} / Sore {{ detail_item.our_status_in_relation_info.score }}</small> DEBUGGING_INFO-->
+                </td>
+
+				<td>
+					<button onclick="relationships_details_DEL_record('{{ detail_item._pk }}', '{{ detail_item.name }}')"
+						class="d-sm-inline px-2 btn btn-sm btn-outline-danger">Del</button>
+
+					<button onclick="relationships_details_SAV_record('{{ detail_item._pk }}')"
+						class="d-sm-inline px-2 btn btn-sm btn-outline-success active"
+						id="sav_button_relationships_{{ detail_item._pk }}" disabled>Sav</button>
+
+					<small><small><small>Upd by {{ detail_item._updated_by }} @ {{ detail_item._updated_at }}</small></small></small>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+
+
+
+<!---- audit data info fields: ads_relationships_updated_by, ads_relationships_updated_at ---->
+<div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend">
+        <span class="input-group-text bg-secondary text-warning" id="_updated_label">Updated by... at...</span>
+    </div>
+    <input id="ads_relationships__updated_by" type="text" class="form-control" aria-describedby="_updated_by_label"
+            placeholder="updated by info" readonly>
+    <input id="ads_relationships__updated_at" type="text" class="form-control" aria-describedby="_updated_label"
+            placeholder="updated time info" readonly>
+</div>
+
+
+
+
+
+<!-- here start the form where to enter new data -->
+
+<div class="modal modal-lg" id="relationships_detail_entry_new_modal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="modal-header bg-light">
+				<h6 class="modal-title">New Relationships Entry</h6>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<div class="modal-body">
+				<div id="ads_relationships_new_data_form" class="px-1 my-1" style="display:none">
+					<div class="input-group input-group-sm mb-3">
+						<!-- Name -->
+						<div class="input-group-prepend ml-2">
+							<span class="input-group-text" id="label-for-name">Name</span>
+						</div>
+						<input id="ads_relationships_details_new_name" type="text" class="form-control" contenteditable="true"
+								placeholder="Enter name of person..." aria-label="label-for-name" aria-describedby="label-for-name">
+						<!-- Position -->
+						<div class="input-group-prepend ml-2">
+							<span class="input-group-text" id="label-for-name">Position</span>
+						</div>
+						<select class="form-control" id="ads_relationships_details_new_position">
+							<option value="" disabled selected>Enter position of person...</option>
+							{% for selector_item in org_map_details_data %} <!-- here is not a mistype / need get data from ads_org_map_details -->
+								<option value="{{ selector_item._pk }}">{{ selector_item.code }} - {{ selector_item.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="input-group input-group-sm mb-3">
+						<!-- CA - Change Availability -->
+						<div class="input-group-prepend ml-2">
+							<span class="input-group-text" id="label-for-name">Change Availability</span>
+						</div>
+						<select class="form-control" id="ads_relationships_details_new_change_adaptability">
+							<option value="" disabled selected>Enter Change Availability for person...</option>
+							{% for selector_item in lov_ads_relationships['change_adaptability'].selector_data %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="input-group input-group-sm mb-3">
+						<!-- CS - Contact Status -->
+						<div class="input-group-prepend ml-2">
+							<span class="input-group-text" id="label-for-name">Contact Status</span>
+						</div>
+						<select class="form-control" id="ads_relationships_details_new_contact_status">
+						<option value="" disabled selected>Enter Contact Status for person...</option>
+							{% for selector_item in lov_ads_relationships['contact_status'].selector_data %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="input-group input-group-sm mb-3">
+						<!-- SR - Our Status in Relation -->
+						<div class="input-group-prepend ml-2">
+							<span class="input-group-text" id="label-for-name">Our Status in Relation</span>
+						</div>
+						<select class="form-control" id="ads_relationships_details_new_our_status_in_relation">
+						<option value="" disabled selected>Enter Our Status in Relation for person...</option>
+							{% for selector_item in lov_ads_relationships['our_status_in_relation'].selector_data %}
+								<option value="{{ selector_item.code }}">{{ selector_item.text }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer bg-light">
+				<button onclick="relationships_details_ProcessNewFormData(true)" data-dismiss="modal" type="button" value="Submit" class="d-sm-inline mx-1 btn btn-sm btn-primary">Submit</button>
+				<button onclick="relationships_details_ProcessNewFormData(false)" data-dismiss="modal" type="button" value="Cancel" class="d-sm-inline mx-1 btn btn-sm btn-outline-danger">Cancel</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!-- here ends the form where to enter new data -->
+
+
+
+
+<!---- legend area ---->
+<p class="border px-2 my-2 bg-info text-white font-weight-light"><small><small>
+	<strong>Legend:</strong><br>
+	CA = Change Adaptability /
+	CS = Contact Status /
+	SR = Our Status in Relation
+</small></small></p>
+
+
+
+
+
+
+
+<script>
+
+
+//----[ global data ]-----------------------------------------------
+let local_ads_relationships_details_data = null; // probably not the best name but will not be confused with the one from ads_start_page.hrml
+let local_ads_relationships_pk = null; // this is list with all table rows data
+let ads_relationships_details_api_post_route = 'api/ads_relationships_details_post/';
+let ads_relationships_details_api_delete_route = '/api/ads_relationships_details_delete/';
+
+
+
+//----[ operations ]-----------------------------------------------
+
+//*--- initialize ads_relationships_details section page
+//
+function relationships_details_Init(param_ads_relationships_pk, param_ads_relationships_details_data) {
+	local_ads_relationships_details_data = param_ads_relationships_details_data;
+	local_ads_relationships_pk = param_ads_relationships_pk;
+	if (param_ads_relationships_pk == null) { // if no ads orga map master record, details are disabled to add
+		$('#ads-relationships-detail-new-rec-button').prop('disabled', true);
+	} else {
+		$('#ads-relationships-detail-new-rec-button').prop('disabled', false);
+	}
+}
+
+
+//*-- collect entered data - return a dictionary with that data
+//
+function relationships_details_CollectData(rec_pk) {
+	let _localCollectedData = {};
+	if (rec_pk == null) {
+		// each row cell has id = "ads_relationships_details_new_...field..."
+		_localCollectedData['name'] = $('#ads_relationships_details_new_' + 'name').val();
+		_localCollectedData['position'] = $('#ads_relationships_details_new_' + 'position').val();
+		_localCollectedData['change_adaptability'] = $('#ads_relationships_details_new_' + 'change_adaptability').val();
+		_localCollectedData['contact_status'] = $('#ads_relationships_details_new_' + 'contact_status').val();
+		_localCollectedData['our_status_in_relation'] = $('#ads_relationships_details_new_' + 'our_status_in_relation').val();
+	}
+	else {
+		// each row cell has id = "ads_relationships_details_...field..._...detail_item._pk..."
+		_localCollectedData['name'] = $('#ads_relationships_details_' + 'name' + '_' + rec_pk).val();
+		_localCollectedData['position'] = $('#ads_relationships_details_' + 'position' + '_' + rec_pk).val();
+		_localCollectedData['change_adaptability'] = $('#ads_relationships_details_' + 'change_adaptability' + '_' + rec_pk).val();
+		_localCollectedData['contact_status'] = $('#ads_relationships_details_' + 'contact_status' + '_' + rec_pk).val();
+		_localCollectedData['our_status_in_relation'] = $('#ads_relationships_details_' + 'our_status_in_relation' + '_' + rec_pk).val();
+	}
+	return _localCollectedData
+}
+
+
+//*--- process new form data entried data
+//
+function relationships_details_ProcessNewFormData(returnState) {
+	if (! returnState) { // hide form and leave it
+		snackbar('error', 'Operation cancelled...', 8000);
+		$('#ads_relationships_new_data_form').hide();
+		return false
+	}
+	// collet data entried
+	_localCollectedData = relationships_details_CollectData();
+	// request for save
+	$.ajax({
+		async: true,
+		url: ads_relationships_details_api_post_route + local_ads_relationships_pk,
+		type: 'POST',
+		crossDomain: true,
+		contentType: 'application/json',
+		processData: false,
+		dataType: 'json',
+		data:  JSON.stringify(_localCollectedData),
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Relationships Detail successfully saved', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at saving ADS Relationships Detail...', 8000);
+			return false;
+		},
+	});
+	// hide form and reload page
+	$('#ads_relationships_new_data_form').hide();
+	location.reload();
+	return true
+}
+
+
+//*-- collect entered data - return a dictionary with that data
+//
+function relationships_details_NEW_record() {
+	// empty form
+	relationships_details_EmptyNewEntryForm();
+	// go to first item on form
+	$('#ads_relationships_details_new_name').focus();
+	// show form
+	$('#ads_relationships_new_data_form').show();
+}
+
+
+//*-- empty the new data entry form
+//
+function relationships_details_EmptyNewEntryForm() {
+	$('#ads_relationships_details_new_name').val('');
+	$('#ads_relationships_details_new_position').val('');
+	$('#ads_relationships_details_new_change_adaptability').val('');
+	$('#ads_relationships_details_new_contact_status').val('');
+	$('#ads_relationships_details_new_our_status_in_relation').val('');
+}
+
+
+//*--- save a record after edit
+//
+function relationships_details_SAV_record(rec_pk) {
+	// select the parent of parent which is <tr> for "in subject" record
+	let _localCollectedData = {};
+	_localCollectedData = relationships_details_CollectData(rec_pk);
+	// request for save
+	$.ajax({
+		async: true,
+		url: ads_relationships_details_api_post_route + local_ads_relationships_pk + '/' + rec_pk,
+		type: 'POST',
+		crossDomain: true,
+		contentType: 'application/json',
+		processData: false,
+		dataType: 'json',
+		data:  JSON.stringify(_localCollectedData),
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Relationships Detail successfully saved', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at saving ADS Relationships Detail...', 8000);
+			return false;
+		},
+	});
+}
+
+
+//*--- delete a record
+//
+function relationships_details_DEL_record(rec_pk, rec_name) {
+	let _resp = confirm('Are you sure you want to delete record with name: ' + rec_name + ' ?');
+	if (! _resp) {
+		snackbar('error', 'Operation cancelled...', 8000);
+		return false;
+	}
+	//
+	// request for delete
+	$.ajax({
+		async: true,
+		url: ads_relationships_details_api_delete_route + rec_pk,
+		type: 'DELETE',
+		crossDomain: true,
+		success: function(response_data, txtStatus) {
+			if (txtStatus. includes('success')) {
+				snackbar('success', 'ADS Relationships Detail successfully deleted', 8000);
+				location.reload();
+			}
+			return true;
+		},
+		error: function() {
+			snackbar('error', 'ERROR at deleting ADS Relationships Detail...', 8000);
+			return false;
+		},
+	});
+	return true
+}
+
+
+//*--- activate button Save for table record (row) with specified PK
+//
+function relationships_details_activate_save_butt(rec_pk) {
+	$('#sav_button_relationships_' + rec_pk).removeAttr('disabled');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
