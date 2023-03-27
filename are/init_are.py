@@ -1,14 +1,14 @@
 #
 # copyright (C) 2023 RENware Software Systems
 # ==========================================
-# initialize ADS component
+# initialize CRUD data component
 # author: Petre Iordanescu
 #
 
 import os, sys
 
 
-def init_ads(app = None):
+def init_are(app = None):
     if not app:
         #* get app from Commons
         from commons.commons import Commons
@@ -18,7 +18,7 @@ def init_ads(app = None):
             sys.exit(1)
 
     # import routes
-    from ads import ads_main
+    from are import are_main
 
     # tbd... other stuff
     ...

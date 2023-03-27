@@ -7,7 +7,7 @@
 
 
 import os, sys
-import json, datetime, requests, pathlib
+import json, datetime, pathlib
 from flask import render_template, render_template_string, redirect, url_for, send_from_directory, request, jsonify, abort, url_for
 from data_models.salesproject_data_models import SalesProject
 from data_models.salesproject_form_models import SalesProjectForm
@@ -33,33 +33,9 @@ if not app:
     sys.exit(1)
 
 
-#TODO (OPISS.001) integration variables / constants
-#!====================================================================================================
-#! should be fetched from Commons (these should be converted to objects and used accordingly in module)
-#!      - ORM_object_name = SalesProject - is the name of **ORM** data object
-#!      - FORM_object_name = SalesProjectForm - is the name of **FORM** data object used to add / edit data
-#* locally calculated (not subject of Commons but listed for latter documentation)
-#*      - PHY_object_name = salesproject - is the name of **physical** data object (physical table name) used in "routes and functions" name
-#*        it is obtained by lowercase(ORM_object_name)
-#*      - page_title - representing the page title and data form header
-#*        it is calculated by inserting space before an upper letter in ORM_object_name
-#*        followed by a constant string -administration or Data Form - this append being hard coded in HTML template because this is known what is good for
-#!====================================================================================================
-ORM_object_name = 'SalesProject'
-FORM_object_name = 'SalesProjectForm'
-page_title = ''.join(' ' + char if char.isupper() else char.strip() for char in ORM_object_name).strip()
-PHY_object_name = ORM_object_name.lower() #!# route names should have it as parameter / OK.DONE \: [AJAX route sent to DataTable also obtain itt as as string]
-#!====================================================================================================
 
-
-
-
-
-
-
-
-
-
+# global vars used by more functions
+page_title = 'Sales Projects'
 
 
 
@@ -72,16 +48,21 @@ PHY_object_name = ORM_object_name.lower() #!# route names should have it as para
 def crud_data_form(operation_or_pk):
     """
     Description:
-    =============================
+    ============
         - route for FORM data handling assuring specific CRUD DATA ADMIN operation and masking general system API (provided in data_models)
         - act as a proxy for data operations when user makes use of table action buttons (New, Edit, Delete)
+
     Methods & operations:
-    =============================
-        - GET: will try to find record with PK identified by parameter and return it otherwise return 404
-        - DELETE: will delete the record with PK identified by parameter and return result of operation
-        - POST: will treat http body as standard HTML POST request and do depending on parameter values:
-            - *form_op_new* an insertion (new record data entered)
-            - *form_op_edit* an updating (existeing record data changed)
+    =====================
+        - `GET`: will try to find record with PK identified by parameter and return it otherwise return 404
+        - `DELETE`: will delete the record with PK identified by parameter and return result of operation
+        - `POST`: will treat http data as FORM DATA (using `request.form`) and do depending on parameter values:
+            - `form_op_new` an insertion (new record data entered)
+            - `form_op_edit` an updating (existeing record data changed)
+
+    Where used:
+    ===========
+        mainly in UI javaScript code to manipulate new/edit record HTML form
     """
     #
     #* ------------------------------------------------------ GET method
@@ -168,8 +149,6 @@ def crud_data_form(operation_or_pk):
 
 
 
-
-
 #*---------------------------------------------------------------------------------
 #*----- TABLE-RT [table data endpoint - data provider] (see component README for details)
 #*---------------------------------------------------------------------------------
@@ -177,10 +156,10 @@ import data_models.salesproject_api_models
 #TODO ROADMAP.RMAP.000 login-protect route
 @app.route('/crud_table_data_feeder/salesproject')
 def crud_data_feeder(): # act as a proxy for data
-    """ Data Table data endpoint - AJAX data provider for:
+    """ jQuery DataTable data endpoint - act as a router between jQuery request and real API for SalesProject object for:
         - all data (actual functionality)
-        - server side filtered data (future functionality #TODO - ROADMAP.001)
-        - server side search data (future functionality #TODO - ROADMAP.001)
+        - server side filtered data (future functionality #TODO RMAP.001 - CRUD Data Table server side filtering and search)
+        - server side search data (future functionality #TODO RMAP.001 - CRUD Data Table server side filtering and search)
     Returns:
         - dict(list(dict)) with data as required (see component README doc for details)
     """
@@ -203,8 +182,8 @@ def crud_admin_builder():
         - visible should be YES for show aler box or anything else not show
     """
     ajax_options = {
-        "ajax_url": '/crud_table_data_feeder/' + PHY_object_name, # specifies ajax URL where to load data (obtained by calculating from crud admin parameters)
-        "run_at_server_side": 'false' # server side processing is future functionlity @ #TODO - ROADMAP.001
+        "ajax_url": '/crud_table_data_feeder/salesproject', # specifies ajax URL where to load data (obtained by calculating from crud admin parameters)
+        "run_at_server_side": 'false' # server side processing is future functionlity @ #TODO RMAP.001 - CRUD Data Table server side filtering and search
     }
     # build DataTable script ajax options use get_data(only_keys=True) just for getting keys which are column names
     _data_dictionary_sample = get_data(only_keys=True)
@@ -286,8 +265,9 @@ def get_data(only_keys=None):
         _tmp_row_edt = f'<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#neweditform" data-oper="EDIT" data-recpk="{_row_pk}" style="margin:2px;">EDT</button>'
         _tmp_row_del = f'<button type="button" class="btn btn-danger btn-sm" onclick="delete_data_row(\'{_row_pk}\')" style="margin:2px;">DEL</button>'
         _tmp_row_ads = f'<a class="btn btn-warning btn-sm" role="button" href="/ads?sales_project_pk={_row_pk}" style="margin:2px;">ADS</a>'
-        #TODO: impelement RMAP.002 (new actions button here)
-        _tmp_row['actions'] = _tmp_row_edt + ' ' + _tmp_row_del + ' ' + _tmp_row_ads
+        _tmp_row_are = f'<a class="btn btn-warning btn-sm" role="button" href="/are?sales_project_pk={_row_pk}" style="margin:2px;">ARE</a>'
+        #TODO RMAP.002 - Sales Projects administration, UI align to standard practices
+        _tmp_row['actions'] = _tmp_row_edt + ' ' + _tmp_row_del + ' ' + _tmp_row_ads + ' ' + _tmp_row_are
         # add RowId column
         _tmp_row['DT_RowId'] = _row_pk
     #

@@ -1,0 +1,274 @@
+{% extends "base/_base01_jinja.html" %}
+
+
+
+{% block content %}
+
+<!-----------------------------------------[ main TABLE code ]--------------------------------------------------->
+<div class="container p-1">
+
+    <!--- (i1) zone / title and Sales Project ------------>
+    <h1>{{ page_title }}</h1>
+    {% if (are_general_data is defined) and (sales_project_pk != 'unknown') %}
+        <h5 id="sales_project_id">... project loading ...</h5>
+    {% else %}
+        <h5 id="sales_project_id">unknown Sales Project</h5>
+    {% endif %}
+
+
+    <!--- (i3) zone / actions //!#FIXME consider to DROP as useless in ARE (@230324 copied from ADS)
+    <div id="are_actions_area" class="float-right">
+        <button id="are_save_button" onclick="save_are_all_data('{{ sales_project_pk }}')" type="button" class="btn btn-primary">Save</button>
+        <button id="are_revert_button" onclick="revert_page()" type="button" class="btn btn-secondary">Revert</button>
+    </div>
+    ---------------------------->
+
+
+
+    <div class="row"> <!--//? START of ARE principal navigation and content area -->
+
+        <!--- navigation area of ARE  ------------>
+        <div class="col-2 border">
+            <ul id="are_nav_area" class="nav nav-pills flex-column">
+                <li class="nav-item active">
+                    <a class="nav-link active" data-toggle="tab" href="#are_general_data_tab">General data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#are_evaluation_tab">Evaluation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#are_org_map_tab">Organization map</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#are_revenue_tab">Revenue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#are_relationships_tab">Relationships approach</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#are_solution_tab">Solution</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#are_decision_criteria_tab">Decision criteria</a>
+                </li>
+            </ul>
+        </div>
+
+        <!--- content of ARE business domains -------------------------------------->
+        <div class="col">
+            <div id="are_content_area" class="tab-content px-2">
+
+                <!-------- ADS business domain: General data -->
+                <div id="are_general_data_tab" class="tab-pane fade in show active">
+                    <h6 class="float-right border-bottom py-2">General data</h6><br>
+                    {{ are_general_data|safe }}
+                </div>
+
+                <!-------- ADS busines domain: Evaluation -->
+                <div id="are_evaluation_tab" class="tab-pane fade">
+                    <h6 class="float-right border-bottom py-2">Evaluation</h6><br>
+                    {{ are_evaluation|safe }}
+                </div>
+
+                <!-------- ADS busines domain: ----- Organization map -->
+                <div id="are_org_map_tab" class="tab-pane fade">
+                    <h6 class="float-right border-bottom py-2">Organization map</h6><br>
+                    {{ are_org_map|safe }}
+                </div>
+
+                <!-------- ADS busines domain: Revenue -->
+                <div id="are_revenue_tab" class="tab-pane fade">
+                    <h6 class="float-right border-bottom py-2">Revenue</h6><br>
+                    {{ are_revenue|safe }}
+                </div>
+
+                <!-------- ADS busines domain: ----- Relationships approach -->
+                <div id="are_relationships_tab" class="tab-pane fade">
+                    <h6 class="float-right border-bottom py-2">Relationships approach</h6><br>
+                    {{ are_relationships|safe }}
+                </div>
+
+                <!-------- ADS busines domain: ----- Solution -->
+                <div id="are_solution_tab" class="tab-pane fade">
+                    <h6 class="float-right border-bottom py-2">Solution</h6><br>
+                    {{ are_solution|safe }}
+                </div>
+
+                <!-------- ADS busines domain: ----- Decision criteria -->
+                <div id="are_decision_criteria_tab" class="tab-pane fade">
+                    <h6 class="float-right border-bottom py-2">Decision criteria</h6><br>
+                    {{ are_decision_criteria|safe }}
+                </div>
+
+            </div>
+        </div>
+
+    </div> <!--//? END of ARE principal navigation and content area -->
+
+
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+{% block body_level_custom_scripts %}
+
+<script>
+    //*--------------------------------------------- INITIALIZERS & GLOBAL DATA --------------------------------------------------
+    //
+    //*--- API routes
+    let sales_project_pk = '{{ sales_project_pk }}';
+    let sales_project_api_get_route = '/api/salesproject/';
+    //
+    let sales_project_info = {
+        code: '',
+        _disabled: true
+    };
+    //
+
+    //----------------------------------------------------------------------------------------
+    //*--- do as first steps after page loading
+    //
+    $(document).ready(function () {
+        init_page();
+    })
+
+
+
+    //----------------------------------------------------------------------------------------
+    //*--- initailize the page (issue 230117piu_a)
+    //
+    function init_page() {
+        // mark project as loading
+        $('#sales_project_id').text('... project loading ...');
+        //
+        // suppose Sales Project as not specified up to "detect" its pk
+        sales_project_info = {
+            code: '',
+            _disabled: true
+        };
+        //!#FIXME_possible_obsolete_as_no_edit_in_page page_dirty = false;
+        //
+        // call to initialize data as required
+        get_sales_project(sales_project_pk);
+        if (sales_project_info._disabled) {
+            // process stops here, project being non-existent or disabled
+            return false;
+        }
+        //!#FIXME next line where used to oad are data - please see how is needed for ARE and update it
+        //!#FIXME_update_for_are get_are_all_data(sales_project_pk);
+        //
+        // mark page as clean //!#FIXME_possible_obsolete_as_no_edit_in_page 
+        //!#FIXME_possible_obsolete_as_no_edit_in_page mark_page_dirty(false);
+    }
+
+
+
+
+    //
+    //*--- get Sales Project data
+    //
+    function get_sales_project(sales_project_pk) {
+        /* --- load requeste Sales Project data (code and if is enabled)
+        --- */
+        let ret_value = $.ajax({
+            async: false,
+            url: sales_project_api_get_route + sales_project_pk,
+            success: function(result) {
+                // if length of data is null or is undefined return as sales project unknown
+                if ((result.data === undefined) || (result.data.length <= 0)) {
+                    sales_project_info = {
+                        code: '',
+                        _disabled: true
+                    };
+                    // HERE NO PROJECT WAS SPECIFIED, so init and empty page in case if client browser is "moving too slow"
+                    $('#sales_project_id').text('unknown project');
+                    // hide are_nav_area, are_tabs_area and are_actions_area areas ...
+                    $('#are_nav_area').hide();
+                    $('#are_content_area').hide();
+                    $('#are_actions_area').hide();
+                    // alert user ref redirecting and user will be redirected to page /crud_admin/salesproject
+                    alert('A sales project for requested PK was not found. YOU WILL BE REDIRECTED TO CHOOSE ONE.');
+                    window.location.replace('/crud_admin/salesproject');
+                    return sales_project_info;
+                }
+                // set page zone (i1) - title and Sales Project area ONLY if sales project is enabled
+                sales_project_info.code = result.data[0].code;
+                sales_project_info._disabled = result.data[0]._disabled;
+                if (sales_project_info._disabled == false) {
+                    $('#sales_project_id').text('for ' + sales_project_info.code + ' project');
+                    // show are_nav_area, are_tabs_area and are_actions_area areas ...
+                    $('#are_nav_area').show();
+                    $('#are_content_area').show();
+                    $('#are_actions_area').show();
+                } else {
+                    sales_project_info = {
+                        code: '',
+                        _disabled: true
+                    };
+                    $('#sales_project_id').text('project disabled');
+                    // hide are_nav_area, are_tabs_area and are_actions_area areas ...
+                    $('#are_nav_area').hide();
+                    $('#are_content_area').hide();
+                    $('#are_actions_area').hide();
+                }
+                return sales_project_info;
+            },
+            error: function(result) {
+                snackbar('info', 'A sales project for requested PK was not found', 8000);
+                sales_project_info = {
+                    code: '',
+                    _disabled: true
+                };
+                // set page zone (i1) - title and Sales Project area
+                $('#sales_project_id').text('unknown project');
+                return sales_project_info;
+            }
+        });
+        return ret_value;
+    }
+
+
+    //
+    //*--- convert UTC date string to local time zone
+    //
+    function convertUTCDateToLocalDate(me, date) {
+        date = new Date(date_string_you_received); // convert string to date
+        //
+        var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+        //
+        var offset = date.getTimezoneOffset() / 60;
+        var hours = date.getHours();
+        newDate.setHours(hours - offset);
+        // set 'me' object to newDate
+        alert('date as loal is: ' + newDate); //!#FIXME drop me
+        $(me).val(newDate);
+        return newDate;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+{% endblock %}
+
+
+
+
+
+

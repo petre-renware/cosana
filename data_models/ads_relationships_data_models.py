@@ -39,9 +39,9 @@ else:
 #
 # ads_relationships
 #   note: - _pk and audit columns come from BaseInfoMixin
-#TODO -  OPISS.004 - history table
 # ============================================
 class ads_relationships(BaseModel, BaseInfoMixin):
+    __versioned__ = {} # activate data hostory and versioning mechanism of SQLAlchemy Continuum
     __tablename__ = 'ads_relationships'
 
     sales_project_fk = sa.Column(sa.String(36), sa.ForeignKey('salesproject._pk', ondelete='CASCADE', onupdate='CASCADE'), nullable=False, unique=True, index=True)
@@ -99,9 +99,9 @@ class ads_relationships(BaseModel, BaseInfoMixin):
 #
 # ads_relationships_details
 #   note: - _pk and audit columns come from BaseInfoMixin
-#TODO -  OPISS.004 - history table
 # ============================================
 class ads_relationships_details(BaseModel, BaseInfoMixin):
+    __versioned__ = {} # activate data hostory and versioning mechanism of SQLAlchemy Continuum
     __tablename__ = 'ads_relationships_details'
 
     ads_relationships_fk = sa.Column(sa.String(36), sa.ForeignKey('ads_relationships._pk', ondelete='CASCADE', onupdate='CASCADE'), nullable=False, index=True)

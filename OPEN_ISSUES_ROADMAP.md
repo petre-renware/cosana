@@ -4,8 +4,8 @@
 
 <small>
 
-* Version: 0.10.0
-* Last update: 230320
+* Version: 0.11.0
+* Last update: 230324
 </small>
 
 ***
@@ -15,85 +15,54 @@
 # Open Issues (OPISS)
 
 
-## **CLOSED** OPISS.007 - ADS scoring for Relationships approach
+## **CLOSED @230320** OPISS.007 - ADS scoring
 
 * *Severity level:* high
-* *Synopsis:* calculation of ***current score*** seems to be wrong but I am not sure... please make a business scenario
-* *Location:* `/data_models/ads_relationships_data_models.py`, function `xxx`, code marker to search for `FIXME here something seems to be wrong but I am not sure... please make a business scenario`
-* *Indications:*
-    * a business scenario for a consistent & more coherent test should be made
-    * check if Organization Map (where is derived MAXIMUM score for in subject bss domain: Relationships Approach) is completed as core / progress as ***if Organization Map is not completed, THERE IS NO WAY TO COMPLETE Relationships Approach***
+* *Status:* IMPLEMENTED, delivered in **0.10.0-070**
 
 
 
-## OPISS.006 - ADS business domains introduce Bootstrap standard *validation for required fields*
+## OPISS.006 - ADS Review activate Bootstrap standard *validation for required fields*
 
 * *Severity level:* nice to have
 * *Synopsis:* changing all ADS business domains to "a big form" to ce able to introduce Bootstrap standard *validation for required fields*
+* *Target component:* `ads`
 
 
 
-## OPISS.005 - `crud_data_admin` error when save a new sales project
+## **CLOSED @23032x08** OPISS.005 - `crud_data_admin` error when save a new sales project
 
 * *Severity level:* up to first implementation is ASAP, after is **CRITICAL**
-* *Synopsis:* when try to create a new record and DB (table `salesproject`) is completely empty, in `crud_data_admin/crud_data_admin_main.py` ref code:
-
-    ```
-    #* common part regardless of new / edit operation: call view function of DEF-RT, send it form status to be shown as alert on rendered page
-            _redirect_url = url_for('crud_admin_builder',
-                                    visible = _op_status['visible'],
-                                    pk = _op_status['pk'],
-                                    code = _op_status['code'])
-    ```
-
-    raise error:
-
-    ```
-    File "/mnt/d/_T0_PROJECTS/0000-0128 COSANA Comprehensive Sales Analysis Review/830-DEV/crud_data_admin/crud_data_admin_main.py", line 157, in crud_data_form
-        visible = _op_status['visible'],
-    UnboundLocalError: local variable '_op_status' referenced before assignment
-    ```
+* *Synopsis:* when try to create a new record and DB (table `salesproject`) is completely empty, in `crud_data_admin/crud_data_admin_main.py`
+* *Status:* FIXED, delivered in **0.9.0-066**
 
 
 
-## OPISS.004 - history table
+## **CLOSED @230323** OPISS.004 - history tables
 
 * *Severity level:* nice to have
-* *Synopsis:* all `ads` objects should have a history; can be a simple descriptive or more complex that allow for revert but should be
-* *Implementation steps:*
-    * use package `xxx`
-    * all tables / objects inherit an attribute `__versioned__ = {}` (already derived from `BaseInfoMixin()` base class, otherwise should be manually add)
-    * initialize `SQLAlchemy Continuum` package at end af *data models* initialization by `sa.orm.configure_mappers()`
+* *Status:* IMPLEMENTED, delivered in **0.11.0-071**
 
 
-## **CLOSED** RMAP.000 - moved to RMAP.000
+## **OBSOLETE @230322** OPISS.001 - `crud_data_admin` functionality of SalesProject generalization for other master data objects
 
 
-## OPISS.001 - `crud_data_admin` functionality of SalesProject generalization steps
-
-* *Severity level:* not important, maybe nice to have
-* crud admin init - make a "big" function as wrapper (imitate a class)
-
-* `data_models`component should have an *init* file that publish in Commons under key <DATA_OBJECT_NAME> a dict with this sample:
-
-```
-{
-    'class_name': 'SalesProject',
-    'table_name': 'salesproject',
-    'data_api_url': '/api/salesproject',
-    'crud_url': '/crud_admin/salesproject',
-    'ajax_feeder_url': '/crud_table_data_feeder/salesproject'
-}
-```
-
-* `crud_data_admin` component *init* should take from Commons (key <DATA_OBJECT_NAME>) to build "UI administrators" callable from main menu / navbar
-
-
+## **CLOSED @230322** OPISS.000 - moved to OPISS.001
 
 
 
 
 # Roadmap (RMAP)
+
+
+## RMAP.009 - System health check functionality
+
+* Objective: make a system DATA health check
+* Implementation: -
+* Location:
+    * server-side: in `health_check` component as separated module-file
+    * client-side: NOT YET DEFINED
+* Status info: open [piu]@@230324
 
 
 ## RMAP.008 - System configuration functionality
@@ -103,12 +72,12 @@
 * Location:
     * server-side: in `sys_core` component as separated module-file
     * client-side: NOT YET DEFINED
-* Status info: open [piu]@230315, updated [piu]@230315
+* Status info: open [piu]@230315
 
 
-## RMAP.007 - ADS Decision Criteria save all function
+## RMAP.007 - ADS Decision Criteria "save all" feature
 
-* Objective: save all functionality for all DETAIL level add / changed records
+* Objective: "save all" functionality for all DETAIL level add / changed records
 * Implementation:
     * function should be written in `ads_decision_criteria.html` in specific scripts section and called by `ads_start_page.html` function `get_new_ads_decision_criteria()`
     * optional, the API should be updated to implement a *bulk save* or use existing save in a for loop record-by-record
@@ -116,9 +85,9 @@
 * Status info: open [piu]@230302, updated [piu]@230302
 
 
-## RMAP.006 - ADS Solution save all function
+## RMAP.006 - ADS Solution "save all" feature
 
-* Objective: save all functionality for all DETAIL level add / changed records
+* Objective: "save all" functionality for all DETAIL level add / changed records
 * Implementation:
     * function should be written in `ads_solution.html` in specific scripts section and called by `ads_start_page.html` function `get_new_ads_solution()`
     * optional, the API should be updated to implement a *bulk save* or use existing save in a for loop record-by-record
@@ -126,9 +95,9 @@
 * Status info: open [piu]@230222, updated [piu]@@230222
 
 
-## RMAP.005 - ADS Relationships Approach save all function
+## RMAP.005 - ADS Relationships Approach "save all" feature
 
-* Objective: save all functionality for all DETAIL level add / changed records
+* Objective: "save all" functionality for all DETAIL level add / changed records
 * Implementation:
     * function should be written in `ads_relationships.html` in specific scripts section and called by `ads_start_page.html` function `get_new_ads_relationships()`
     * optional, the API should be updated to implement a *bulk save* or use existing save in a for loop record-by-record
@@ -136,9 +105,9 @@
 * Status info: open [piu]@230222, updated [piu]@@230222
 
 
-## RMAP.004 - ADS Organization Map save all function
+## RMAP.004 - ADS Organization Map "save all" feature
 
-* Objective: save all functionality for all DETAIL level add / changed records
+* Objective: "save all" functionality for all DETAIL level add / changed records
 * Implementation:
     * function should be written in `ads_org_map.html` in specific scripts section and called by `ads_start_page.html` function `get_new_ads_org_map()`
     * optional, the API should be updated to implement a *bulk save* or use existing save in a for loop record-by-record
@@ -147,7 +116,7 @@
 
 
 
-## RMAP.003 - ADS scoring
+## **CLOSED @230320** RMAP.003 - ADS scoring
 
 * Objective: construct and maintain a **scoring** for ADS. Scoring is documented in [`ads/README_ads.md`](ds/README_ads.md)
 * Implementation:
@@ -159,14 +128,14 @@
 * Status info: open [piu]@230119, updated [piu]@230121
 
 
-## RMAP.002 - CRUD Data Table server side filtering and search
+## RMAP.002 - Sales Projects administration, UI align to standard practices
 
 * Objective: CRUD admin Data table interface improvements
 * Location: `APP_ROOT/>crud_data_admin/crud_data_admin_main.py` function `get_data(only_keys=None)` add a general action button for all supplementary actions imitating standardized interface: DASHES button or 3 horizontal LINE or WHEEL button (in fact acts like a dropdown)
 * Status info: open [piu]@230104
 
 
-## RMAP.001 - CRUD Data Table server side filtering and search
+## **OBSOLETE @230322** RMAP.001 - CRUD Data Table server side filtering and search
 
 * Objective: Data Table data endpoint - AJAX data provider - build functionalities for *server side data filtering* and *server side data search*
 * Location: `APP_ROOT/>crud_data_admin/crud_data_admin_main.py` function `crud_data_feeder()` (view function of route `/crud_table_data_feeder/salesproject`)

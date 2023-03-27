@@ -1,0 +1,28 @@
+
+<!--//!#FIXME need bss domain PK here? will see latter -->
+
+
+<!-- summary zone -->
+<h6>Summary</h6>
+<ul>
+    <li>Score {{ general_data_summary_info['score']['crt_score'] }} of {{ general_data_summary_info['score']['max_score'] }}</li>
+    <li>Last updated on (UTC time): {{ general_data_summary_info['fmt_updated_at'] }}
+        <small><a onclick="xxx" class="badge badge-dark">show local time</a></small> <!--//!#FIXME_use_function `convertUTCDateToLocalDate` to_convert_to_local_time -->
+    </li>
+</ul>
+
+<!-- charts zone -->
+<!--//!#FIXME construct the 3 charts according to README specs -->
+<h6>Last 10 days activity chart</h6>
+<img src="{# #FIXME {{ url_for(...are_general_data_10d_chart...) }} #}" class="img-fluid" alt="10 days chart"> <!--//!#FIXME set Jinja updated name -->
+<h6>Last 30 days activity chart</h6>
+<img src="{# #FIXME {{ url_for(...are_general_data_30d_chart...) }} #}" class="img-fluid" alt="30 days chart"> <!--//!#FIXME set Jinja updated name -->
+<h6>All project activity chart</h6>
+<img src="{# #FIXME {{ url_for(...are_general_data_full_chart...) }} #}" class="img-fluid" alt="full activity chart"> <!--//!#FIXME set Jinja updated name -->
+
+
+<!--//!#FIXME explanations:
+//! --- is important to use url_for for images to call route which crete them at each rerfesh / page loading
+//! --- 
+-->
+
