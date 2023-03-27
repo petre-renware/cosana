@@ -21,7 +21,7 @@
 <small>With (B) are marked those entries that are **BUG FIXES** so should be highlighted on *Release Note* documents.</small>
 
 
-## 0.11.0 - ARE Account Review and Evaluation and Data history features
+## 0.11.0 - Data history features & ARE General data business domain
 
 ### 074.wip
 
