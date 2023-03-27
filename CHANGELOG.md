@@ -23,7 +23,7 @@
 
 ## 0.11.0 - ARE Account Review and Evaluation and Data history features
 
-### 073.wip
+### 074.wip
 
 * wip...
 * ...reference... graphical data proposal is to use [`mathplot`](https://matplotlib.org/), for [dates axis see](https://www.tutorialspoint.com/how-to-show-date-and-time-on-the-x-axis-in-matplotlib), also [quick examples on w3schools](https://www.w3schools.com/python/matplotlib_getting_started.asp)
@@ -31,6 +31,8 @@
 * tbd... set each HTML ARE page with 3 `img` tags and src as `url_for(...)` and design route to return file with `send_from_directory(..., file=...)`
 * tbd... summary info at beginning of eah ARE domain: score current of maxim, last update of domain (max, regardless of details and structure of database info)
 
+
+### 073.alpha (230327 19:40)
 
 * 230327piu_d convert last update date to local time by using a small button next to corresponding displayed info
 * 230327piu_c ARE `general_data` bss domain - *summary zone* preserved `_updated_at` field and send formatted date in `fmt_updated_at`, both as UTC time zone
