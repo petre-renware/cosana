@@ -31,8 +31,8 @@
 * tbd... set each HTML ARE page with 3 `img` tags and src as `url_for(...)` and design route to return file with `send_from_directory(..., file=...)`
 * tbd... summary info at beginning of eah ARE domain: score current of maxim, last update of domain (max, regardless of details and structure of database info)
 
-* tdb_230327(1)... convert last update date to local time (left a comment and a clickable badge in ads_general_data)
 
+* 230327piu_d convert last update date to local time by using a small button next to corresponding displayed info
 * 230327piu_c ARE `general_data` bss domain - *summary zone* preserved `_updated_at` field and send formatted date in `fmt_updated_at`, both as UTC time zone
 * 230327piu_b ARE `general_data` bss domain - *summary zone* convert last updated date to a more readable humanized format
 * 230327piu_a ARE `general_data` bss domain - get *summary zone* data: last updated date and score info

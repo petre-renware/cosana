@@ -6,8 +6,8 @@
 <h6>Summary</h6>
 <ul>
     <li>Score {{ general_data_summary_info['score']['crt_score'] }} of {{ general_data_summary_info['score']['max_score'] }}</li>
-    <li>Last updated on (UTC time): {{ general_data_summary_info['fmt_updated_at'] }}
-        <small><a onclick="xxx" class="badge badge-dark">show local time</a></small> <!--//!#FIXME_use_function `convertUTCDateToLocalDate` to_convert_to_local_time -->
+    <li id="are_general_data_fmt_updated_at">Last updated on (UTC time): {{ general_data_summary_info.fmt_updated_at }}
+        <small><a onclick="convertUTCDateToLocalDate('#are_general_data_fmt_updated_at', '{{ general_data_summary_info.fmt_updated_at }}')" class="badge badge-dark">show local time</a></small>
     </li>
 </ul>
 

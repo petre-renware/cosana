@@ -237,17 +237,18 @@
     //
     //*--- convert UTC date string to local time zone
     //
-    function convertUTCDateToLocalDate(me, date) {
-        date = new Date(date_string_you_received); // convert string to date
+    function convertUTCDateToLocalDate(me, utc_date) { //!#FIXME document this function
+        let date_utcDate = new Date(utc_date); // convert string to date
         //
-        var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+        let newDate = new Date(date_utcDate.getTime() + date_utcDate.getTimezoneOffset() * 60 * 1000);
         //
-        var offset = date.getTimezoneOffset() / 60;
-        var hours = date.getHours();
+        var offset = date_utcDate.getTimezoneOffset() / 60;
+        var hours = date_utcDate.getHours();
         newDate.setHours(hours - offset);
+        newDate = newDate.toString();
+        newDate = 'Last updated on: ' + newDate; //prefix with name of info
         // set 'me' object to newDate
-        alert('date as loal is: ' + newDate); //!#FIXME drop me
-        $(me).val(newDate);
+        $(me).text(newDate);
         return newDate;
 }
 
