@@ -8,7 +8,7 @@
 <small>
 
 * Version: 0.11.0
-* Last update: 230327
+* Last update: 230328
 </small>
 
 ***
@@ -28,13 +28,18 @@
 * wip...
 * ...reference... graphical data proposal is to use [`mathplot`](https://matplotlib.org/), for [dates axis see](https://www.tutorialspoint.com/how-to-show-date-and-time-on-the-x-axis-in-matplotlib), also [quick examples on w3schools](https://www.w3schools.com/python/matplotlib_getting_started.asp)
 
-* tbd... set each HTML ARE page with 3 `img` tags and src as `url_for(...)` and design route to return file with `send_from_directory(..., file=...)`
+* tbd... ARE page with 3 `img` tags and src as `url_for(...)` and design route to return file with `send_from_directory(..., file=...)`
 * tbd... summary info at beginning of eah ARE domain: score current of maxim, last update of domain (max, regardless of details and structure of database info)
+
+* 230328piu_a ARE initialized charts area:
+    - created HTML zone and tags for accommodate the 3 charts, "titled" them accordingly: *Last 10 days chart*, *Last 30 days chart*, *All project activity chart*
+    - route for generating `are_main.py` initialized, commented specs
+    - updated ARE README specs with written helper functions and charts generating function (URL: `/are_chart/...business_domain.../...chart_type...`, view function: `are_chart(...)`)
 
 
 ### 073.alpha (230327 19:40)
 
-* 230327piu_d convert last update date to local time by using a small button next to corresponding displayed info
+* 230327piu_d ARE convert last update date to local time by using a small button next to corresponding displayed info
 * 230327piu_c ARE `general_data` bss domain - *summary zone* preserved `_updated_at` field and send formatted date in `fmt_updated_at`, both as UTC time zone
 * 230327piu_b ARE `general_data` bss domain - *summary zone* convert last updated date to a more readable humanized format
 * 230327piu_a ARE `general_data` bss domain - get *summary zone* data: last updated date and score info

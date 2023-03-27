@@ -6,7 +6,7 @@
 
 * Code name: `are`
 * Version: 0.11.0
-* Last update: 230326
+* Last update: 230328
 </small>
 
 **Account Data Sheet (ADS) component**
@@ -73,15 +73,23 @@ This cde contains the following functions:
 
 * **`are_builder()`** ADS-RT [main route and UI builder] - load all detailed pages (specific content zones) HTML files and send them to client; also this function send summary data as Jinja for each business domain (score current, score maxim and max of last updated date of domain data)
 
-* **`are_chart(business_domain, chart_type)`** ADS-CHART [chart routes]  (see component README for details) - assure sending files with all charts data as jinja data; parameters specify the requested business domain and type of desired chart (from those listed here at *Business domain pages* section)
+* **`are_chart(business_domain, chart_type)`**
+    * ADS-CHART [chart routes]  (see component README for details) - assure sending files with all charts data as jinja data
+    * parameters specify the requested business domain and type of desired chart (from those listed here at *Business domain pages* section)
+    * URL to access it: `/are_chart/...business_domain.../...chart_type...`
 
 
 
 
+# Helper functions
 
+## `convertUTCDateToLocalDate`
 
-
-
+* signature: `convertUTCDateToLocalDate(me, utc_date)`
+* description: convert a ***string UTC date*** to ***string local time date*** and set as tet value for HTML `me` tag id
+* type: JavaScript function
+* location: `/are/are_start_page.html`
+* notes: `me` tag is supposed to be a "static" tag (p, h, ...) so its value is set using jQuery `text()` function
 
 
 

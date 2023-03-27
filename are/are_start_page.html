@@ -237,7 +237,7 @@
     //
     //*--- convert UTC date string to local time zone
     //
-    function convertUTCDateToLocalDate(me, utc_date) { //!#FIXME document this function
+    function convertUTCDateToLocalDate(me, utc_date) {
         let date_utcDate = new Date(utc_date); // convert string to date
         //
         let newDate = new Date(date_utcDate.getTime() + date_utcDate.getTimezoneOffset() * 60 * 1000);

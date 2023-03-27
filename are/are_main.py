@@ -142,6 +142,14 @@ def are_builder():
 @app.route('/are_chart/<business_domain>/<chart_type>')
 def are_chart(business_domain, chart_type):
     # check both parameters to be in allowe values as business domain and type of chart: last 10 days, last month, full activity
+    #
+    ''' the following graphs should be generated:
+            1. last 10 days** - for last 10 days of activity
+            2. last 30 days** - for last 30 days of activity
+            3. full activity
+        data will be get in full (for chart 3) the filtered to obtaind data for charts 1 & 2
+    '''
+    #
     # generate a filename as full path (using APP_ROOT from Commons)
     # get data for required chart type (do not forget, you make a chart with scores evolution in time, so just get data from first ads_* level)
     # generate chart as PNG file in `/tmp` directory
