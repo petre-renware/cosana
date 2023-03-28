@@ -26,14 +26,15 @@
 ### 074.wip
 
 * wip...
-* ...reference... graphical data proposal is to use [`mathplot`](https://matplotlib.org/), for [dates axis see](https://www.tutorialspoint.com/how-to-show-date-and-time-on-the-x-axis-in-matplotlib), also [quick examples on w3schools](https://www.w3schools.com/python/matplotlib_getting_started.asp)
 
-* tbd... ARE page with 3 `img` tags and src as `url_for(...)` and design route to return file with `send_from_directory(..., file=...)`
-* tbd... summary info at beginning of eah ARE domain: score current of maxim, last update of domain (max, regardless of details and structure of database info)
+* tbd... ARE generating charts route - get real data and make full period chart - then traverse data to retain 10 and 30 days data lists
 
+* 230328piu_b ARE route for generating charts `are_chart(...)`
+    - list of allowed domains ans chart types, parameters validation
+    - return a sample chart just for test - test PASSED
 * 230328piu_a ARE initialized charts area:
     - created HTML zone and tags for accommodate the 3 charts, "titled" them accordingly: *Last 10 days chart*, *Last 30 days chart*, *All project activity chart*
-    - route for generating `are_main.py` initialized, commented specs
+    - route for generating charts `are_main.py` initialized, commented specs
     - updated ARE README specs with written helper functions and charts generating function (URL: `/are_chart/...business_domain.../...chart_type...`, view function: `are_chart(...)`)
 
 

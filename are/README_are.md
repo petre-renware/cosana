@@ -75,8 +75,13 @@ This cde contains the following functions:
 
 * **`are_chart(business_domain, chart_type)`**
     * ADS-CHART [chart routes]  (see component README for details) - assure sending files with all charts data as jinja data
+    * * URL to access it: `/are_chart/...business_domain.../...chart_type...`
     * parameters specify the requested business domain and type of desired chart (from those listed here at *Business domain pages* section)
-    * URL to access it: `/are_chart/...business_domain.../...chart_type...`
+        * `business_domain` allowed values: `_allowed_business_domains = ['general_data', 'evaluation', 'revenue', 'org_map', 'relationships', 'solution', 'decision_criteria']`
+        * `chart_type` allowed values: `_allowed_chart_types = ['10_days', '30_days', 'full_period']`
+    * notes:
+        * `_business_domain_orm_object` local variable is 1:1 on same index with `_allowed_business_domains` and specify the ORM object that must be inquired for that business domain
+
 
 
 

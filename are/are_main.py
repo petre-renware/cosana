@@ -5,13 +5,14 @@
 # author: Petre Iordanescu
 #
 
-import os, sys
+import os, sys, uuid
 import json
 import pathlib
 from datetime import datetime
 import pendulum
 from flask import render_template, render_template_string, redirect, url_for, send_from_directory, request, jsonify, abort, url_for
 from data_models.salesproject_data_models import SalesProject
+import matplotlib.pyplot as plt
 from libutil.utils import genpk
 import pprint
 
@@ -58,7 +59,7 @@ def are_builder():
     #
     # --- START of businesses domains loading
     #
-    # render are_general_data.html
+    # render are_general_data
     _file = pathlib.Path(APP_ROOT + '/are/are_general_data.html')
     _str_of_are_template_html = _file.read_text()
     from data_models.ads_general_data_api_models import ads_general_data_api_get
@@ -142,6 +143,20 @@ def are_builder():
 @app.route('/are_chart/<business_domain>/<chart_type>')
 def are_chart(business_domain, chart_type):
     # check both parameters to be in allowe values as business domain and type of chart: last 10 days, last month, full activity
+    _allowed_business_domains = ['general_data', 'evaluation', 'revenue', 'org_map', 'relationships', 'solution', 'decision_criteria']
+    _allowed_chart_types = ['10_days', '30_days', 'full_period']
+    _business_domain_orm_object = ['ads_general_data', 'ads_evaluation', 'ads_revenue', 'ads_org_map', 'ads_relationships', 'ads_solution', 'ads_decision_criteria']
+    if (business_domain not in _allowed_business_domains) or (chart_type not in _allowed_chart_types):
+        return None
+    #
+    # generate a filename as full path (using APP_ROOT from Commons)
+    _picture_file = pathlib.Path(APP_ROOT + '/tmp/temp.png') #!#FIXME check if generate a unique name as the is some latency in processing and not always chart is right generated but on server could be different !
+    # renove any previously generated file
+    try: # ignore errors if file not exists
+        os.remove(_picture_file) #!#FIXME think to consider a delayed remove as need some sleep until file is read, send_from_directory being async
+    except:
+        pass
+    #
     #
     ''' the following graphs should be generated:
             1. last 10 days** - for last 10 days of activity
@@ -150,15 +165,20 @@ def are_chart(business_domain, chart_type):
         data will be get in full (for chart 3) the filtered to obtaind data for charts 1 & 2
     '''
     #
-    # generate a filename as full path (using APP_ROOT from Commons)
     # get data for required chart type (do not forget, you make a chart with scores evolution in time, so just get data from first ads_* level)
+    #
     # generate chart as PNG file in `/tmp` directory
-    #? load file in a local variable
-    #? save in a loval variable the content of `send_from_directory()` Flask function to send file
-    #? remove generated file
-    #? return saved content from local variable
-    return '#!#FIXME need to code here'
-    pass #!#FIXME need to code here
+    #!#FIXME - DROP ME NEXT - test with some sample chart
+    xpoints = [1, 6, 3, 5, 2]
+    ypoints = [10, 60, 30, 50, 20]
+    plt.plot(xpoints, ypoints)
+    plt.savefig(_picture_file)
+    #!#FIXME - TEST PASSED - chart generated
+    #
+    # split file into directory and name as neede by `send_from_directory()` function and return file content
+    _path_file = os.path.split(_picture_file)
+    _file_response = send_from_directory(_path_file[0], _path_file[1])
+    return _file_response
 
 
 
