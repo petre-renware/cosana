@@ -145,6 +145,7 @@ def are_chart(business_domain, chart_type):
     # check both parameters to be in allowe values as business domain and type of chart: last 10 days, last month, full activity
     _allowed_business_domains = ['general_data', 'evaluation', 'revenue', 'org_map', 'relationships', 'solution', 'decision_criteria']
     _allowed_chart_types = ['10_days', '30_days', 'full_period']
+    #!#FIXME pay ATTN that need data fro history object which is sufficed with `_version` and is on details table(s)
     _business_domain_orm_object = ['ads_general_data', 'ads_evaluation', 'ads_revenue', 'ads_org_map', 'ads_relationships', 'ads_solution', 'ads_decision_criteria']
     if (business_domain not in _allowed_business_domains) or (chart_type not in _allowed_chart_types):
         return None

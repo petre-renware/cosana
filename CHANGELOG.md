@@ -27,7 +27,7 @@
 
 * wip...
 
-* tbd... ARE generating charts route - get real data and make full period chart - then traverse data to retain 10 and 30 days data lists
+* tbd... ARE generating charts route - get real data directly from history table `ads_general_data_version` (pls `see are_main.py` comment ref object name and check WHAT detail object is accessed or is enough main object as it could have all score history in `score` property by accessing corresponding historical records from details)
 
 * 230328piu_b ARE route for generating charts `are_chart(...)`
     - list of allowed domains ans chart types, parameters validation
