@@ -37,9 +37,9 @@ from data_models.ads_revenue_data_models import ads_revenue
 #* MASTER object (ads_revenue): API GET data route that returns JSON data
 #TODO ROADMAP.RMAP.000 login-protect route
 @app.route('/api/ads_revenue_get/<sales_project_pk>', methods=['GET'])
-def ads_revenue_get(sales_project_pk):
+def ads_revenue_api_get(sales_project_pk):
     """ api routes for ads_revenue GET method:
-        - /api/ads_revenue_get/<sales_project_pk> - get data for requested Sales Project _pk (FK in ADS)
+        - /api/ads_revenue_api_get/<sales_project_pk> - get data for requested Sales Project _pk (FK in ADS)
     """
     #
     #*----------------------- CASE: GET data for a specified SalesProject PK

@@ -188,7 +188,7 @@ The following rules apply for all COSANA objects:
 ## ads_revenue object
 
 * **GET routes**:
-    * `/api/ads_revenue_get/<sales_project_pk>` - to get a a specified Sales Project
+    * `/api/ads_revenue_api_get/<sales_project_pk>` - to get a a specified Sales Project
 
 * **POST routes**:
     * `/api/ads_revenue_post/<sales_project_pk>` - to insert / update data for a specified Sales Project

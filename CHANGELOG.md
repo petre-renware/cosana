@@ -39,6 +39,7 @@
     * [ ] Solution
     * [ ] Decision criteria
 
+* 230329piu_b refactored `ads_revenue_get(...)` from `ads_revenue_api_models` api function to `ads_revenue_api_get(...)` keeping signature (reason: consistency naming convention)
 * 230329piu_a ARE UI interface close summary zone for all business domains. Made following:
     * [x] ---(already done in `073.alpha 230327piu_d`)--- General data
     * [x] Evaluation

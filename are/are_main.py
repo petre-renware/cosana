@@ -88,8 +88,8 @@ def are_builder():
     # render are_revenue
     _file = pathlib.Path(APP_ROOT + '/are/are_revenue.html')
     _str_of_are_template_html = _file.read_text()
-    from data_models.ads_revenue_api_models import ads_revenue_get
-    revenue_summary_info = ads_revenue_get(sales_project_object_chosen).get_json()
+    from data_models.ads_revenue_api_models import ads_revenue_api_get
+    revenue_summary_info = ads_revenue_api_get(sales_project_object_chosen).get_json()
     revenue_summary_info = revenue_summary_info['data'][0] # [0] is the last and only one record
     _tmp_date = pendulum.parse(revenue_summary_info['_updated_at']) # format date to a more "humanized" string
     _tmp_date = _tmp_date.to_day_datetime_string()
