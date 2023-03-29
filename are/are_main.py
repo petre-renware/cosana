@@ -75,15 +75,27 @@ def are_builder():
     # render are_evaluation
     _file = pathlib.Path(APP_ROOT + '/are/are_evaluation.html')
     _str_of_are_template_html = _file.read_text()
-    #!#FIXME load and send: current score, max score, max of last updated date from history and all objects of domain (get max from all objects them do max of max-es)
-    are_evaluation = render_template_string(_str_of_are_template_html)
+    from data_models.ads_evaluation_api_models import ads_evaluation_api_get
+    evaluation_summary_info = ads_evaluation_api_get(sales_project_object_chosen).get_json()
+    evaluation_summary_info = evaluation_summary_info['data'][0] # [0] is the last and only one record
+    _tmp_date = pendulum.parse(evaluation_summary_info['_updated_at']) # format date to a more "humanized" string
+    _tmp_date = _tmp_date.to_day_datetime_string()
+    evaluation_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
+    are_evaluation = render_template_string(_str_of_are_template_html,
+                                            evaluation_summary_info = evaluation_summary_info)
     #
     #
     # render are_revenue
     _file = pathlib.Path(APP_ROOT + '/are/are_revenue.html')
     _str_of_are_template_html = _file.read_text()
-    #!#FIXME load and send: current score, max score, max of last updated date from history and all objects of domain (get max from all objects them do max of max-es)
-    are_revenue = render_template_string(_str_of_are_template_html)
+    from data_models.ads_revenue_api_models import ads_revenue_get
+    revenue_summary_info = ads_revenue_get(sales_project_object_chosen).get_json()
+    revenue_summary_info = revenue_summary_info['data'][0] # [0] is the last and only one record
+    _tmp_date = pendulum.parse(revenue_summary_info['_updated_at']) # format date to a more "humanized" string
+    _tmp_date = _tmp_date.to_day_datetime_string()
+    revenue_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
+    are_revenue = render_template_string(_str_of_are_template_html,
+                                         revenue_summary_info = revenue_summary_info)
     #
     #
     # render are_org_map

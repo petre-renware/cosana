@@ -30,8 +30,23 @@
 * tbd... al bss domains data models make property for *historical score*
 
 
-T tbd... ARE UI interface close summary zone for all business domains
+* tbd... 2303...... ARE UI interface close summary zone for all business domains. Made following:
+    * [x] ---(already done in `073.alpha 230327piu_d`)--- General data
+    * [x] ---(already done in `230329piu_a`)--- Evaluation
+    * [ ] Organization map
+    * [x] ---(already done in `230329piu_a`)--- Revenue
+    * [ ] Relationship approach
+    * [ ] Solution
+    * [ ] Decision criteria
 
+* 230329piu_a ARE UI interface close summary zone for all business domains. Made following:
+    * [x] ---(already done in `073.alpha 230327piu_d`)--- General data
+    * [x] Evaluation
+    * [ ] Organization map
+    * [x] Revenue
+    * [ ] Relationship approach
+    * [ ] Solution
+    * [ ] Decision criteria
 * 230328piu_b ARE route for generating charts `are_chart(...)`
     - list of allowed domains ans chart types, parameters validation
     - return a sample chart just for test - test PASSED
