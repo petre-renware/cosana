@@ -31,10 +31,10 @@
 * tbd... in `base_keys_data_models.py` add field `_useless_to_keep_history: bool, optional no default` just usable to set and keep history at ADS level tables - usage: at each detail change, set it as `set _useless_to_keep_history = not _useless_to_keep_history` to force versioning component to save history
 
 
-* tbd... 2303...... ARE UI interface close summary zone for all business domains. Made following:
+* tbd... 230330piu_a ARE UI interface close summary zone for all business domains. Made following:
     * [x] ---(already done in `073.alpha 230327piu_d`)--- General data
     * [x] ---(already done in `230329piu_a`)--- Evaluation
-    * [ ] Organization map
+    * [x] Organization map
     * [x] ---(already done in `230329piu_a`)--- Revenue
     * [ ] Relationship approach
     * [ ] Solution

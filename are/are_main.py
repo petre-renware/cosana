@@ -53,6 +53,8 @@ page_title = 'Account Review and Evaluation'
 def are_builder():
     # get query parameter
     _tmp = request.args.get('sales_project_pk')
+    if not _tmp:
+        return 'Specified Sales Project not found', 404
     #
     # check if sales project exists
     sales_project_object_chosen = _tmp if _tmp else 'unknown'
@@ -101,8 +103,14 @@ def are_builder():
     # render are_org_map
     _file = pathlib.Path(APP_ROOT + '/are/are_org_map.html')
     _str_of_are_template_html = _file.read_text()
-    #!#FIXME load and send: current score, max score, max of last updated date from history and all objects of domain (get max from all objects them do max of max-es)
-    are_org_map = render_template_string(_str_of_are_template_html)
+    from data_models.ads_org_map_api_models import ads_org_map_get
+    org_map_summary_info = ads_org_map_get(sales_project_object_chosen).get_json()
+    org_map_summary_info = org_map_summary_info['data'][0] # [0] is the last and only one record
+    _tmp_date = pendulum.parse(org_map_summary_info['_updated_at']) # format date to a more "humanized" string
+    _tmp_date = _tmp_date.to_day_datetime_string()
+    org_map_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
+    are_org_map = render_template_string(_str_of_are_template_html,
+                                         org_map_summary_info = org_map_summary_info)
     #
     #
     # render are_relationships
