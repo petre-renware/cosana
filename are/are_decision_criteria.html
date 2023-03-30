@@ -1,0 +1,25 @@
+
+<!--//!#FIXME need bss domain PK here? will see latter -->
+
+
+<!-- summary zone -->
+<h6>Summary</h6>
+<ul>
+    <li>Score {{ decision_criteria_summary_info['score']['crt_score'] }} of {{ decision_criteria_summary_info['score']['max_score'] }}</li>
+    <li id="are_decision_criteria_fmt_updated_at">Last updated on (UTC time): {{ decision_criteria_summary_info.fmt_updated_at }}
+        <small><a onclick="convertUTCDateToLocalDate('#are_decision_criteria_fmt_updated_at', '{{ decision_criteria_summary_info.fmt_updated_at }}')" class="badge badge-dark">show local time</a></small>
+    </li>
+</ul>
+
+<!-- charts zone -->
+<p>#FIXME construct the 3 charts according to README specs </p>
+<h6>Last 10 days activity chart</h6>
+<img src="{{ url_for('are_chart', business_domain = 'decision_criteria', chart_type = '10_days') }}" class="img-fluid" alt="10 days chart"> <!--//! update bss dom name -->
+<h6>Last 30 days activity chart</h6>
+<img src="{{ url_for('are_chart', business_domain = 'decision_criteria', chart_type = '30_days') }}" class="img-fluid" alt="30 days chart"> <!--//! update bss dom name -->
+<h6>All project activity chart</h6>
+<img src="{{ url_for('are_chart', business_domain = 'decision_criteria', chart_type = 'full_period') }}" class="img-fluid" alt="full activity chart"> <!--//! update bss dom name -->
+
+
+<!--//? ither bss domain details -->
+

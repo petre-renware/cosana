@@ -7,8 +7,8 @@
 
 <small>
 
-* Version: 0.10.0
-* Last update: 230320
+* Version: 0.12.0
+* Last update: 230330
 </small>
 
 ***
@@ -21,105 +21,14 @@
 <small>With (B) are marked those entries that are **BUG FIXES** so should be highlighted on *Release Note* documents.</small>
 
 
-## 1.0.0 - INTENTION FOR CHANGE MAJOR VERSION, but not sure...
+## 0.12.0 - ARE details and charts
 
-### 071.wip
+### 075.wip
 
-* wip... (last code used 230320piu_c)
-* ...
-
-
-
-
-
-
-
-
-
-
-## 0.10.0 - ADS scoring (roadmap RMAP.003)
-
-### 070.pre-release (230320 22:00)
-
-* 230320piu_c review and cleanup code
-* 230320piu_b set "real" SCORE (in `/data_models/ads_bss...domain_data_models.py`, property - function `score(self)` set all things locally and updated maximum calculation where exists LOV data in corresponding code-file) for following business domains:
-    * [x] --(already done in `230312piu_b`) General data - code-files: `ads_general_data_data_models`
-    * [x] --(already done in `230318piu_d`) Evaluation - code-files: `ads_evaluation_data_models`, `ads_evaluation_lov_models`
-    * [x] --(already done in `230315piu_c`) Organization map - code-files: `ads_org_map_data_models`
-    * [x] --(already done in `230312piu_b`) Revenue - code-files: `ads_revenue_data_models`
-    * [x] --(already done in `220317piu_b & 220317piu_c`) Relationship approach - code-files: `ads_relationships_data_models`, `ads_relationships_lov_models`
-    * [x] --(already done in `230318piu_c`) Solution - code-files: `ads_solution_data_models`, `ads_solution_lov_models`
-    * [x] Decision criteria - code-files: `ads_decision_criteria_data_models`, `ads_decision_criteria_lov_models`
-* 230320piu_a defined 8Decision criteria* business domain specs in [ADS README specs](ads/README_ads.md)
-* 230319piu_b `crud_data_admin` component. updated to HIDE columns like `ads_*` because they decreases visibility of relevant data; they still sre "instructed" to show an `*` where respective business domain contains information until displayed name will be solved / fixed when potentially could be used
-* 230319piu_a `data_models\ads_evaluation_lov_models.py` calculate max achievable score from structure, closed all FIXME(s), updated data_models README specs
-* 230318piu_d set "real" SCORE (in `/data_models/ads_bss...domain_data_models.py`, property - function `score(self)` set all things locally and updated maximum calculation where exists LOV data in corresponding code-file) for following business domains:
-    * [x] --(already done in `230312piu_b`) General data - code-files: `ads_general_data_data_models`
-    * [x] Evaluation - code-files: `ads_evaluation_data_models`, `ads_evaluation_lov_models`
-    * [x] --(already done in `230315piu_c`) Organization map - code-files: `ads_org_map_data_models`
-    * [x] --(already done in `230312piu_b`) Revenue - code-files: `ads_revenue_data_models`
-    * [x] --(already done in `220317piu_b & 220317piu_c`) Relationship approach - code-files: `ads_relationships_data_models`, `ads_relationships_lov_models`
-    * [x] --(already done in `230318piu_c`) Solution - code-files: `ads_solution_data_models`, `ads_solution_lov_models`
-    * [ ] Decision criteria - code-files: `ads_decision_criteria_data_models`, `ads_decision_criteria_lov_models`
-
-
-### 069.alpha (230318 05:00)
-
-* 230318piu_c set "real" SCORE (in `/data_models/ads_bss...domain_data_models.py`, property - function `score(self)` set all things locally and updated maximum calculation where exists LOV data in corresponding code-file) for following business domains:
-    * [x] --(already done in `230312piu_b`) General data - code-files: `ads_general_data_data_models`
-    * [ ] Evaluation - code-files: `ads_evaluation_data_models`, `ads_evaluation_lov_models`
-    * [x] --(already done in `230315piu_c`) Organization map - code-files: `ads_org_map_data_models`
-    * [x] --(already done in `230312piu_b`) Revenue - code-files: `ads_revenue_data_models`
-    * [x] --(already done in `220317piu_b & 220317piu_c`) Relationship approach - code-files: `ads_relationships_data_models`, `ads_relationships_lov_models`
-    * [x] Solution - code-files: `ads_solution_data_models`, `ads_solution_lov_models`
-    * [ ] Decision criteria - code-files: `ads_decision_criteria_data_models`, `ads_decision_criteria_lov_models`
-* 230318piu_b ADS Review UI updated default values for score (progress) for domains where no data entered exist yet to `current score = 0` and `max score = 'n/a'`
-* 230318piu_a defined *Solution* scoring model and specifications in [ADS README specs](ads/README_ads.md)
-* (F) 2203piu_17_c FIXED Relationship approach score calculation and closed OPISS.007 - ADS scoring for Relationships approach
-* (B) 220317piu_b set "real" SCORE (in `/data_models/ads_bss...domain_data_models.py`, property - function `score(self)` set all things locally and updated maximum calculation where exists LOV data in corresponding code-file) for following business domains:
-    * [x] --(already done in `230312piu_b`) General data - code-files: `ads_general_data_data_models`
-    * [ ] Evaluation - code-files: `ads_evaluation_data_models`, `ads_evaluation_lov_models`
-    * [x] --(already done in `230315piu_c`) Organization map - code-files: `ads_org_map_data_models`
-    * [x] --(already done in `230312piu_b`) Revenue - code-files: `ads_revenue_data_models`
-    * [x] Relationship approach - code-files: `ads_relationships_data_models`, `ads_relationships_lov_models` (with issues - see also *OPISS.007 - ADS scoring for Relationships approach*)
-    * [ ] Solution - code-files: `ads_solution_data_models`, `ads_solution_lov_models`
-    * [ ] Decision criteria - code-files: `ads_decision_criteria_data_models`, `ads_decision_criteria_lov_models`
-* 230317piu_a defined *Relationship approach* scoring model and specifications in [ADS README specs](ads/README_ads.md)
-
-
-### 068.alpha (230315 14:00)
-
-* 230315piu_c set "real" SCORE (in `/data_models/ads_bss...domain_data_models.py`, property - function `score(self)` set all things locally and updated maximum calculation where exists LOV data in corresponding code-file) for following business domains:
-    * [x] --(already done in `230312piu_b`) General data - code-files: `ads_general_data_data_models`
-    * [ ] Evaluation - code-files: `ads_evaluation_data_models`, `ads_evaluation_lov_models`
-    * [x] Organization map - code-files: `ads_org_map_data_models`
-    * [x] --(already done in `230312piu_b`) Revenue - code-files: `ads_revenue_data_models`
-    * [ ] Relationship approach - code-files: `ads_relationships_data_models`, `ads_relationships_lov_models`
-    * [ ] Solution - code-files: `ads_solution_data_models`, `ads_solution_lov_models`
-    * [ ] Decision criteria - code-files: `ads_decision_criteria_data_models`, `ads_decision_criteria_lov_models`
-* 230315piu_b defined `data_models/ads_org_map_lov_models.py` to accommodate in some scoring elements (MAX limits for each qualifier)
-* 230315piu_a defined an *EMPTY* function to load system configurable data models at run time: `/sys_core/load_system_configurable_elements.py` (basically load / reload LOV components) - intention is for RMAP.008 - System configuration functionality
-* 230314piu_b updated [ads README specs](ads/README_ads.md) ref maximum limits and calculation algorithm *SCORE calculation for *Organization map* business domain; updated code with detailed max limits (in `data ads_org_map_data_models`)
-* 230314piu_a updated [ads README specs](ads/README_ads.md) ref *SCORE calculation for *Organization map* business domain
-* 230313piu_a updated [ads README specs](ads/README_ads.md) ref *SCORE calculation and primary locations* where is generated for all business domain
-* 230312piu_b set "real" SCORE (in `/data_models/ads_bss...domain_data_models.py`, property - function `score(self)` set all things locally and updated maximum calculation where exists LOV data in corresponding code-file) for following business domains:
-    * [x] General data - code-files: `ads_general_data_data_models`
-    * [ ] Evaluation - code-files: `ads_evaluation_data_models`, `ads_evaluation_lov_models`
-    * [ ] Organization map - code-files: `ads_org_map_data_models`
-    * [x] Revenue - code-files: `ads_revenue_data_models`
-    * [ ] Relationship approach - code-files: `ads_relationships_data_models`, `ads_relationships_lov_models`
-    * [ ] Solution - code-files: `ads_solution_data_models`, `ads_solution_lov_models`
-    * [ ] Decision criteria - code-files: `ads_decision_criteria_data_models`, `ads_decision_criteria_lov_models`
-* 230312piu_a `ads_start_page.html` load score from database at the end of each domain loading functions `get_ads_...bss domain...(sales_project_pk)`
-* 230311piu_b review all `ads_*` data models and update property `score(self)` to return 2 numbers: *current* score and *max possible score* update ads and data models README specs. New **score** structure will be as follows (here are default / not calculated values):
-    ```
-    "score" = {
-        "crt_score": 111111,
-        "max_score": 999999,
-    }
-    ```
-* 230311piu_a prepare as draft the SCORE zones, layout and id(s) coding conventions in `ads_start_page.html`;updated `ads/README_ads.md` specs doc ref section dedicated to *Scoring* process
-* 230310piu_d update code for "TODO" places to color differentiate them of "FIXME" ones (TODO set in orange), archived version 0.8.0
+* wip... --- [ ASAP ACTION PLAN: ]-------------------------------------------------------------
+* tbd... ARE generating charts route - get real data directly from history table `ads_general_data_version` (pls `see are_main.py` comment ref object name and check WHAT detail object is accessed or is enough main object as it could have all score history in `score` property by accessing corresponding historical records from details)
+* tbd... all bss domains data models make property for *historical score*
+* tbd... in `base_keys_data_models.py` add field `_useless_to_keep_history: bool, optional no default` just usable to set and keep history at ADS level tables - usage: at each detail change, set it as `set _useless_to_keep_history = not _useless_to_keep_history` to force versioning component to save history
 
 
 
@@ -130,115 +39,86 @@
 
 
 
+## 0.11.0 - Data history features & ARE summary zone
 
-## 0.9.0 - `ads` ADS Decision criteria business domain
+### 074.beta (230330 06:00)
 
-### 067.beta (230310 19:00)
-
-* 230310piu_c check all DAS Decision Criteria code, made a full cleanup and release 0.9.0 as beta
-* (B) 230310piu_b **FIXED** BUG @ saving MAP info for records having NO DATA in level 2 (MAP object - `ads_decision_criteria_details_2maptoperson`)
-    * SOLUTION:  Jinja variable `ns.person_pk` is set inside level 2 loop **and moved outside level 2 loop**
-    * probably is nothing constructed by Jinja render, having no record in MAP object
-    * component: ads_decision_criteria.html`,
-    * function: `decision_criteria_details_CollectData(rec_pk)`,
-    * ERROR: - at EDIT for no data into level 2 MAP object
-    * INDICATIONS: Jinja variable `ns.person_pk` not set for no records in level 2 MAP for a criteria / should check if set inside level 2 loop and move outside
-* 230310piu_a1 ALL Solution updates and cleanings for extended tests:
-    * update DB test with human readable PKs;
-    * update data model set CASCADE for delete and update for domains: Organization Map; generate new db script as `full_db_sys_0.9.0-067.sql`
-* 230310piu_a UI interface (`ads_decision_criteria.html`), made form and operation of *New* - for this operation only a new decision criteria with `our_status` is add, then user can update map with persons; updated API `ads_decision_criteria_api_models.py`
-* 230310piu_a update ROADMAP (**OPISS.006**) with changing all ADS business domains to "a big form" to ce able to introduce Bootstrap standard *validation for required fields*
-* 230309piu_d `ads_decision_criteria_details_1criterialist` full Sav of level 1 and 2 API for `ads_decision_criteria_details_1criterialist` for level 2 to do update / insert for all records (hide to client the details of M:M implementation as relational - as level 2 it would be attributes of level 1)
-    * [x] 1. coded for UPDATE `client_importance` for existing records (persons mapped)
-    * [x] 2. coded for INSERT `client_importance` for new records (persons unmapped)
-* 230309piu_c code cleanup and small corrections and improvements, NOT functional but ref code styling
-* 230309piu_b API test new data collected for MAP in 230308piu_f
-* 230309piu_a LOV (`ads_decision_criteria_lov_models.py`) introduced a updated value for `client_importance` list: `NOT KNOWN` to 'UNKNOWN' and set dedicated selector option value to it (actual set on "")
-* 230308piu_f UI interface (`ads_decision_criteria.html`) for level 2 (MAP) data
-    * review and update `id(s)` and `data-person_pk`
-    * update function `solution_details_CollectData` and *Sav* operations  where send collection of dictionaries `{ads_relationships_details_fk, client_importance}`
-* 230308piu_e LOV (`ads_decision_criteria_lov_models.py`) introduced a new value for `client_importance` list: `NOT KNOWN` and set selector option for unknown, value to it (actual set on "")
-* 230308piu_d UI interface (`ads_decision_criteria.html`), set for `client_importance` selector options the **`data-person_pk`** data attribute which contains *person PK* - will be used in build level 2 intersection (`ads_decision_criteria_details_2maptoperson`) as pair of ***(`ads_relationships_details_fk`, `client_importance`)***
-* 230308piu_c UI interface (`ads_decision_criteria.html`), review and update `id(s)`; prepare *Collect New Data* and *Sav* operations for level 1 (`ads_decision_criteria_details_1criterialist`) (for level 2 just send collection of dictionaries `{ads_relationships_details_fk, client_importance}` and left for latter processing)
-
-
-### 066.alpha (230308 05:45)
-
-* 230308piu_b update API for `ads_decision_criteria_details_1criterialist` for level 1 (`ads_decision_criteria_details_1criterialist`) data
-* 230308piu_a updated data_models README specs documentation ref API for `ads_decision_criteria_details_1criterialist`
-* 230307piu_b API for `ads_decision_criteria_details_1criterialist` commented code where should "concentrate"
-* 230307piu_a more changes:
-    * [x] `ads_decision_criteria_lov_models.py` updated colors for Bootstrap colors
-    * [x] `ads_decision_criteria.html` updated to activate "Sav" button on any change in details zone
-    * [x] `ads_decision_criteria.html` updated to change cell color depending on information (`client_importance` attribute) loaded resulting a "visual colored map"
-* 230306piu_c `ads_decision_criteria_api_models.py` change DELETE route function (`ads_decision_criteria_details_1criterialist_delete(ads_decision_criteria_details_1criterialist_pk)`) to dele MAP DETAILS using new relationship created at 230306piu_b (instead of accessing directly the 2nd level MAP object)
-* 230306piu_b `ads_decision_criteria_data_models.py` restored `back_populates` clauses for relationship between 1st and 2nd level
-* 230306piu_a review and update
-    * [x] `as_dict()` functions for data models `ads_decision_criteria_data_models.py` after 230305piu_b changes - NO UPDATE NEEDED
-    * [x] data models README specs and update last changed date
-* 230305piu_b UI interface (`ads_decision_criteria.html`), made operations of *Del*; updated API `ads_decision_criteria_api_models.py` and data model `ads_decision_criteria_data_models.py`
-* (B) 230305piu_a `crud_data_admin` table data get (`get_data(only_keys=None)`), scan for keys like 'ads_*' and alter them to show only a flag as symbol if info exists
+* 230330piu_b ARE UI interface close summary zone for all business domains. Made following:
+    * [x] ---(already done in `073.alpha 230327piu_d`)--- General data
+    * [x] ---(already done in `230329piu_a`)--- Evaluation
+    * [x] ---(already done in `230330piu_a`)---  Organization map
+    * [x] ---(already done in `230329piu_a`)--- Revenue
+    * [x] ---(already done in `230329piu_a`)--- Relationship approach
+    * [x] Solution
+    * [x] Decision criteria
+* 230330piu_a ARE UI interface close summary zone for all business domains. Made following:
+    * [x] ---(already done in `073.alpha 230327piu_d`)--- General data
+    * [x] ---(already done in `230329piu_a`)--- Evaluation
+    * [x] Organization map
+    * [x] ---(already done in `230329piu_a`)--- Revenue
+    * [x] Relationship approach
+    * [ ] Solution
+    * [ ] Decision criteria
+* 230329piu_b refactored `ads_revenue_get(...)` from `ads_revenue_api_models` api function to `ads_revenue_api_get(...)` keeping signature (reason: consistency naming convention)
+* 230329piu_a ARE UI interface close summary zone for all business domains. Made following:
+    * [x] ---(already done in `073.alpha 230327piu_d`)--- General data
+    * [x] Evaluation
+    * [ ] Organization map
+    * [x] Revenue
+    * [ ] Relationship approach
+    * [ ] Solution
+    * [ ] Decision criteria
+* 230328piu_b ARE route for generating charts `are_chart(...)`
+    - list of allowed domains ans chart types, parameters validation
+    - return a sample chart just for test - test PASSED
+* 230328piu_a ARE initialized charts area:
+    - created HTML zone and tags for accommodate the 3 charts, "titled" them accordingly: *Last 10 days chart*, *Last 30 days chart*, *All project activity chart*
+    - route for generating charts `are_main.py` initialized, commented specs
+    - updated ARE README specs with written helper functions and charts generating function (URL: `/are_chart/...business_domain.../...chart_type...`, view function: `are_chart(...)`)
 
 
-### 065.alpha (230304 06:00)
+### 073.alpha (230327 19:40)
 
-* 230304piu_a UI interface (`ads_decision_criteria.html`) prepared section ref to `"PEOPLE TO DECISION_CRITERIA:..."` for future selector background color depending on option chosen (using `color` from corresponding OV value)
-* 230303piu_g UI interface (`ads_decision_criteria.html`) made part of sparse matrix set with actual data and for missing set combo as `?`
-* (B) 230303piu_f UI interface (`ads_decision_criteria.html`) is missing the 3rd person from test data, check looping data
-* 230303piu_e UI interface (`ads_decision_criteria.html`) made part of sparse matrix fill with all data from LOV
-* (B) 230303piu_d *symptom:* ADS Revenue data model fields are mandatory but have no default value, so app raise error if any of them is not completed
-*solution:* fixed API route (`/api/ads_revenue_post/<sales_project_pk>`, function `ads_revenue_post(sales_project_pk)`) and UI interface cleaned of useless elements
-* 230303piu_c clean code, drop cleared FIXMEs
-* 230303piu_b UI interface, made DECISION CRITERIA LIST OBJECT (`ads_decision_criteria_details_1criterialist`)
-* 230303piu_a cleaning UI interface (useless or debugging info elements)
-* 230302piu_e update `README_data_models.py` ref ADS Decision Criteria API route for post at first level (`ads_decision_criteria` object)
-* 230302piu_d UI interface, saving data ref MASTER OBJECT update `ads_start_page.html` corresponding save section `save_ads_all_data(sales_project_pk)`,  new section for ADS Decision Criteria (respecting the pattern of function) and function `get_new_ads_decision_criteria()`
-* (B) 230302piu_c *symptom:* ADS Revenue data model fields are mandatory but have no default value, so app raise error if any of them is not completed
-*solution:* updated input fields in UI interface, put and `*` in field name and made them `required="true"`
+* 230327piu_d ARE convert last update date to local time by using a small button next to corresponding displayed info
+* 230327piu_c ARE `general_data` bss domain - *summary zone* preserved `_updated_at` field and send formatted date in `fmt_updated_at`, both as UTC time zone
+* 230327piu_b ARE `general_data` bss domain - *summary zone* convert last updated date to a more readable humanized format
+* 230327piu_a ARE `general_data` bss domain - get *summary zone* data: last updated date and score info
+* 230326piu_c updated skeleton for `are_general_data.html` page with *charts data* placeholders; made actions plan as comments in `are_main.py`
+* 230326piu_b made skeleton for `are_general_data.html` page with *summary data* and *charts data* - need to be populated
+* 230326piu_a cleaned ADS start page for fixed "FIXME sections"
 
 
-### 064.alpha (230302 18:00)
+### 072.alpha (230326 05:30)
 
-* 230302piu_b `ads_main.py` get ADS Relationship Details ALL data as needed to use NEW elements in `ads_decision_criteria_details_2maptoperson` (Jinja variable set `relationships_details_data`)
-* 230302piu_a update API component (`ads_decision_criteria_api_models.py`)
-* 230301piu_f `ads_start_page` UI interface, loading data (without save) ref MASTER OBJECT (`ads_decision_criteria`)
-* 230301piu_e update `ads/ads_main.py` to load all necessary data (Jinja variables), ie *LOV* and *persons / involved people* from DAS Relationships Approach business domain:
-    * [x] 1. make a sketch draft of `ads_decision_criteria.html`
-    * [x] 2. update `ads_main.py`
-* 230301piu_d small refactoring in `ads_main.py` to deny "pure local" some variable name obfuscate (prefix them with `_` ): `ads_evaluation`, `ads_relationships`, `ads_solution`
-* 230301piu_c `salesproject_data_models` updated with relationship to `ads_decision_criteria`
-* 230301piu_b `ads_decision_criteria` made API route for GET (@ MASTER OBJECT level) and commented for POT and next levels routes (DECISION CRITERIA OBJECT, PEOPLE MAP TO CRITERIA OBJECT); publish to system init chain (`sys_core/init_system.py`)
-* 230301piu_a change PEOPLE MAP TO CRITERIA OBJECT - (`ads_decision_criteria_details_2maptoperson`) relationship to ADS Relationships Details for update & delete operations to CASCADE rule
-
-
-### 063.alpha (230228 19:30)
-
-* (B) 230228piu_c fix `ads_solution_data_models`, replace all "org_map" occurrences to "ads_solution" (exists in temporary data / variables)
-* 230228piu_b ORM data model ref first pass TOP-DOWN  (physical attributes):
-    * [x] 0. skeleton with all entities as blank (only technical attributes); loaded in system init chain (`sys_core/init_syste.py`) update physical data & db scripts
-    * [x] 1. MASTER OBJECT                 - (`ads_decision_criteria`); update physical data & db scripts
-    * [x] 2. DECISION CRITERIA OBJECT      - (`ads_decision_criteria_details_1criterialist`); update physical data & db scripts
-    * [x] 3. PEOPLE MAP TO CRITERIA OBJECT - (`ads_decision_criteria_details_2maptoperson`) relation to *DECISION CRITERIA OBJECT*; update physical data & db scripts
-    * [x] 4. PEOPLE MAP TO CRITERIA OBJECT - (`ads_decision_criteria_details_2maptoperson`) relation to *ADS Relationships Details*; update physical data & db scripts
-    * [x] 5. PEOPLE MAP TO CRITERIA OBJECT - (`ads_decision_criteria_details_2maptoperson`) business attributes and `as_dict()` method
+* 230325piu_d *skeleton* for route to return file with `send_from_directory(..., file=...)`:
+    * location `are\are_main.py`
+    * view function code-name: `are_chart`
+    * route name: `/are_chart/<busines_domain>/<chart_type>` where chart type is one of those specified in [ads README specs](ads/README_ads.md)
+    * update [ads README specs](ads/README_ads.md)
+* 230325piu_c create empty templates for all `are_bss...dom.html`
+* 230325piu_b `are_start_page` organize and base layout of ARE start page
+* 230325piu_a archived 0.10.0 pre-release version
+* 230324piu_c defined specs for ARE start page
 
 
-### 062.alpha (230228 04:30)
+### 071.alpha (230324 0730)
 
-* 230228piu_a LOV data model (**`lov_ads_decision_criteria`**) ref:
-    * [x] DECISION CRITERIA OBJECT      - (`our_status`) in (`ads_decision_criteria_details_1criterialist`)
-    * [x] PEOPLE MAP TO CRITERIA OBJECT - (`client_importance`) in (`ads_decision_criteria_details_2maptoperson`)
-    * [x] updated [System Data](/810_DSGN/810.03_System_Data.md) fer LOV object
-    * [x] (B) fixed bugs ref `get_selector_info(selector, code)` in: `ads_solution_lov_models.py`, `ads_relationships_lov_models.py`
-* 230227piu_a review, updated & closed iss # 230226piu_a
-* 230226piu_a update [System Data](/810_DSGN/810.03_System_Data.md) ref *ADS Decision criteria* business domain
-    * [x] 1. conceptual model, the three objects: *MASTER OBJECT*, *DECISION CRITERIA OBJECT*, *PEOPLE MAP TO CRITERIA OBJECT*
-    * [x] 2. refactored object names to make easier identification (included level number after text "details_")
-    * [3] 3. details ref MASTER OBJECT                 - (`ads_decision_criteria`)
-    * [x] 4. details ref DECISION CRITERIA OBJECT      - (`ads_decision_criteria_details_1criterialist`)
-    * [x] 5. details ref PEOPLE MAP TO CRITERIA OBJECT - (`ads_decision_criteria_details_2maptoperson`)
-* (B) 230225piu_k fixed message displayed when no ADS Solution exists (prev version display about Relationships)
-* 230225piu_j `salesproject_data_models` updated with relationship to `ads_solution`; archived version 0.7.0
+* 230324piu_b init component **ARE - Account Review and Evaluation**, published on *top menu bar* and in *Sales Projects administration page* (ARE button)
+* 230324piu_a review and update [ROADMAP](/OPEN_ISSUES_ROADMAP.md)
+* 230323piu_b Data history feature:
+    * [x] 1. prepare project environment with required packages (SQLAlchemy Continuum) ==> `requirements.txt` and `810_DSGN/820.90_Toolstack_notes.md` updated
+    * [x] 2. activate in system init chain (`sys_core/init_system.py`) history objects creation
+    * [x] 3. use history in following objects: ads_general_data_data_models, ads_decision_criteria_data_models, ads_evaluation_data_models, ads_org_map_data_models, ads_relationships_data_models, ads_revenue_data_models, ads_solution_data_models; update & generate a fresh database
+    * [x] 4. close OPISS.004, test and release feature
+* (B) 230323piu_a fixed `ads_revenue.html` business domain UI to display `Updated by... at...` field (corrected `_updated_by` & `_updated_at` fields id)
+* 230322piu_a `crud_data_admin_main` component: review and updated roadmap RMAP.001, RMAP.002, cleaned obsolete objectives code and comments
+* 230321piu_b archived version 0.9.0
+* 230321piu_a publish 01.10.0-070.re-release on test-development server
+
+
+
+
+
 
 
 
@@ -252,8 +132,13 @@
 
 # Older versions
 
-## 0.2 to 0.8 releases
+## 0.10 releases
 
+* [0.10.0 pre-release `ads` ADS scoring](/versions_history/CHANGELOG_0.10.0.md)
+
+## 0.2 to 0.9 releases (only beta)
+
+* [0.9.0 `ads` ADS Decision criteria business domain](/versions_history/CHANGELOG_0.9.0.md)
 * [0.8.0 `ads` ADS Solution business domain](/versions_history/CHANGELOG_0.8.0.md)
 * [0.7.0 `ads` ADS Relationships Approach business domain](/versions_history/CHANGELOG_0.7.0.md)
 * [0.6.0 `ads` Revenue business domain](/versions_history/CHANGELOG_0.6.0.md)
@@ -263,12 +148,19 @@
 * [0.3.0 `ads` Evaluation business domain - DB level](/versions_history/CHANGELOG_0.3.0.md)
 * [0.2.0 `ads` General data business domain](/versions_history/CHANGELOG_0.2.0.md)
 
-## 0.0 to 0.1 releases
+## 0.0 to 0.1 releases (only beta)
 
 * [0.1.1](/versions_history/CHANGELOG_0.1.1.md), [0.1.0](/versions_history/CHANGELOG_0.1.0.md), [0.0.5](/versions_history/CHANGELOG_0.0.5.md), [0.0.4](/versions_history/CHANGELOG_0.0.4.md), [0.0.3](/versions_history/CHANGELOG_0.0.3.md), [0.0.2](/versions_history/CHANGELOG_0.0.2.md), [0.0.1](/versions_history/CHANGELOG_0.0.1.md), [0.0.0](/versions_history/CHANGELOG_0.0.0.md)
 
 
-<small>Older versions are available in `/versions_history`</small>
+## Notes
+
+<small>
+
+* Older versions are available in `/versions_history`
+* versions suffixed by `(PRS)` in list are **pre-release** versions
+* 
+</small>
 
 
 

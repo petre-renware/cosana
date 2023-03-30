@@ -23,6 +23,7 @@ tbd... `get_hostname` - gets the node identification as hostname
 #* `data_models` - system data models (ORM)
 #* `crud_data_admin` - CRUD data administration component
 #* `ads` - Account Data Sheet
+#* `are` - Account Review and Evaluation
 #* `doc_viewer` - is self contained with own init ([see here](/doc_viewer/README_doc_viewer.md))
 tbd... `sys_cfg` - system configuration
 tbd... `health_check` - syst health check
@@ -96,6 +97,11 @@ print(" [DONE]")
 #*---------------------------------------------------------
 #* `data_models` - system data models
 print("Initializing *data_models* [ORM models...]", end="", flush=True)
+# starts data history creation
+from data_models.init_data_history import init_data_history
+init_data_history('start')
+#
+# continue with all models importing
 from data_models import master_data_models
 #
 from data_models import salesproject_data_models
@@ -106,7 +112,7 @@ from data_models import ads_revenue_data_models
 from data_models import ads_relationships_data_models
 from data_models import ads_solution_data_models
 from data_models import ads_decision_criteria_data_models
-
+#
 print(" [API models...]", end="", flush=True)
 from data_models import salesproject_api_models
 from data_models import ads_general_data_api_models
@@ -116,10 +122,12 @@ from data_models import ads_revenue_api_models
 from data_models import ads_relationships_api_models
 from data_models import ads_solution_api_models
 from data_models import ads_decision_criteria_api_models
-
+#
 print(" [FORM models...]", end="", flush=True)
 from data_models import salesproject_form_models
-
+#
+# finish data history creation
+init_data_history('end')
 # and nothing to do with models st this moment (220908 12:40) - is JUST TO TEST as something wrong will terminate with stack dump
 print(" [DONE]")
 
@@ -139,6 +147,15 @@ print(" [DONE]")
 print("Initializing *ads*...", end="", flush=True)
 from ads.init_ads import init_ads
 _ = init_ads()
+print(" [DONE]")
+
+
+
+#*---------------------------------------------------------
+#* `are` - Account Review and Evaluation
+print("Initializing *are*...", end="", flush=True)
+from are.init_are import init_are
+_ = init_are()
 print(" [DONE]")
 
 

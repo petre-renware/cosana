@@ -40,10 +40,9 @@ else:
 #
 # ads_decision_criteria
 #   note: - _pk and audit columns come from BaseInfoMixin
-#TODO -  OPISS.004 - history table
 # ============================================
-
 class ads_decision_criteria(BaseModel, BaseInfoMixin):
+    __versioned__ = {} # activate data hostory and versioning mechanism of SQLAlchemy Continuum
     __tablename__ = 'ads_decision_criteria'
 
     sales_project_fk = sa.Column(sa.String(36), sa.ForeignKey('salesproject._pk', ondelete='CASCADE', onupdate='CASCADE'), nullable=False, unique=True, index=True)
@@ -101,10 +100,9 @@ class ads_decision_criteria(BaseModel, BaseInfoMixin):
 #
 # ads_decision_criteria_details_1criterialist
 #   note: - _pk and audit columns come from BaseInfoMixin
-#TODO -  OPISS.004 - history table
 # ============================================
-
 class ads_decision_criteria_details_1criterialist(BaseModel, BaseInfoMixin):
+    __versioned__ = {} # activate data hostory and versioning mechanism of SQLAlchemy Continuum
     __tablename__ = 'ads_decision_criteria_details_1criterialist'
     ads_decision_criteria_fk = sa.Column(sa.String(36), sa.ForeignKey('ads_decision_criteria._pk', ondelete='CASCADE', onupdate='CASCADE'), nullable=False, index=True)
     ads_decision_criteria_data = relationship("ads_decision_criteria", back_populates="ads_decision_criteria_details_1criterialist_data") # to TOP
@@ -154,9 +152,9 @@ class ads_decision_criteria_details_1criterialist(BaseModel, BaseInfoMixin):
 #
 # ads_decision_criteria_details_2maptoperson
 #   note: - _pk and audit columns come from BaseInfoMixin
-#TODO -  OPISS.004 - history table
 # ============================================
 class ads_decision_criteria_details_2maptoperson(BaseModel, BaseInfoMixin):
+    __versioned__ = {} # activate data hostory and versioning mechanism of SQLAlchemy Continuum
     __tablename__ = 'ads_decision_criteria_details_2maptoperson'
 
     # to TOP: DECISION CRITERIA OBJECT (ads_decision_criteria_details_1criterialist)

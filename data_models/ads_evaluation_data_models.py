@@ -38,11 +38,11 @@ else:
 #
 # ads_evaluation
 #   note: - _pk and audit columns come from BaseInfoMixin
-# TODO -  OPISS.004 - history table
 # ============================================
 
 
 class ads_evaluation(BaseModel, BaseInfoMixin):
+    __versioned__ = {} # activate data hostory and versioning mechanism of SQLAlchemy Continuum
     __tablename__ = 'ads_evaluation'
 
     sales_project_fk = sa.Column(sa.String(36), sa.ForeignKey(

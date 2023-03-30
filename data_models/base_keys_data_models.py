@@ -1,9 +1,9 @@
 #
-# (c) 2022 RENware Software Systems
+# (c) 2022, 2023 RENware Software Systems
 # cosana system
 #
 # ========================
-# SYSTEM DATA objects: SysDataCatalog
+# mixin template used by almost abjects to inherut required attributes and properrties
 #
 #
 
@@ -45,9 +45,6 @@ class BaseInfoMixin(object):
         * _tenant_id as tenant owner of record (no FK for it but indexed)
         * _disabled to allow for records disabling
     """
-
-    # use history and versioning with SQLAlchemy Continuum
-    __versioned__ = {}
 
     # identification columns
     _pk = sa.Column(sa.String(36), primary_key=True, default=genpk)

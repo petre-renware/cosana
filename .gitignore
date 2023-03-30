@@ -126,6 +126,11 @@ dmypy.json
 # database physical files #!#FIXME activate when finished with data models...
 # data/*.db # [piu] still make changes...
 
+
+# temporary files
+tmp/*
+
+
 .vscode
 .vscode/
 
