@@ -123,21 +123,33 @@ def are_builder():
     _tmp_date = _tmp_date.to_day_datetime_string()
     relationships_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
     are_relationships = render_template_string(_str_of_are_template_html,
-                                         relationships_summary_info = relationships_summary_info)
+                                               relationships_summary_info = relationships_summary_info)
     #
     #
     # render are_solution
     _file = pathlib.Path(APP_ROOT + '/are/are_solution.html')
     _str_of_are_template_html = _file.read_text()
-    #!#FIXME load and send: current score, max score, max of last updated date from history and all objects of domain (get max from all objects them do max of max-es)
-    are_solution = render_template_string(_str_of_are_template_html)
+    from data_models.ads_solution_api_models import ads_solution_get
+    solution_summary_info = ads_solution_get(sales_project_object_chosen).get_json()
+    solution_summary_info = solution_summary_info['data'][0] # [0] is the last and only one record
+    _tmp_date = pendulum.parse(solution_summary_info['_updated_at']) # format date to a more "humanized" string
+    _tmp_date = _tmp_date.to_day_datetime_string()
+    solution_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
+    are_solution = render_template_string(_str_of_are_template_html,
+                                          solution_summary_info = solution_summary_info)
     #
     #
     # render are_decision_criteria
     _file = pathlib.Path(APP_ROOT + '/are/are_decision_criteria.html')
     _str_of_are_template_html = _file.read_text()
-    #!#FIXME load and send: current score, max score, max of last updated date from history and all objects of domain (get max from all objects them do max of max-es)
-    are_decision_criteria = render_template_string(_str_of_are_template_html)
+    from data_models.ads_decision_criteria_api_models import ads_decision_criteria_get
+    decision_criteria_summary_info = ads_decision_criteria_get(sales_project_object_chosen).get_json()
+    decision_criteria_summary_info = decision_criteria_summary_info['data'][0] # [0] is the last and only one record
+    _tmp_date = pendulum.parse(decision_criteria_summary_info['_updated_at']) # format date to a more "humanized" string
+    _tmp_date = _tmp_date.to_day_datetime_string()
+    decision_criteria_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
+    are_decision_criteria = render_template_string(_str_of_are_template_html,
+                                                   decision_criteria_summary_info = decision_criteria_summary_info)
     #
     #
     # --- END of businesses domains loading --- START loading main ARE page
