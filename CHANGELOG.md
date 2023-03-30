@@ -7,7 +7,7 @@
 
 <small>
 
-* Version: 0.11.0
+* Version: 0.12.0
 * Last update: 230330
 </small>
 
@@ -21,7 +21,7 @@
 <small>With (B) are marked those entries that are **BUG FIXES** so should be highlighted on *Release Note* documents.</small>
 
 
-## 0.11.0 - Data history features & ARE General data business domain
+## 0.12.0 - ARE details and charts
 
 ### 074.wip
 
@@ -34,6 +34,14 @@
 
 
 
+
+
+
+
+
+## 0.11.0 - Data history features & ARE summary zone
+
+### 074.beta (230330 06:00)
 
 * 230330piu_b ARE UI interface close summary zone for all business domains. Made following:
     * [x] ---(already done in `073.alpha 230327piu_d`)--- General data
