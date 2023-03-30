@@ -8,7 +8,7 @@
 <small>
 
 * Version: 0.11.0
-* Last update: 230329
+* Last update: 230330
 </small>
 
 ***
@@ -27,7 +27,8 @@
 
 * wip... --- [ ASAP ACTION PLAN: ]-------------------------------------------------------------
 * tbd... ARE generating charts route - get real data directly from history table `ads_general_data_version` (pls `see are_main.py` comment ref object name and check WHAT detail object is accessed or is enough main object as it could have all score history in `score` property by accessing corresponding historical records from details)
-* tbd... al bss domains data models make property for *historical score*
+* tbd... all bss domains data models make property for *historical score*
+* tbd... in `base_keys_data_models.py` add field `_useless_to_keep_history: bool, optional no default` just usable to set and keep history at ADS level tables - usage: at each detail change, set it as `set _useless_to_keep_history = not _useless_to_keep_history` to force versioning component to save history
 
 
 * tbd... 2303...... ARE UI interface close summary zone for all business domains. Made following:
