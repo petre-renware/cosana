@@ -23,7 +23,7 @@
 
 ## 0.12.0 - ARE details and charts
 
-### 074.wip
+### 075.wip
 
 * wip... --- [ ASAP ACTION PLAN: ]-------------------------------------------------------------
 * tbd... ARE generating charts route - get real data directly from history table `ads_general_data_version` (pls `see are_main.py` comment ref object name and check WHAT detail object is accessed or is enough main object as it could have all score history in `score` property by accessing corresponding historical records from details)
