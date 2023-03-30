@@ -36,7 +36,7 @@
     * [x] ---(already done in `230329piu_a`)--- Evaluation
     * [x] ---(already done in `230330piu_a`)---  Organization map
     * [x] ---(already done in `230329piu_a`)--- Revenue
-    * [ ] Relationship approach
+    * [x] ---(already done in `230329piu_a`)--- Relationship approach
     * [ ] Solution
     * [ ] Decision criteria
 
@@ -46,7 +46,7 @@
     * [x] ---(already done in `230329piu_a`)--- Evaluation
     * [x] Organization map
     * [x] ---(already done in `230329piu_a`)--- Revenue
-    * [ ] Relationship approach
+    * [x] Relationship approach
     * [ ] Solution
     * [ ] Decision criteria
 * 230329piu_b refactored `ads_revenue_get(...)` from `ads_revenue_api_models` api function to `ads_revenue_api_get(...)` keeping signature (reason: consistency naming convention)
