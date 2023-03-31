@@ -39,7 +39,7 @@ else:
 #   note: - _pk and audit columns come from BaseInfoMixin
 # ============================================
 class ads_org_map(BaseModel, BaseInfoMixin):
-    __versioned__ = {} # activate data hostory and versioning mechanism of SQLAlchemy Continuum
+    __versioned__ = {} # activate data history and versioning mechanism of SQLAlchemy Continuum
     __tablename__ = 'ads_org_map'
 
     sales_project_fk = sa.Column(sa.String(36), sa.ForeignKey('salesproject._pk', ondelete='CASCADE', onupdate='CASCADE'), nullable=False, unique=True, index=True)
@@ -129,7 +129,7 @@ class ads_org_map(BaseModel, BaseInfoMixin):
 #   note: - _pk and audit columns come from BaseInfoMixin
 # ============================================
 class ads_org_map_details(BaseModel, BaseInfoMixin):
-    __versioned__ = {} # activate data hostory and versioning mechanism of SQLAlchemy Continuum
+    __versioned__ = {} # activate data history and versioning mechanism of SQLAlchemy Continuum
     __tablename__ = 'ads_org_map_details'
 
     ads_org_map_fk = sa.Column(sa.String(36), sa.ForeignKey('ads_org_map._pk', ondelete='CASCADE', onupdate='CASCADE'), nullable=False, index=True)

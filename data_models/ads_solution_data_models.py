@@ -41,7 +41,7 @@ else:
 #   note: - _pk and audit columns come from BaseInfoMixin
 # ============================================
 class ads_solution(BaseModel, BaseInfoMixin):
-    __versioned__ = {} # activate data hostory and versioning mechanism of SQLAlchemy Continuum
+    __versioned__ = {} # activate data history and versioning mechanism of SQLAlchemy Continuum
     __tablename__ = 'ads_solution'
 
     sales_project_fk = sa.Column(sa.String(36), sa.ForeignKey('salesproject._pk', ondelete='CASCADE', onupdate='CASCADE'), nullable=False, unique=True, index=True)
@@ -106,7 +106,7 @@ class ads_solution(BaseModel, BaseInfoMixin):
 #   note: - _pk and audit columns come from BaseInfoMixin
 # ============================================
 class ads_solution_details(BaseModel, BaseInfoMixin):
-    __versioned__ = {} # activate data hostory and versioning mechanism of SQLAlchemy Continuum
+    __versioned__ = {} # activate data history and versioning mechanism of SQLAlchemy Continuum
     __tablename__ = 'ads_solution_details'
 
     ads_solution_fk = sa.Column(sa.String(36), sa.ForeignKey('ads_solution._pk', ondelete='CASCADE', onupdate='CASCADE'), nullable=False, index=True)

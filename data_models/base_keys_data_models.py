@@ -44,6 +44,7 @@ class BaseInfoMixin(object):
         * _updated_at, _updated_by as minimum audit data
         * _tenant_id as tenant owner of record (no FK for it but indexed)
         * _disabled to allow for records disabling
+        * column `_useless_to_keep_history` is usable to set and keep history at ADS level tables - usage: at each detail change, set it as `set _useless_to_keep_history = not _useless_to_keep_history` to force versioning component to save history
     """
 
     # identification columns
@@ -53,6 +54,9 @@ class BaseInfoMixin(object):
     _updated_at = sa.Column(sa.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow,  nullable=False)
     # disabling column
     _disabled = sa.Column(sa.Boolean, nullable=False, index=True, default=False)
+    # see note 1
+    _useless_to_keep_history = sa.Column(sa.Boolean, nullable=True)
+
 
     def DiableRec(self):
         self._disabled = True

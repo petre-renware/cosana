@@ -8,7 +8,7 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230330
+* Last update: 230331
 </small>
 
 ***
@@ -28,7 +28,11 @@
 * wip... --- [ ASAP ACTION PLAN: ]-------------------------------------------------------------
 * tbd... ARE generating charts route - get real data directly from history table `ads_general_data_version` (pls `see are_main.py` comment ref object name and check WHAT detail object is accessed or is enough main object as it could have all score history in `score` property by accessing corresponding historical records from details)
 * tbd... all bss domains data models make property for *historical score*
-* tbd... in `base_keys_data_models.py` add field `_useless_to_keep_history: bool, optional no default` just usable to set and keep history at ADS level tables - usage: at each detail change, set it as `set _useless_to_keep_history = not _useless_to_keep_history` to force versioning component to save history
+
+
+* tbd... `ads data models` for each detail tables use attribute `_useless_to_keep_history` to force history generate rec at parent level (in case of decision criteria domain data model there 2 levels and each of them force history in parent ***ONLY on decision criteria line***)
+
+* 230331piu_a `base_keys_data_models.py` add field `_useless_to_keep_history: bool, optional no default` just usable to set and keep history at ADS level tables - usage: at each detail change, set it as `set _useless_to_keep_history = not _useless_to_keep_history` to force versioning component to save history
 
 
 
