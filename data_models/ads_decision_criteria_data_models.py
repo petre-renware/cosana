@@ -149,6 +149,35 @@ class ads_decision_criteria_details_1criterialist(BaseModel, BaseInfoMixin):
         return _tmp
 
 
+
+""" #!#FIXME - DROP ME - to use a "classical" method, to apdate in API the respective parrent...
+#
+# functions designed to capture insert / update / delete events and force versioning component to update history (see v0.12.0-xxx opiss 230401piu_a for more details)
+from sqlalchemy.orm.attributes import set_committed_value
+@sa.event.listens_for(ads_decision_criteria_details_1criterialist, 'after_update')
+def details_lvl1_before_update(mapper, connection, target):
+    # update `ads_decision_criteria_data`, attribute `_useless_to_keep_history`
+    if type(target.ads_decision_criteria_data) == type(list()): #!#FIXME_TODO: seems that is better to get object by FK and update it
+        _taregt_to_update = target.ads_decision_criteria_data[0]
+    else:
+        _taregt_to_update = target.ads_decision_criteria_data
+    print(f'-------------[ ads_decision_criteria_details_1criterialist fake_attrib BEFORE ]: {_taregt_to_update._useless_to_keep_history}') #!#FIXME drop me when test with set commited val are ok
+    _new_target_value = not _taregt_to_update._useless_to_keep_history
+    # _taregt_to_update._useless_to_keep_history = _new_target_value #!#FIXME drop me when test with set commited val are ok
+    set_committed_value(_taregt_to_update, '_useless_to_keep_history', _new_target_value)
+    '''#!#FIXME
+        still value not updated on parent, aven with #164 line (writes clasiical to DB) and with set_committed_value() active...
+        **HINT:**
+            1. consider to get object by FK and update it
+            2. CHANGED, DID NOT WORK --- change event to after_update !
+    '''
+    print(f'-------------[ ads_decision_criteria_details_1criterialist fake_attrib AFTER ]: {_taregt_to_update._useless_to_keep_history}') #!#FIXME drop me when test with set commited val are ok
+"""
+
+
+
+
+
 #
 # ads_decision_criteria_details_2maptoperson
 #   note: - _pk and audit columns come from BaseInfoMixin

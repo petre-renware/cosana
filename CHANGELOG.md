@@ -8,7 +8,7 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230331
+* Last update: 230401
 </small>
 
 ***
@@ -26,11 +26,18 @@
 ### 075.wip
 
 * wip... --- [ ASAP ACTION PLAN: ]-------------------------------------------------------------
+
 * tbd... ARE generating charts route - get real data directly from history table `ads_general_data_version` (pls `see are_main.py` comment ref object name and check WHAT detail object is accessed or is enough main object as it could have all score history in `score` property by accessing corresponding historical records from details)
-* tbd... all bss domains data models make property for *historical score*
+
+* tbd... all bss domains data models make property to return *historical score*
+
+* tbd... `ads data models` for each detail tables update `_useless_to_keep_history` ***ONLY at `ads` parent level*** to force versioning component to generate history line and update audit fields - implementation through API code for corresponding `ads` object and operations (insert / update / delete)
 
 
-* tbd... `ads data models` for each detail tables use attribute `_useless_to_keep_history` to force history generate rec at parent level (in case of decision criteria domain data model there 2 levels and each of them force history in parent ***ONLY on decision criteria line***)
+
+
+* 230401piu_a `ads data models` for each detail tables update `_useless_to_keep_history` ***ONLY at `ads` parent level*** to force versioning component to generate history line and update audit fields - implementation tried by capturing insert / update / delete events at ORM object level 
+    ***RESULT FAILED***: updating the parent did not succeed - code was left for latter introspections as commented in `data_models/ads_decision_criteria_data_models.py` code file for level 1 object
 
 * 230331piu_a `base_keys_data_models.py` add field `_useless_to_keep_history: bool, optional no default` just usable to set and keep history at ADS level tables - usage: at each detail change, set it as `set _useless_to_keep_history = not _useless_to_keep_history` to force versioning component to save history
 
