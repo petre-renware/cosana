@@ -158,7 +158,7 @@ class ads_solution_details(BaseModel, BaseInfoMixin):
 
 
 #
-#*--- functions designed to capture insert / update / delete events and force versioning component to update history (see v0.12.0-xxx opiss 230401piu_a for more details)
+#*--- functions designed to capture insert / update / delete events and force versioning component to update history (see v0.12.0-xxx opiss 230402piu_a for more details)
 @sa.event.listens_for(db.session, 'before_flush')
 def details_lvl1_before_update(session, flush_context, instances):
     # set mysellf
@@ -172,3 +172,28 @@ def details_lvl1_before_update(session, flush_context, instances):
                 _taregt_to_update = instance.ads_solution_data #? pay ATTN to PARENT RELATIONSHIP NAME
             _new_target_value = not _taregt_to_update._useless_to_keep_history
             _taregt_to_update._useless_to_keep_history = _new_target_value
+
+
+""" #!#FIXME error
+File "/mnt/d/_T0_PROJECTS/0000-0128 COSANA Comprehensive Sales Analysis Review/830-DEV/data_models/ads_solution_data_models.py", line 188, in details_lvl1_insert
+    _taregt_to_update._useless_to_keep_history = True # just put a True as being a new element and does not matter what value is
+AttributeError: 'NoneType' object has no attribute '_useless_to_keep_history'
+------------------------------------------------------------------------------------------
+EXPL: at insertion momnt the object is still in construction (? REALLY? you're in after_flush - study more)
+-------------------------------------------------------------------------------------------                          [ original code start from here]
+
+
+@sa.event.listens_for(db.session, 'after_flush')
+def details_lvl1_insert(session, flush_context):
+    # set mysellf
+    for instance in session.new:
+        # just for mysellf
+        if isinstance(instance, ads_solution_details): #? CHANGE FOR EACH OBJECT
+            # update `ads_solution_data`, attribute `_useless_to_keep_history`
+            if type(instance.ads_solution_data) == type(list()):  #? pay ATTN to PARENT RELATIONSHIP NAME
+                _taregt_to_update = instance.ads_solution_data[0] #? pay ATTN to PARENT RELATIONSHIP NAME
+            else:
+                _taregt_to_update = instance.ads_solution_data #? pay ATTN to PARENT RELATIONSHIP NAME
+            _taregt_to_update._useless_to_keep_history = True # just put a True as being a new element and does not matter what value is
+
+"""
