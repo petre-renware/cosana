@@ -31,22 +31,17 @@
 
 * tbd... all bss domains data models make property to return *historical score*
 
-* tbd... `ads data models` for each detail tables update `_useless_to_keep_history` ***ONLY at `ads` parent level*** to force versioning component to generate history line and update audit fields - implementation through API code for corresponding `ads` object and operations (insert / update / delete)
+* tbd... all `before_flush` events at `ads_*` details level(s) does not trigger parent history for INSERT operations / check if needed also `after_flush` event (the PK of object is not yet generated at `before_flush` so `instance.*` constructions have no base to work)
 
 
-* wip... 230402piu_a `ads data models` for each detail tables update `_useless_to_keep_history` ***ONLY at `ads` parent level*** to force versioning component to generate history line and update audit fields - implementation tried by capturing `before_flush` events at each ORM class object level. Made for:
+* 230402piu_a `ads data models` for each detail tables update `_useless_to_keep_history` ***ONLY at `ads` parent level*** to force versioning component to generate history line and update audit fields - implementation tried by capturing `before_flush` events at each ORM class object level. Made for:
     * [x] decision criteria
     * [x] evaluation - NOT APPLICABLE
     * [x] general data - NOT APPLICABLE
     * [x] org_map
     * [x] relationships
     * [x] revenue - NOT APPLICABLE
-    * [ ] solution
-
-
-* 230401piu_a `ads data models` for each detail tables update `_useless_to_keep_history` ***ONLY at `ads` parent level*** to force versioning component to generate history line and update audit fields - implementation tried by capturing insert / update / delete events at ORM object level 
-    ***RESULT FAILED***: updating the parent did not succeed - code was left for latter introspections as commented in `data_models/ads_decision_criteria_data_models.py` code file for level 1 object
-
+    * [x] solution
 * 230331piu_a `base_keys_data_models.py` add field `_useless_to_keep_history: bool, optional no default` just usable to set and keep history at ADS level tables - usage: at each detail change, set it as `set _useless_to_keep_history = not _useless_to_keep_history` to force versioning component to save history
 
 
