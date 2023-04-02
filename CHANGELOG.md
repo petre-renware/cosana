@@ -38,7 +38,7 @@
     * [x] decision criteria
     * [x] evaluation - NOT APPLICABLE
     * [x] general data - NOT APPLICABLE
-    * [ ] org_map
+    * [x] org_map
     * [ ] relationships
     * [x] revenue - NOT APPLICABLE
     * [ ] solution

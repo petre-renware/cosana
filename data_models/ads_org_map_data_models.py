@@ -170,6 +170,21 @@ class ads_org_map_details(BaseModel, BaseInfoMixin):
         return _tmp
 
 
+#
+#*--- functions designed to capture insert / update / delete events and force versioning component to update history (see v0.12.0-xxx opiss 230401piu_a for more details)
+@sa.event.listens_for(db.session, 'before_flush')
+def details_lvl1_before_update(session, flush_context, instances):
+    # set mysellf
+    for instance in session.dirty:
+        # just for mysellf
+        if isinstance(instance, ads_org_map_details): #? CHANGE FOR EACH OBJECT
+            # update `ads_org_map_data`, attribute `_useless_to_keep_history`
+            if type(instance.ads_org_map_data) == type(list()):  #? pay ATTN to PARENT RELATIONSHIP NAME
+                _taregt_to_update = instance.ads_org_map_data[0] #? pay ATTN to PARENT RELATIONSHIP NAME
+            else:
+                _taregt_to_update = instance.ads_org_map_data #? pay ATTN to PARENT RELATIONSHIP NAME
+            _new_target_value = not _taregt_to_update._useless_to_keep_history
+            _taregt_to_update._useless_to_keep_history = _new_target_value
 
 
 
