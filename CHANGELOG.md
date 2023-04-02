@@ -8,7 +8,7 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230401
+* Last update: 230402
 </small>
 
 ***
@@ -34,6 +34,14 @@
 * tbd... `ads data models` for each detail tables update `_useless_to_keep_history` ***ONLY at `ads` parent level*** to force versioning component to generate history line and update audit fields - implementation through API code for corresponding `ads` object and operations (insert / update / delete)
 
 
+* wip... 230402piu_a '`ads data models` for each detail tables update `_useless_to_keep_history` ***ONLY at `ads` parent level*** to force versioning component to generate history line and update audit fields - implementation tried by capturing `before_flush` events at each ORM class object level. Made for:
+    * [x] decision criteria
+    * [x] evaluation - NOT APPLICABLE
+    * [x] general data - NOT APPLICABLE
+    * [ ] org_map
+    * [ ] relationships
+    * [x] revenue - NOT APPLICABLE
+    * [ ] solution
 
 
 * 230401piu_a `ads data models` for each detail tables update `_useless_to_keep_history` ***ONLY at `ads` parent level*** to force versioning component to generate history line and update audit fields - implementation tried by capturing insert / update / delete events at ORM object level 

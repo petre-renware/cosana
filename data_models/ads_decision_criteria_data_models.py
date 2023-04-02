@@ -149,30 +149,21 @@ class ads_decision_criteria_details_1criterialist(BaseModel, BaseInfoMixin):
         return _tmp
 
 
-
-""" #!#FIXME - DROP ME - to use a "classical" method, to apdate in API the respective parrent...
 #
-# functions designed to capture insert / update / delete events and force versioning component to update history (see v0.12.0-xxx opiss 230401piu_a for more details)
-from sqlalchemy.orm.attributes import set_committed_value
-@sa.event.listens_for(ads_decision_criteria_details_1criterialist, 'after_update')
-def details_lvl1_before_update(mapper, connection, target):
-    # update `ads_decision_criteria_data`, attribute `_useless_to_keep_history`
-    if type(target.ads_decision_criteria_data) == type(list()): #!#FIXME_TODO: seems that is better to get object by FK and update it
-        _taregt_to_update = target.ads_decision_criteria_data[0]
-    else:
-        _taregt_to_update = target.ads_decision_criteria_data
-    print(f'-------------[ ads_decision_criteria_details_1criterialist fake_attrib BEFORE ]: {_taregt_to_update._useless_to_keep_history}') #!#FIXME drop me when test with set commited val are ok
-    _new_target_value = not _taregt_to_update._useless_to_keep_history
-    # _taregt_to_update._useless_to_keep_history = _new_target_value #!#FIXME drop me when test with set commited val are ok
-    set_committed_value(_taregt_to_update, '_useless_to_keep_history', _new_target_value)
-    '''#!#FIXME
-        still value not updated on parent, aven with #164 line (writes clasiical to DB) and with set_committed_value() active...
-        **HINT:**
-            1. consider to get object by FK and update it
-            2. CHANGED, DID NOT WORK --- change event to after_update !
-    '''
-    print(f'-------------[ ads_decision_criteria_details_1criterialist fake_attrib AFTER ]: {_taregt_to_update._useless_to_keep_history}') #!#FIXME drop me when test with set commited val are ok
-"""
+#*--- functions designed to capture insert / update / delete events and force versioning component to update history (see v0.12.0-xxx opiss 230401piu_a for more details)
+@sa.event.listens_for(db.session, 'before_flush')
+def details_lvl1_before_update(session, flush_context, instances):
+    # set mysellf
+    for instance in session.dirty:
+        # just for mysellf
+        if isinstance(instance, ads_decision_criteria_details_1criterialist): #? CHANGE FOR EACH OBJECT
+            # update `ads_decision_criteria_data`, attribute `_useless_to_keep_history`
+            if type(instance.ads_decision_criteria_data) == type(list()):  #? pay ATTN to PARENT RELATIONSHIP NAME
+                _taregt_to_update = instance.ads_decision_criteria_data[0] #? pay ATTN to PARENT RELATIONSHIP NAME
+            else:
+                _taregt_to_update = instance.ads_decision_criteria_data #? pay ATTN to PARENT RELATIONSHIP NAME
+            _new_target_value = not _taregt_to_update._useless_to_keep_history
+            _taregt_to_update._useless_to_keep_history = _new_target_value
 
 
 
@@ -224,4 +215,20 @@ class ads_decision_criteria_details_2maptoperson(BaseModel, BaseInfoMixin):
         _tmp.update(_tmp_me.copy())
         return _tmp
 
+
+#
+#*--- functions designed to capture insert / update / delete events and force versioning component to update history (see v0.12.0-xxx opiss 230401piu_a for more details)
+@sa.event.listens_for(db.session, 'before_flush')
+def details_lvl1_before_update(session, flush_context, instances):
+    # set mysellf
+    for instance in session.dirty:
+        # just for mysellf
+        if isinstance(instance, ads_decision_criteria_details_2maptoperson): #? CHANGE FOR EACH OBJECT
+            # update `ads_decision_criteria_details_1criterialist_data`, attribute `_useless_to_keep_history`
+            if type(instance.ads_decision_criteria_details_1criterialist_data) == type(list()):  #? pay ATTN to PARENT RELATIONSHIP NAME
+                _taregt_to_update = instance.ads_decision_criteria_details_1criterialist_data[0] #? pay ATTN to PARENT RELATIONSHIP NAME
+            else:
+                _taregt_to_update = instance.ads_decision_criteria_details_1criterialist_data #? pay ATTN to PARENT RELATIONSHIP NAME
+            _new_target_value = not _taregt_to_update._useless_to_keep_history
+            _taregt_to_update._useless_to_keep_history = _new_target_value
 
