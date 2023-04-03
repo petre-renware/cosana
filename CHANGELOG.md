@@ -38,7 +38,7 @@
     * [ ] org_map
     * [ ] relationships
     * [x] revenue - NOT APPLICABLE
-    * [x] solution --- partial - logic errs - see code for comments
+    * [...] solution --- partial - logic errs - see code for comments / need to load by FK from get_history.deleted[0] then update
 
 
 * wip... 230403piu_a all `before_flush` events at `ads_*` details level(s) does not trigger parent history for DELETE operation
@@ -46,7 +46,7 @@
     * [x] evaluation - NOT APPLICABLE
     * [x] general data - NOT APPLICABLE
     * [ ] org_map
-    * [ ] relationships
+    * [x] relationships
     * [x] revenue - NOT APPLICABLE
     * [x] solution
 

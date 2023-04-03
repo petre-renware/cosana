@@ -183,7 +183,7 @@ def details_lvl1_before_update(session, flush_context, instances):
             _taregt_to_update._useless_to_keep_history = _new_target_value
 
 
-""" #!#FIXME error
+""" #!#FIXME error #FIXME_#FIXME_#FIXME need to load by FK from get_history.deleted[0] then update
 File "/mnt/d/_T0_PROJECTS/0000-0128 COSANA Comprehensive Sales Analysis Review/830-DEV/data_models/ads_solution_data_models.py", line 188, in details_lvl1_insert
     _taregt_to_update._useless_to_keep_history = True # just put a True as being a new element and does not matter what value is
 AttributeError: 'NoneType' object has no attribute '_useless_to_keep_history'
