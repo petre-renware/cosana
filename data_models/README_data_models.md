@@ -4,8 +4,8 @@
 
 <small>
 
-* Version: 0.10.0
-* Last update: 230320
+* Version: 0.12.0
+* Last update: 230403
 </small>
 
 **Data models for system objects**
@@ -391,6 +391,9 @@ Ref **ADS Evaluation** (code-name: `ads_evaluation`) object should note that mos
 
 * properties terminated with `_score` which represents the score "bring" by that criteria, ie as selected by an user in UI
 * properties terminated with `_text` which generate the "human" text used in UI for respective selector list (usual being something like a *combo box*)
+
+
+All `ads_*` data models contains column  `_useless_to_keep_history: bool, optional no default` just *usable to set and keep history at ADS level tables*. Typical usage: at each detail change, set it as `UPDATE ads_...bss_domain... SET _useless_to_keep_history = not _useless_to_keep_history` to force versioning component to save history.
 
 ## Scoring
 
