@@ -41,15 +41,14 @@
     * [...] solution --- partial - logic errs - see code for comments / need to load by FK from get_history.deleted[0] then update
 
 
-* wip... 230403piu_a all `before_flush` events at `ads_*` details level(s) does not trigger parent history for DELETE operation
-    * [ ] decision criteria
+* 230403piu_a all `before_flush` events at `ads_*` details level(s) does not trigger parent history for DELETE operation
+    * [x] decision criteria
     * [x] evaluation - NOT APPLICABLE
     * [x] general data - NOT APPLICABLE
     * [x] org_map
     * [x] relationships
     * [x] revenue - NOT APPLICABLE
     * [x] solution
-
 * 230402piu_a `ads data models` for each detail tables update `_useless_to_keep_history` ***ONLY at `ads` parent level*** to force versioning component to generate history line and update audit fields - implementation tried by capturing `before_flush` events at each ORM class object level. Made for:
     * [x] decision criteria
     * [x] evaluation - NOT APPLICABLE
