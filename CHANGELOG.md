@@ -8,7 +8,7 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230402
+* Last update: 230403
 </small>
 
 ***
@@ -31,17 +31,24 @@
 
 * tbd... all bss domains data models make property to return *historical score*
 
-* wip... wip-@-230402 all `before_flush` events at `ads_*` details level(s) does not trigger parent history for INSERT operations
-    - updated to check `session.new`
-    - also need to check `session.deleted (??? - check how property named)
-
+* tbd... 230403piu_??????? all `before_flush` events at `ads_*` details level(s) does not trigger parent history for INSERT operation
     * [ ] decision criteria
     * [x] evaluation - NOT APPLICABLE
     * [x] general data - NOT APPLICABLE
     * [ ] org_map
     * [ ] relationships
-    * [ ] revenue - NOT APPLICABLE
-    * [...] solution --- partial - logic errs - see code for comments
+    * [x] revenue - NOT APPLICABLE
+    * [x] solution --- partial - logic errs - see code for comments
+
+
+* wip... 230403piu_a all `before_flush` events at `ads_*` details level(s) does not trigger parent history for DELETE operation
+    * [ ] decision criteria
+    * [x] evaluation - NOT APPLICABLE
+    * [x] general data - NOT APPLICABLE
+    * [ ] org_map
+    * [ ] relationships
+    * [x] revenue - NOT APPLICABLE
+    * [x] solution
 
 * 230402piu_a `ads data models` for each detail tables update `_useless_to_keep_history` ***ONLY at `ads` parent level*** to force versioning component to generate history line and update audit fields - implementation tried by capturing `before_flush` events at each ORM class object level. Made for:
     * [x] decision criteria
