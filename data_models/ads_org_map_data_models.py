@@ -185,6 +185,14 @@ def details_lvl1_before_update(session, flush_context, instances):
                 _taregt_to_update = instance.ads_org_map_data #? pay ATTN to PARENT RELATIONSHIP NAME
             _new_target_value = not _taregt_to_update._useless_to_keep_history
             _taregt_to_update._useless_to_keep_history = _new_target_value
-
+    for instance in session.deleted:
+        if isinstance(instance, ads_org_map_details): #? CHANGE FOR EACH OBJECT
+            # update `ads_org_map_data`, attribute `_useless_to_keep_history`
+            if type(sa.orm.attributes.get_history(instance, 'ads_org_map_data').unchanged[0]) == type(list()):  #? pay ATTN to PARENT RELATIONSHIP NAME
+                _taregt_to_update = sa.orm.attributes.get_history(instance, 'ads_org_map_data').unchanged[0][0] #? pay ATTN to PARENT RELATIONSHIP NAME
+            else:
+                _taregt_to_update = sa.orm.attributes.get_history(instance, 'ads_org_map_data').unchanged[0] #? pay ATTN to PARENT RELATIONSHIP NAME
+            _new_target_value = not _taregt_to_update._useless_to_keep_history
+            _taregt_to_update._useless_to_keep_history = _new_target_value
 
 
