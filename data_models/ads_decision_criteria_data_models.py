@@ -152,7 +152,7 @@ class ads_decision_criteria_details_1criterialist(BaseModel, BaseInfoMixin):
 #
 #*--- functions designed to capture insert / update / delete events and force versioning component to update history (see v0.12.0-xxx opiss 230402piu_a for more details)
 @sa.event.listens_for(db.session, 'before_flush')
-def details_lvl1_before_update(session, flush_context, instances):
+def details_lvl1_before_flush(session, flush_context, instances):
     # set mysellf
     for instance in session.dirty:
         # just for mysellf
@@ -227,7 +227,7 @@ class ads_decision_criteria_details_2maptoperson(BaseModel, BaseInfoMixin):
 #
 #*--- functions designed to capture insert / update / delete events and force versioning component to update history (see v0.12.0-xxx opiss 230402piu_a for more details)
 @sa.event.listens_for(db.session, 'before_flush')
-def details_lvl1_before_update(session, flush_context, instances):
+def details_lvl1_before_flush(session, flush_context, instances):
     # set mysellf
     for instance in session.dirty:
         # just for mysellf

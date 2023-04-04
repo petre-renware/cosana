@@ -31,14 +31,14 @@
 
 * tbd... all bss domains data models make property to return *historical score*
 
-* tbd... 230403piu_??????? all `before_flush` events at `ads_*` details level(s) does not trigger parent history for INSERT operation
+* wip... 230404piu_a all `before_flush` events at `ads_*` details level(s) does not trigger parent history for INSERT operation
     * [ ] decision criteria
     * [x] evaluation - NOT APPLICABLE
     * [x] general data - NOT APPLICABLE
     * [ ] org_map
     * [ ] relationships
     * [x] revenue - NOT APPLICABLE
-    * [...] solution --- partial - logic errs - see code for comments / need to load by FK from get_history.deleted[0] then update
+    * [x] solution
 
 
 
