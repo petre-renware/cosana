@@ -29,7 +29,8 @@
 
 * tbd... ARE generating charts route - get real data directly from history table `ads_general_data_version` (pls `see are_main.py` comment ref object name and check WHAT detail object is accessed or is enough main object as it could have all score history in `score` property by accessing corresponding historical records from details)
 
-* tbd... all bss domains data models make property to return *historical score*
+* tbd... all bss domains data models make a method to return *historical score* starting from current data back to `last_no_of_days` ar all, `last_no_of_days` is optional parameter for `None` value returning all history
+
 
 * 230404piu_a all `before_flush` events at `ads_*` details level(s) does not trigger parent history for INSERT operation
     * [x] decision criteria
