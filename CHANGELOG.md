@@ -8,7 +8,7 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230404
+* Last update: 230405
 </small>
 
 ***
@@ -36,7 +36,7 @@
     * [x] evaluation - NOT APPLICABLE
     * [x] general data - NOT APPLICABLE
     * [ ] org_map
-    * [ ] relationships
+    * [x] relationships
     * [x] revenue - NOT APPLICABLE
     * [x] solution
 
