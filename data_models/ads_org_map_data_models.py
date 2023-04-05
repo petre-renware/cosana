@@ -194,5 +194,11 @@ def details_lvl1_before_flush(session, flush_context, instances):
                 _taregt_to_update = sa.orm.attributes.get_history(instance, 'ads_org_map_data').unchanged[0] #? pay ATTN to PARENT RELATIONSHIP NAME
             _new_target_value = not _taregt_to_update._useless_to_keep_history
             _taregt_to_update._useless_to_keep_history = _new_target_value
+    for instance in session.new:
+        # just for mysellf
+        if isinstance(instance, ads_org_map_details): #? CHANGE FOR EACH OBJECT
+            # update `ads_org_map` (principal parent), attribute `_useless_to_keep_history`
+            _taregt_to_update = ads_org_map.query.filter(ads_org_map._pk == instance.ads_org_map_fk).one()
+            _taregt_to_update._useless_to_keep_history = True # just put a True as being a new element and does not matter what value is
 
 
