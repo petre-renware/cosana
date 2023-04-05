@@ -31,17 +31,14 @@
 
 * tbd... all bss domains data models make property to return *historical score*
 
-* wip... 230404piu_a all `before_flush` events at `ads_*` details level(s) does not trigger parent history for INSERT operation
-    * [ ] decision criteria
+* 230404piu_a all `before_flush` events at `ads_*` details level(s) does not trigger parent history for INSERT operation
+    * [x] decision criteria
     * [x] evaluation - NOT APPLICABLE
     * [x] general data - NOT APPLICABLE
     * [x] org_map
     * [x] relationships
     * [x] revenue - NOT APPLICABLE
     * [x] solution
-
-
-
 * 230403piu_a all `before_flush` events at `ads_*` details level(s) does not trigger parent history for DELETE operation
     * [x] decision criteria
     * [x] evaluation - NOT APPLICABLE

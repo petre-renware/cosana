@@ -173,6 +173,12 @@ def details_lvl1_before_flush(session, flush_context, instances):
                 _taregt_to_update = sa.orm.attributes.get_history(instance, 'ads_decision_criteria_data').unchanged[0] #? pay ATTN to PARENT RELATIONSHIP NAME
             _new_target_value = not _taregt_to_update._useless_to_keep_history
             _taregt_to_update._useless_to_keep_history = _new_target_value
+    for instance in session.new:
+        # just for mysellf
+        if isinstance(instance, ads_decision_criteria_details_1criterialist): #? CHANGE FOR EACH OBJECT
+            # update `ads_decision_criteria` (principal parent), attribute `_useless_to_keep_history`
+            _taregt_to_update = ads_decision_criteria.query.filter(ads_decision_criteria._pk == instance.ads_decision_criteria_fk).one()
+            _taregt_to_update._useless_to_keep_history = True # just put a True as being a new element and does not matter what value is
 
 
 
@@ -248,4 +254,13 @@ def details_lvl1_before_flush(session, flush_context, instances):
                 _taregt_to_update = sa.orm.attributes.get_history(instance, 'ads_decision_criteria_details_1criterialist_data').unchanged[0] #? pay ATTN to PARENT RELATIONSHIP NAME
             _new_target_value = not _taregt_to_update._useless_to_keep_history
             _taregt_to_update._useless_to_keep_history = _new_target_value
+    for instance in session.new:
+        # just for mysellf
+        if isinstance(instance, ads_decision_criteria_details_2maptoperson): #? CHANGE FOR EACH OBJECT
+            # update `ads_decision_criteria_details_1criterialist` (principal parent), attribute `_useless_to_keep_history`
+            _taregt_to_update = ads_decision_criteria_details_1criterialist.query.filter(ads_decision_criteria_details_1criterialist._pk == instance.ads_decision_criteria_details_1criterialist_fk).first()
+            if _taregt_to_update: # only if there is something found
+                _taregt_to_update._useless_to_keep_history = True # just put a True as being a new element and does not matter what value is
+
+
 
