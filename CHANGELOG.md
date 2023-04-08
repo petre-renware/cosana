@@ -30,10 +30,17 @@
 * tbd... ARE generating charts route - get real data directly from history table `ads_general_data_version` (pls `see are_main.py` comment ref object name and check WHAT detail object is accessed or is enough main object as it could have all score history in `score` property by accessing corresponding historical records from details)
 
 * tbd... all bss domains data models make a method to return *historical score* starting from current data back to `last_no_of_days` ar all, `last_no_of_days` is optional parameter for `None` value returning all history. HINTS:
-    - to move all calculation in a separated function with parameters to be "one place where is doing", so you'll can send as params data from history
-    - to put `**kwargs` to `score(...)` property and search for `history_days: int`, if exists and valid do history calc AFTER actual record calculation + append info
+    - to move all calculation in a separated method with parameters to be "one place where is doing", so you'll can send as params data from history
+    - optional: to put `**kwargs` to `score(...)` property and search for `history_days: int`, if exists and valid do history calc AFTER actual record calculation + append info
+    * [ ] decision criteria
+    * [ ] evaluation
+    * [ ] general data
+    * [ ] org_map
+    * [ ] relationships
+    * [ ] revenue
+    * [ ] solution
 
-
+* 230409piu_a update chart generator function `are_chart(business_domain, chart_type)` (module `are/are_main.py`, route: `'/are_chart/<business_domain>/<chart_type>'`) to generate unique image files with auto removing after usage
 
 
 ### 075.alpha (230406 04:00)

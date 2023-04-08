@@ -189,12 +189,8 @@ def are_chart(business_domain, chart_type):
         return None
     #
     # generate a filename as full path (using APP_ROOT from Commons)
-    _picture_file = pathlib.Path(APP_ROOT + '/tmp/temp.png') #!#FIXME check if generate a unique name as the is some latency in processing and not always chart is right generated but on server could be different !
-    # renove any previously generated file
-    try: # ignore errors if file not exists
-        os.remove(_picture_file) #!#FIXME think to consider a delayed remove as need some sleep until file is read, send_from_directory being async
-    except:
-        pass
+    _temp_fullname = str(uuid.uuid4()) + '.png'
+    _picture_file = pathlib.Path(APP_ROOT + '/tmp/' + _temp_fullname) #!#FIXME check if generate a unique name as the is some latency in processing and not always chart is right generated but on server could be different !
     #
     #
     ''' the following graphs should be generated:
@@ -217,6 +213,18 @@ def are_chart(business_domain, chart_type):
     # split file into directory and name as neede by `send_from_directory()` function and return file content
     _path_file = os.path.split(_picture_file)
     _file_response = send_from_directory(_path_file[0], _path_file[1])
+    #
+    # remove any previously generated file
+    ''' #TODO CODE FOR DELAYED REMOVE - probably do not need but just in case of performance issues...
+    import subprocess, threading
+    t = threading.Timer(10.0, subprocess.call, args=(['rm ... --- command ---'],))
+    t.start()
+    '''
+    try: # ignore errors if file not exists
+        os.remove(_picture_file)
+    except:
+        pass
+    #
     return _file_response
 
 
