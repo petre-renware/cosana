@@ -4,8 +4,8 @@
 
 <small>
 
-* Version: 0.11.0
-* Last update: 230324
+* Version: 0.12.0
+* Last update: 230410
 </small>
 
 ***
@@ -13,6 +13,16 @@
 [TOC]
 
 # Open Issues (OPISS)
+
+
+
+## OPISS.008 - ARE main page loader, no ADS data in a business domain
+
+* *Severity level:* low (can continue work by choosing right project)
+* *Target component:* `are/are_main.py`
+* *Synopsis:* to do a complete checking to see there are ADS data, for each bss domain
+
+
 
 
 ## **CLOSED @230320** OPISS.007 - ADS scoring

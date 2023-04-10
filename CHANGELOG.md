@@ -8,7 +8,7 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230406
+* Last update: 230410
 </small>
 
 ***
@@ -40,6 +40,7 @@
     * [ ] revenue
     * [ ] solution
 
+* 230410piu_a ARE start page redirect to Sales Project choose in case sent PK does not exists (location: `are_main.py`)
 * 230409piu_a update chart generator function `are_chart(business_domain, chart_type)` (module `are/are_main.py`, route: `'/are_chart/<business_domain>/<chart_type>'`) to generate unique image files with auto removing after usage
 
 

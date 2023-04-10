@@ -10,7 +10,7 @@ import json
 import pathlib
 from datetime import datetime
 import pendulum
-from flask import render_template, render_template_string, redirect, url_for, send_from_directory, request, jsonify, abort, url_for
+from flask import render_template, render_template_string, redirect, url_for, send_from_directory, request, jsonify, abort
 from data_models.salesproject_data_models import SalesProject
 import matplotlib.pyplot as plt
 from libutil.utils import genpk
@@ -48,13 +48,15 @@ page_title = 'Account Review and Evaluation'
 # *---------------------------------------------------------------------------------
 # *----- ADS-RT [main route and UI builder]  (see component README for details)
 # *---------------------------------------------------------------------------------
-# TODO ROADMAP.RMAP.000 login-protect route
+#TODO ROADMAP.RMAP.000 login-protect route
 @app.route('/are')
 def are_builder():
     # get query parameter
     _tmp = request.args.get('sales_project_pk')
-    if not _tmp:
-        return 'Specified Sales Project not found', 404
+    #TODO: OPISS.008 - ARE main page loader, no ADS data in a business domain
+    if not _tmp: #TODO: OPISS.008 detailed err: the right checking could be here and is to see there is any ADS data (for each bss domain)), otherwise will rase errors when load score in next code
+        # from crud_data_admin.crud_data_admin_main import crud_admin_builder
+        return redirect(url_for('crud_admin_builder'))
     #
     # check if sales project exists
     sales_project_object_chosen = _tmp if _tmp else 'unknown'
