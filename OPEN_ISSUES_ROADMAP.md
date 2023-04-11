@@ -16,7 +16,7 @@
 
 
 
-## OPISS.008 - ARE main page loader, no ADS data in a business domain
+## OPISS.008 - bug @ ARE main page loader, no ADS data in a business domain
 
 * *Severity level:* low (can continue work by choosing right project)
 * *Target component:* `are/are_main.py`

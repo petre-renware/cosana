@@ -63,6 +63,16 @@ def are_builder():
     #
     # --- START of businesses domains loading
     #
+    #!#FIXME - START_1 work @ 230411piu_a fix OPISS.008
+    # make an ampty default structure usable in case there is no ADS data for a domain
+    _empty_bss_domain_response = {
+        '_updated_at': 'no ADS data for business domain',
+        'score': {
+            'crt_score': 0,
+            'max_score': 0
+        }
+    }
+    #!#FIXME - END_1 work @ 230411piu_a fix OPISS.008
     # render are_general_data
     _file = pathlib.Path(APP_ROOT + '/are/are_general_data.html')
     _str_of_are_template_html = _file.read_text()
