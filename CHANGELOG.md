@@ -40,10 +40,14 @@
     * [ ] revenue
     * [ ] solution
 
-* wip... (B) 230417piu_a fix OPISS.008 - bug @ ARE main page loader, no ADS data in a business domain
-    * [x] 230411piu_a step 1 - make a solve plan in file `/are/are_main.py` about line #
-    * [x] 230417piu_a step 2 - solve bug for first bss domain, as order in code, just for test
-    * [ ] step 3 - generalize for all bss domains
+* tbd... `are_start_page.html` make an overview page with all bss domains and score overview as a summary table (show 'NO ADS INFO' when date is older than 1900-31-31 & solve the actual displaying of 'Invalid date' at conversion to local time)
+
+
+
+* (B) 230417piu_a fix OPISS.008 - bug @ ARE main page loader, no ADS data in a business domain
+    * [x] step 1 - make a solve plan in file `/are/are_main.py` (closed at/by 230411piu_a)
+    * [x] step 2 - solve bug for first bss domain, as order in code, just for test
+    * [x] step 3 - generalize for all bss domains
 * 230410piu_a ARE start page redirect to Sales Project choose in case sent PK does not exists (location: `are_main.py`)
 * 230409piu_a update chart generator function `are_chart(business_domain, chart_type)` (module `are/are_main.py`, route: `'/are_chart/<business_domain>/<chart_type>'`) to generate unique image files with auto removing after usage
 
