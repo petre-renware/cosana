@@ -14,7 +14,7 @@ from flask import render_template, render_template_string, redirect, url_for, se
 from data_models.salesproject_data_models import SalesProject
 import matplotlib.pyplot as plt
 from libutil.utils import genpk
-import pprint
+#import pprint #NOTE: this is for debugging
 
 # * get database and app from Commons
 from commons.commons import Commons
@@ -53,35 +53,36 @@ page_title = 'Account Review and Evaluation'
 def are_builder():
     # get query parameter
     _tmp = request.args.get('sales_project_pk')
-    #TODO: OPISS.008 - ARE main page loader, no ADS data in a business domain
-    if not _tmp: #TODO: OPISS.008 detailed err: the right checking could be here and is to see there is any ADS data (for each bss domain)), otherwise will rase errors when load score in next code
+    if not _tmp:
         # from crud_data_admin.crud_data_admin_main import crud_admin_builder
         return redirect(url_for('crud_admin_builder'))
     #
     # check if sales project exists
     sales_project_object_chosen = _tmp if _tmp else 'unknown'
-    #
-    # --- START of businesses domains loading
-    #
-    #!#FIXME - START_1 work @ 230411piu_a fix OPISS.008
     # make an ampty default structure usable in case there is no ADS data for a domain
     _empty_bss_domain_response = {
-        '_updated_at': 'no ADS data for business domain',
+        '_updated_at': 'no ADS data for business domain', #!#FIXME_#FIXME_#FIXME - OPISS.008 - check if render OK with this date !!!
         'score': {
             'crt_score': 0,
             'max_score': 0
         }
     }
-    #!#FIXME - END_1 work @ 230411piu_a fix OPISS.008
+    #
+    # --- START of businesses domains loading
+    #
     # render are_general_data
     _file = pathlib.Path(APP_ROOT + '/are/are_general_data.html')
     _str_of_are_template_html = _file.read_text()
     from data_models.ads_general_data_api_models import ads_general_data_api_get
     general_data_summary_info = ads_general_data_api_get(sales_project_object_chosen).get_json()
-    general_data_summary_info = general_data_summary_info['data'][0] # [0] is the last and only one record
-    _tmp_date = pendulum.parse(general_data_summary_info['_updated_at']) # format date to a more "humanized" string
-    _tmp_date = _tmp_date.to_day_datetime_string()
-    general_data_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
+    #!#FIXME -DROP / finished - #TODO: OPISS.008 - ARE main page loader, no ADS data in a business domain
+    if len(general_data_summary_info['data']) > 0:
+        general_data_summary_info = general_data_summary_info['data'][0] # [0] is the last and only one record
+        _tmp_date = pendulum.parse(general_data_summary_info['_updated_at']) # format date to a more "humanized" string
+        _tmp_date = _tmp_date.to_day_datetime_string()
+        general_data_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
+    else:
+        general_data_summary_info = _empty_bss_domain_response
     are_general_data = render_template_string(_str_of_are_template_html,
                                               general_data_summary_info = general_data_summary_info)
     #
@@ -91,6 +92,7 @@ def are_builder():
     _str_of_are_template_html = _file.read_text()
     from data_models.ads_evaluation_api_models import ads_evaluation_api_get
     evaluation_summary_info = ads_evaluation_api_get(sales_project_object_chosen).get_json()
+    #TODO: OPISS.008 - ARE main page loader, no ADS data in a business domain
     evaluation_summary_info = evaluation_summary_info['data'][0] # [0] is the last and only one record
     _tmp_date = pendulum.parse(evaluation_summary_info['_updated_at']) # format date to a more "humanized" string
     _tmp_date = _tmp_date.to_day_datetime_string()
@@ -104,6 +106,7 @@ def are_builder():
     _str_of_are_template_html = _file.read_text()
     from data_models.ads_revenue_api_models import ads_revenue_api_get
     revenue_summary_info = ads_revenue_api_get(sales_project_object_chosen).get_json()
+    #TODO: OPISS.008 - ARE main page loader, no ADS data in a business domain
     revenue_summary_info = revenue_summary_info['data'][0] # [0] is the last and only one record
     _tmp_date = pendulum.parse(revenue_summary_info['_updated_at']) # format date to a more "humanized" string
     _tmp_date = _tmp_date.to_day_datetime_string()
@@ -117,6 +120,7 @@ def are_builder():
     _str_of_are_template_html = _file.read_text()
     from data_models.ads_org_map_api_models import ads_org_map_get
     org_map_summary_info = ads_org_map_get(sales_project_object_chosen).get_json()
+    #TODO: OPISS.008 - ARE main page loader, no ADS data in a business domain
     org_map_summary_info = org_map_summary_info['data'][0] # [0] is the last and only one record
     _tmp_date = pendulum.parse(org_map_summary_info['_updated_at']) # format date to a more "humanized" string
     _tmp_date = _tmp_date.to_day_datetime_string()
@@ -130,6 +134,7 @@ def are_builder():
     _str_of_are_template_html = _file.read_text()
     from data_models.ads_relationships_api_models import ads_relationships_get
     relationships_summary_info = ads_relationships_get(sales_project_object_chosen).get_json()
+    #TODO: OPISS.008 - ARE main page loader, no ADS data in a business domain
     relationships_summary_info = relationships_summary_info['data'][0] # [0] is the last and only one record
     _tmp_date = pendulum.parse(relationships_summary_info['_updated_at']) # format date to a more "humanized" string
     _tmp_date = _tmp_date.to_day_datetime_string()
@@ -143,6 +148,7 @@ def are_builder():
     _str_of_are_template_html = _file.read_text()
     from data_models.ads_solution_api_models import ads_solution_get
     solution_summary_info = ads_solution_get(sales_project_object_chosen).get_json()
+    #TODO: OPISS.008 - ARE main page loader, no ADS data in a business domain
     solution_summary_info = solution_summary_info['data'][0] # [0] is the last and only one record
     _tmp_date = pendulum.parse(solution_summary_info['_updated_at']) # format date to a more "humanized" string
     _tmp_date = _tmp_date.to_day_datetime_string()
@@ -156,6 +162,7 @@ def are_builder():
     _str_of_are_template_html = _file.read_text()
     from data_models.ads_decision_criteria_api_models import ads_decision_criteria_get
     decision_criteria_summary_info = ads_decision_criteria_get(sales_project_object_chosen).get_json()
+    #TODO: OPISS.008 - ARE main page loader, no ADS data in a business domain
     decision_criteria_summary_info = decision_criteria_summary_info['data'][0] # [0] is the last and only one record
     _tmp_date = pendulum.parse(decision_criteria_summary_info['_updated_at']) # format date to a more "humanized" string
     _tmp_date = _tmp_date.to_day_datetime_string()
