@@ -8,11 +8,7 @@
 <small>
 
 * Version: 0.12.0
-<<<<<<< HEAD
-* Last update: 230414
-=======
 * Last update: 230417
->>>>>>> shorts
 </small>
 
 ***
