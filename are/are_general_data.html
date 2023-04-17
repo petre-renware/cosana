@@ -4,22 +4,21 @@
 
 <!-- summary zone -->
 <h6>Summary</h6>
-<ul>
-    <li>Score {{ general_data_summary_info['score']['crt_score'] }} of {{ general_data_summary_info['score']['max_score'] }}</li>
-    <li id="are_general_data_fmt_updated_at">Last updated on (UTC time): {{ general_data_summary_info.fmt_updated_at }}
-        <small><a onclick="convertUTCDateToLocalDate('#are_general_data_fmt_updated_at', '{{ general_data_summary_info.fmt_updated_at }}')" class="badge badge-dark">show local time</a></small>
-    </li>
-</ul>
-
-<!-- charts zone -->
-<p>#FIXME construct the 3 charts according to README specs </p>
-<h6>Last 10 days activity chart</h6>
-<img src="{{ url_for('are_chart', business_domain = 'general_data', chart_type = '10_days') }}" class="img-fluid" alt="10 days chart"> <!--//! update bss dom name -->
-<h6>Last 30 days activity chart</h6>
-<img src="{{ url_for('are_chart', business_domain = 'general_data', chart_type = '30_days') }}" class="img-fluid" alt="30 days chart"> <!--//! update bss dom name -->
-<h6>All project activity chart</h6>
-<img src="{{ url_for('are_chart', business_domain = 'general_data', chart_type = 'full_period') }}" class="img-fluid" alt="full activity chart"> <!--//! update bss dom name -->
-
-
-<!--//? ither bss domain details -->
-
+{% if general_data_summary_info._updated_at == '' %}
+    <p class="text-danger">No ADS available for that business domain...</p>
+{% else %}
+    <ul>
+        <li>Score {{ general_data_summary_info['score']['crt_score'] }} of {{ general_data_summary_info['score']['max_score'] }}</li>
+        <li id="are_general_data_fmt_updated_at">Last updated on (UTC time): {{ general_data_summary_info.fmt_updated_at }}
+            <small><a onclick="convertUTCDateToLocalDate('#are_general_data_fmt_updated_at', '{{ general_data_summary_info.fmt_updated_at }}')" class="badge badge-dark">show local time</a></small>
+        </li>
+    </ul>
+    <!-- charts zone -->
+    <p>#FIXME construct the 3 charts according to README specs </p>
+    <h6>Last 10 days activity chart</h6>
+    <img src="{{ url_for('are_chart', business_domain = 'general_data', chart_type = '10_days') }}" class="img-fluid" alt="10 days chart"> <!--//! update bss dom name -->
+    <h6>Last 30 days activity chart</h6>
+    <img src="{{ url_for('are_chart', business_domain = 'general_data', chart_type = '30_days') }}" class="img-fluid" alt="30 days chart"> <!--//! update bss dom name -->
+    <h6>All project activity chart</h6>
+    <img src="{{ url_for('are_chart', business_domain = 'general_data', chart_type = 'full_period') }}" class="img-fluid" alt="full activity chart"> <!--//! update bss dom name -->
+{% endif %}

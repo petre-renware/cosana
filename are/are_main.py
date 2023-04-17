@@ -14,7 +14,9 @@ from flask import render_template, render_template_string, redirect, url_for, se
 from data_models.salesproject_data_models import SalesProject
 import matplotlib.pyplot as plt
 from libutil.utils import genpk
-#import pprint #NOTE: this is for debugging
+
+
+
 
 # * get database and app from Commons
 from commons.commons import Commons
@@ -61,7 +63,7 @@ def are_builder():
     sales_project_object_chosen = _tmp if _tmp else 'unknown'
     # make an ampty default structure usable in case there is no ADS data for a domain
     _empty_bss_domain_response = {
-        '_updated_at': '1900-01-01 00:00:00',
+        '_updated_at': '', # this is the meaning that is no "real" data available for that ADS business domein
         'score': {
             'crt_score': 0,
             'max_score': 0
