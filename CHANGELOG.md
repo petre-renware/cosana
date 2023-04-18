@@ -41,7 +41,10 @@
     * [ ] solution
 
 
-* ...wip_intention-230418piu_a `are_start_page.html` make an overview page with all bss domains and score overview as a summary table
+* wip... 230418piu_a `are_start_page.html` make an overview section with all bss domains scores overview called *Summary of Sales Project Scores*
+    * [x] a- made basic layout
+    * [ ] b- send in `are_main.py` necessary Jinja variables
+    * [ ] c- populate with data
 
 * 240417piu_b `are_start_page.html` show 'NO ADS INFO' when date is different than `'' empty string` for all business domains (general_data, decision_criteria, evaluation, org_map, relationships, revenue, solution)
 * (B) 230417piu_a fix OPISS.008 - bug @ ARE main page loader, no ADS data in a business domain
