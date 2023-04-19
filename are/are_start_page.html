@@ -22,27 +22,20 @@
         <thead class="thead-dark">
             <tr>
                 <th>Business domain</th>
-                <th>Crt</th>
-                <th>Max</th>
+                <th>Score</th>
                 <th>Progress</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Relationships ...example...</td>
-                <td>80</td> <!-- crt score -->
-                <td>100</td> <!-- max score -->
+                <td>General data</td>
+                <td>{{ general_data_summary_info.score.crt_score }} / {{ general_data_summary_info.score.max_score }}</td> <!-- score -->
                 <td> <!-- progress bar -->
-                                                    <!-- //! //#NOTE: do not forget to put - //#FIXME - DROP me @ finish...
-                                                            - crt: @style="width: nn%" as percent (!mandatory) & @aria-valuenow (as info...)
-                                                            - max: @aria-valuemax
-                                                            - %: before ending progress (second) div
-                                                            -- color can be set in progress div as class="progress-bar bg-info" -->
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                        <div class="progress-bar" role="progressbar" style="width: {{ general_data_summary_info.score.progress_percent }}%">{{ general_data_summary_info.score.progress_percent }}%</div>
                     </div>
                 </td>
-            </tr>
+            </tr> <!--//!#FIXME replicate all tr for all bss doms -->
         </tbody>
     </table>
 

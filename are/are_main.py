@@ -66,7 +66,8 @@ def are_builder():
         '_updated_at': '', # this is the meaning that is no "real" data available for that ADS business domein
         'score': {
             'crt_score': 0,
-            'max_score': 0
+            'max_score': 0,
+            'progress_percent': 0
         }
     }
     #
@@ -82,6 +83,11 @@ def are_builder():
         _tmp_date = pendulum.parse(general_data_summary_info['_updated_at']) # format date to a more "humanized" string
         _tmp_date = _tmp_date.to_day_datetime_string()
         general_data_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
+        # calculate % of score #!#FIXME - replicate this calculation for all bss domains
+        if (not general_data_summary_info['score']['max_score']) or (general_data_summary_info['score']['max_score'] == 0):
+            general_data_summary_info['score']['progress_percent'] = general_data_summary_info['score']['crt_score']
+        else:
+            general_data_summary_info['score']['progress_percent'] = 100 * round(general_data_summary_info['score']['crt_score'] / general_data_summary_info['score']['max_score'], 1)
     else:
         general_data_summary_info = _empty_bss_domain_response
     are_general_data = render_template_string(_str_of_are_template_html,
@@ -189,17 +195,24 @@ def are_builder():
     #
     # *--- render are mai page from template file
     _file = pathlib.Path(APP_ROOT + '/are/are_start_page.html')
-    _str_of_are_template_html = _file.read_text()
+    _str_of_are_template_html = _file.read_text() 
     return render_template_string(_str_of_are_template_html,
                                   page_title=page_title,
                                   sales_project_pk=sales_project_object_chosen,
                                   are_general_data=are_general_data,
+                                  general_data_summary_info=general_data_summary_info,
                                   are_evaluation=are_evaluation,
+                                  evaluation_summary_info=evaluation_summary_info,
                                   are_revenue=are_revenue,
+                                  revenue_summary_info=revenue_summary_info,
                                   are_org_map=are_org_map,
+                                  org_map_summary_info=org_map_summary_info,
                                   are_relationships=are_relationships,
+                                  relationships_summary_info=relationships_summary_info,
                                   are_solution=are_solution,
-                                  are_decision_criteria=are_decision_criteria
+                                  solution_summary_info=solution_summary_info,
+                                  are_decision_criteria=are_decision_criteria,
+                                  decision_criteria_summary_info=decision_criteria_summary_info
                                   )
 
 
