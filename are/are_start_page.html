@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<!-----------------------------------------[ main TABLE code ]--------------------------------------------------->
+<!-----------------------------------------[ main container ]--------------------------------------------------->
 <div class="container p-1">
 
     <!--- (i1) zone / title and Sales Project ------------>
@@ -33,7 +33,11 @@
                 <td>{{ general_data_summary_info.score.crt_score }} / {{ general_data_summary_info.score.max_score }}</td> <!-- score -->
                 <td> <!-- progress bar -->
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: {{ general_data_summary_info.score.progress_percent }}%">{{ general_data_summary_info.score.progress_percent }}%</div>
+                        {% if general_data_summary_info.score.progress_percent|int >= 100 %}
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ general_data_summary_info.score.progress_percent }}%">{{ general_data_summary_info.score.progress_percent }}%</div>
+                        {% else %}
+                            <div class="progress-bar" role="progressbar" style="width: {{ general_data_summary_info.score.progress_percent }}%">{{ general_data_summary_info.score.progress_percent }}%</div>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -42,7 +46,11 @@
                 <td>{{ evaluation_summary_info.score.crt_score }} / {{ evaluation_summary_info.score.max_score }}</td> <!-- score -->
                 <td> <!-- progress bar -->
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: {{ evaluation_summary_info.score.progress_percent }}%">{{ evaluation_summary_info.score.progress_percent }}%</div>
+                        {% if evaluation_summary_info.score.progress_percent|int >= 100 %}
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ evaluation_summary_info.score.progress_percent }}%">{{ evaluation_summary_info.score.progress_percent }}%</div>
+                        {% else %}
+                            <div class="progress-bar" role="progressbar" style="width: {{ evaluation_summary_info.score.progress_percent }}%">{{ evaluation_summary_info.score.progress_percent }}%</div>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -51,7 +59,11 @@
                 <td>{{ org_map_summary_info.score.crt_score }} / {{ org_map_summary_info.score.max_score }}</td> <!-- score -->
                 <td> <!-- progress bar -->
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: {{ org_map_summary_info.score.progress_percent }}%">{{ org_map_summary_info.score.progress_percent }}%</div>
+                        {% if org_map_summary_info.score.progress_percent|int >= 100 %}
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ org_map_summary_info.score.progress_percent }}%">{{ org_map_summary_info.score.progress_percent }}%</div>
+                        {% else %}
+                            <div class="progress-bar" role="progressbar" style="width: {{ org_map_summary_info.score.progress_percent }}%">{{ org_map_summary_info.score.progress_percent }}%</div>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -60,7 +72,11 @@
                 <td>{{ revenue_summary_info.score.crt_score }} / {{ revenue_summary_info.score.max_score }}</td> <!-- score -->
                 <td> <!-- progress bar -->
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: {{ revenue_summary_info.score.progress_percent }}%">{{ revenue_summary_info.score.progress_percent }}%</div>
+                        {% if revenue_summary_info.score.progress_percent|int >= 100 %}
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ revenue_summary_info.score.progress_percent }}%">{{ revenue_summary_info.score.progress_percent }}%</div>
+                        {% else %}
+                            <div class="progress-bar" role="progressbar" style="width: {{ revenue_summary_info.score.progress_percent }}%">{{ revenue_summary_info.score.progress_percent }}%</div>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -69,7 +85,11 @@
                 <td>{{ relationships_summary_info.score.crt_score }} / {{ relationships_summary_info.score.max_score }}</td> <!-- score -->
                 <td> <!-- progress bar -->
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: {{ relationships_summary_info.score.progress_percent }}%">{{ relationships_summary_info.score.progress_percent }}%</div>
+                        {% if relationships_summary_info.score.progress_percent|int >= 100 %}
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ relationships_summary_info.score.progress_percent }}%">{{ relationships_summary_info.score.progress_percent }}%</div>
+                        {% else %}
+                            <div class="progress-bar" role="progressbar" style="width: {{ relationships_summary_info.score.progress_percent }}%">{{ relationships_summary_info.score.progress_percent }}%</div>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -78,7 +98,11 @@
                 <td>{{ solution_summary_info.score.crt_score }} / {{ solution_summary_info.score.max_score }}</td> <!-- score -->
                 <td> <!-- progress bar -->
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: {{ solution_summary_info.score.progress_percent }}%">{{ solution_summary_info.score.progress_percent }}%</div>
+                        {% if solution_summary_info.score.progress_percent|int >= 100 %}
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ solution_summary_info.score.progress_percent }}%">{{ solution_summary_info.score.progress_percent }}%</div>
+                        {% else %}
+                            <div class="progress-bar" role="progressbar" style="width: {{ solution_summary_info.score.progress_percent }}%">{{ solution_summary_info.score.progress_percent }}%</div>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -87,7 +111,11 @@
                 <td>{{ decision_criteria_summary_info.score.crt_score }} / {{ decision_criteria_summary_info.score.max_score }}</td> <!-- score -->
                 <td> <!-- progress bar -->
                     <div class="progress">
+                    {% if decision_criteria_summary_info.score.progress_percent|int >= 100 %}
+                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ decision_criteria_summary_info.score.progress_percent }}%">{{ decision_criteria_summary_info.score.progress_percent }}%</div>
+                    {% else %}
                         <div class="progress-bar" role="progressbar" style="width: {{ decision_criteria_summary_info.score.progress_percent }}%">{{ decision_criteria_summary_info.score.progress_percent }}%</div>
+                    {% endif %}
                     </div>
                 </td>
             </tr>

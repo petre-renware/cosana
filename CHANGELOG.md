@@ -21,7 +21,7 @@
 <small>With (B) are marked those entries that are **BUG FIXES** so should be highlighted on *Release Note* documents.</small>
 
 
-## 0.12.0 - ARE details and charts
+## 0.12.0 - `are` details and charts
 
 ### 077.wip
 
@@ -39,6 +39,8 @@
     * [ ] relationships
     * [ ] revenue
     * [ ] solution
+
+* 230419piu_c `are_start_page.html`, *Summary of Sales Project Scores* area, color progress bars to highlight those over 100% (in green)
 
 
 ### 076.alpha (230419 06:00)
