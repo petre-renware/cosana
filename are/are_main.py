@@ -83,11 +83,11 @@ def are_builder():
         _tmp_date = pendulum.parse(general_data_summary_info['_updated_at']) # format date to a more "humanized" string
         _tmp_date = _tmp_date.to_day_datetime_string()
         general_data_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
-        # calculate % of score #!#FIXME - replicate this calculation for all bss domains
+        # calculate % of score
         if (not general_data_summary_info['score']['max_score']) or (general_data_summary_info['score']['max_score'] == 0):
             general_data_summary_info['score']['progress_percent'] = general_data_summary_info['score']['crt_score']
         else:
-            general_data_summary_info['score']['progress_percent'] = 100 * round(general_data_summary_info['score']['crt_score'] / general_data_summary_info['score']['max_score'], 1)
+            general_data_summary_info['score']['progress_percent'] = round(100 * general_data_summary_info['score']['crt_score'] / general_data_summary_info['score']['max_score'], 1)
     else:
         general_data_summary_info = _empty_bss_domain_response
     are_general_data = render_template_string(_str_of_are_template_html,
@@ -102,6 +102,11 @@ def are_builder():
     if len(evaluation_summary_info['data']) > 0:
         evaluation_summary_info = evaluation_summary_info['data'][0] # [0] is the last and only one record
         _tmp_date = pendulum.parse(evaluation_summary_info['_updated_at']) # format date to a more "humanized" string
+        # calculate % of score
+        if (not evaluation_summary_info['score']['max_score']) or (evaluation_summary_info['score']['max_score'] == 0):
+            evaluation_summary_info['score']['progress_percent'] = evaluation_summary_info['score']['crt_score']
+        else:
+            evaluation_summary_info['score']['progress_percent'] = round(100 * evaluation_summary_info['score']['crt_score'] / evaluation_summary_info['score']['max_score'], 1)
         _tmp_date = _tmp_date.to_day_datetime_string()
         evaluation_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
     else:
@@ -118,6 +123,11 @@ def are_builder():
     if len(revenue_summary_info['data']) > 0:
         revenue_summary_info = revenue_summary_info['data'][0] # [0] is the last and only one record
         _tmp_date = pendulum.parse(revenue_summary_info['_updated_at']) # format date to a more "humanized" string
+        # calculate % of score
+        if (not revenue_summary_info['score']['max_score']) or (revenue_summary_info['score']['max_score'] == 0):
+            revenue_summary_info['score']['progress_percent'] = revenue_summary_info['score']['crt_score']
+        else:
+            revenue_summary_info['score']['progress_percent'] = round(100 * revenue_summary_info['score']['crt_score'] / revenue_summary_info['score']['max_score'], 1)
         _tmp_date = _tmp_date.to_day_datetime_string()
         revenue_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
     else:
@@ -134,6 +144,11 @@ def are_builder():
     if len(org_map_summary_info['data']) > 0:
         org_map_summary_info = org_map_summary_info['data'][0] # [0] is the last and only one record
         _tmp_date = pendulum.parse(org_map_summary_info['_updated_at']) # format date to a more "humanized" string
+        # calculate % of score
+        if (not org_map_summary_info['score']['max_score']) or (org_map_summary_info['score']['max_score'] == 0):
+            org_map_summary_info['score']['progress_percent'] = org_map_summary_info['score']['crt_score']
+        else:
+            org_map_summary_info['score']['progress_percent'] = round(100 * org_map_summary_info['score']['crt_score'] / org_map_summary_info['score']['max_score'], 1)
         _tmp_date = _tmp_date.to_day_datetime_string()
         org_map_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
     else:
@@ -150,6 +165,11 @@ def are_builder():
     if len(relationships_summary_info['data']) > 0:
         relationships_summary_info = relationships_summary_info['data'][0] # [0] is the last and only one record
         _tmp_date = pendulum.parse(relationships_summary_info['_updated_at']) # format date to a more "humanized" string
+        # calculate % of score
+        if (not relationships_summary_info['score']['max_score']) or (relationships_summary_info['score']['max_score'] == 0):
+            relationships_summary_info['score']['progress_percent'] = relationships_summary_info['score']['crt_score']
+        else:
+            relationships_summary_info['score']['progress_percent'] = round(100 * relationships_summary_info['score']['crt_score'] / relationships_summary_info['score']['max_score'], 1)
         _tmp_date = _tmp_date.to_day_datetime_string()
         relationships_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
     else:
@@ -166,6 +186,11 @@ def are_builder():
     if len(solution_summary_info['data']) > 0:
         solution_summary_info = solution_summary_info['data'][0] # [0] is the last and only one record
         _tmp_date = pendulum.parse(solution_summary_info['_updated_at']) # format date to a more "humanized" string
+        # calculate % of score
+        if (not solution_summary_info['score']['max_score']) or (solution_summary_info['score']['max_score'] == 0):
+            solution_summary_info['score']['progress_percent'] = solution_summary_info['score']['crt_score']
+        else:
+            solution_summary_info['score']['progress_percent'] = round(100 * solution_summary_info['score']['crt_score'] / solution_summary_info['score']['max_score'], 1)
         _tmp_date = _tmp_date.to_day_datetime_string()
         solution_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
     else:
@@ -182,6 +207,11 @@ def are_builder():
     if len(decision_criteria_summary_info['data']) > 0:
         decision_criteria_summary_info = decision_criteria_summary_info['data'][0] # [0] is the last and only one record
         _tmp_date = pendulum.parse(decision_criteria_summary_info['_updated_at']) # format date to a more "humanized" string
+        # calculate % of score
+        if (not decision_criteria_summary_info['score']['max_score']) or (decision_criteria_summary_info['score']['max_score'] == 0):
+            decision_criteria_summary_info['score']['progress_percent'] = decision_criteria_summary_info['score']['crt_score']
+        else:
+            decision_criteria_summary_info['score']['progress_percent'] = round(100 * decision_criteria_summary_info['score']['crt_score'] / decision_criteria_summary_info['score']['max_score'], 1)
         _tmp_date = _tmp_date.to_day_datetime_string()
         decision_criteria_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
     else:
@@ -195,7 +225,7 @@ def are_builder():
     #
     # *--- render are mai page from template file
     _file = pathlib.Path(APP_ROOT + '/are/are_start_page.html')
-    _str_of_are_template_html = _file.read_text() 
+    _str_of_are_template_html = _file.read_text()
     return render_template_string(_str_of_are_template_html,
                                   page_title=page_title,
                                   sales_project_pk=sales_project_object_chosen,

@@ -17,13 +17,14 @@
 
 
     <!-- ARE Overview area -->
+    <br>
     <h5>Summary of Sales Project Scores</h5>
-    <table class="table">
+    <table class="table table-sm table-hover">
         <thead class="thead-dark">
             <tr>
-                <th>Business domain</th>
-                <th>Score</th>
-                <th>Progress</th>
+                <th class="w-25">Business domain</th>
+                <th class="w-25">Score</th>
+                <th class="w-50">Progress</th>
             </tr>
         </thead>
         <tbody>
@@ -35,13 +36,68 @@
                         <div class="progress-bar" role="progressbar" style="width: {{ general_data_summary_info.score.progress_percent }}%">{{ general_data_summary_info.score.progress_percent }}%</div>
                     </div>
                 </td>
-            </tr> <!--//!#FIXME replicate all tr for all bss doms -->
+            </tr>
+            <tr>
+                <td>Evaluation</td>
+                <td>{{ evaluation_summary_info.score.crt_score }} / {{ evaluation_summary_info.score.max_score }}</td> <!-- score -->
+                <td> <!-- progress bar -->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ evaluation_summary_info.score.progress_percent }}%">{{ evaluation_summary_info.score.progress_percent }}%</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Organization map</td>
+                <td>{{ org_map_summary_info.score.crt_score }} / {{ org_map_summary_info.score.max_score }}</td> <!-- score -->
+                <td> <!-- progress bar -->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ org_map_summary_info.score.progress_percent }}%">{{ org_map_summary_info.score.progress_percent }}%</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Revenue</td>
+                <td>{{ revenue_summary_info.score.crt_score }} / {{ revenue_summary_info.score.max_score }}</td> <!-- score -->
+                <td> <!-- progress bar -->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ revenue_summary_info.score.progress_percent }}%">{{ revenue_summary_info.score.progress_percent }}%</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Relationships approach</td>
+                <td>{{ relationships_summary_info.score.crt_score }} / {{ relationships_summary_info.score.max_score }}</td> <!-- score -->
+                <td> <!-- progress bar -->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ relationships_summary_info.score.progress_percent }}%">{{ relationships_summary_info.score.progress_percent }}%</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Solution</td>
+                <td>{{ solution_summary_info.score.crt_score }} / {{ solution_summary_info.score.max_score }}</td> <!-- score -->
+                <td> <!-- progress bar -->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ solution_summary_info.score.progress_percent }}%">{{ solution_summary_info.score.progress_percent }}%</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Decision criteria</td>
+                <td>{{ decision_criteria_summary_info.score.crt_score }} / {{ decision_criteria_summary_info.score.max_score }}</td> <!-- score -->
+                <td> <!-- progress bar -->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ decision_criteria_summary_info.score.progress_percent }}%">{{ decision_criteria_summary_info.score.progress_percent }}%</div>
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 
 
 
     <!-- end of ARE Detailed Status area -->
+    <br>
     <h5>Detailed Status of Sales Project</h5>
     <div class="row"> <!-- ARE detailed navigation for each business domain area -->
 
@@ -75,49 +131,41 @@
         <!--- content of ARE business domains -------------------------------------->
         <div class="col">
             <div id="are_content_area" class="tab-content px-2">
-
                 <!-------- ADS business domain: General data -->
                 <div id="are_general_data_tab" class="tab-pane fade in show active">
                     <h6 class="float-right border-bottom py-2">General data</h6><br>
                     {{ are_general_data|safe }}
                 </div>
-
                 <!-------- ADS busines domain: Evaluation -->
                 <div id="are_evaluation_tab" class="tab-pane fade">
                     <h6 class="float-right border-bottom py-2">Evaluation</h6><br>
                     {{ are_evaluation|safe }}
                 </div>
-
                 <!-------- ADS busines domain: ----- Organization map -->
                 <div id="are_org_map_tab" class="tab-pane fade">
                     <h6 class="float-right border-bottom py-2">Organization map</h6><br>
                     {{ are_org_map|safe }}
                 </div>
-
                 <!-------- ADS busines domain: Revenue -->
                 <div id="are_revenue_tab" class="tab-pane fade">
                     <h6 class="float-right border-bottom py-2">Revenue</h6><br>
                     {{ are_revenue|safe }}
                 </div>
-
                 <!-------- ADS busines domain: ----- Relationships approach -->
                 <div id="are_relationships_tab" class="tab-pane fade">
                     <h6 class="float-right border-bottom py-2">Relationships approach</h6><br>
                     {{ are_relationships|safe }}
                 </div>
-
                 <!-------- ADS busines domain: ----- Solution -->
                 <div id="are_solution_tab" class="tab-pane fade">
                     <h6 class="float-right border-bottom py-2">Solution</h6><br>
                     {{ are_solution|safe }}
                 </div>
-
                 <!-------- ADS busines domain: ----- Decision criteria -->
                 <div id="are_decision_criteria_tab" class="tab-pane fade">
                     <h6 class="float-right border-bottom py-2">Decision criteria</h6><br>
                     {{ are_decision_criteria|safe }}
                 </div>
-
             </div>
         </div>
 
