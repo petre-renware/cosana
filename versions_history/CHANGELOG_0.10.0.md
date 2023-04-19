@@ -14,7 +14,7 @@
 
 ## 0.10.0 - ADS scoring (roadmap RMAP.003)
 
-### 070.pre-release (230320 22:00)
+### 070.pre_release (230320 22:00)
 
 * 230320piu_c review and cleanup code
 * 230320piu_b set "real" SCORE (in `/data_models/ads_bss...domain_data_models.py`, property - function `score(self)` set all things locally and updated maximum calculation where exists LOV data in corresponding code-file) for following business domains:
