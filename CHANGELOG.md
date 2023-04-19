@@ -40,6 +40,7 @@
     * [ ] revenue
     * [ ] solution
 
+* (B) 230419piu_d `salesproject_data_models.py` fixed `to_dict()` method to return right data for `ads_evaluation` key (was returning a duplicate of `ads_general_data`)
 * 230419piu_c `are_start_page.html`, *Summary of Sales Project Scores* area, color progress bars to highlight those over 100% (in green)
 
 

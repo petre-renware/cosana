@@ -63,7 +63,7 @@ class SalesProject(BaseModel, BaseInfoMixin):
             "description": self.description,
             "notes": self.notes,
             "ads_general_data": self.ads_general_data.as_dict() if self.ads_general_data else None,
-            "ads_evaluation": self.ads_general_data.as_dict() if self.ads_general_data else None,
+            "ads_evaluation": self.ads_evaluation.as_dict() if self.ads_general_data else None,
             "ads_org_map": self.ads_org_map.as_dict() if self.ads_org_map else None,
             "ads_revenue": self.ads_revenue.as_dict() if self.ads_revenue else None,
             "ads_relationships": self.ads_relationships.as_dict() if self.ads_relationships else None,
