@@ -8,7 +8,7 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230419
+* Last update: 230421
 </small>
 
 ***
@@ -27,18 +27,22 @@
 
 * wip... --- [ ASAP ACTION PLAN: ]-------------------------------------------------------------
 
+* tbd... consider RMAP.010 - Report with all ADS current data
+
 * tbd... ARE generating charts route - get real data directly from history table `ads_general_data_version` (pls `see are_main.py` comment ref object name and check WHAT detail object is accessed or is enough main object as it could have all score history in `score` property by accessing corresponding historical records from details)
 
-* tbd... all bss domains data models make a method to return *historical score* starting from current data back to `last_no_of_days` ar all, `last_no_of_days` is optional parameter for `None` value returning all history. HINTS:
-    - to move all calculation in a separated method with parameters to be "one place where is doing", so you'll can send as params data from history
-    - optional: to put `**kwargs` to `score(...)` property and search for `history_days: int`, if exists and valid do history calc AFTER actual record calculation + append info
-    * [ ] decision criteria
-    * [ ] evaluation
-    * [ ] general data
-    * [ ] org_map
-    * [ ] relationships
-    * [ ] revenue
-    * [ ] solution
+* tbd... all bss domains data models crate a method to return *historical score* starting from current data back to `last_no_of_days` ar all. PROPOSALS:
+    * `last_no_of_days` is optional parameter for `None` value returning all history;
+    * to move all calculation in a separated method written in `ads...data_model` getting at least `sales_project_FK` as parameter
+    * tracking implementation:
+        * [ ] decision criteria
+        * [ ] evaluation
+        * [ ] general data
+        * [ ] org_map
+        * [ ] relationships
+        * [ ] revenue
+        * [ ] solution
+
 
 * (B) 230419piu_d `salesproject_data_models.py` fixed `to_dict()` method to return right data for `ads_evaluation` key (was returning a duplicate of `ads_general_data`)
 * 230419piu_c `are_start_page.html`, *Summary of Sales Project Scores* area, color progress bars to highlight those over 100% (in green)

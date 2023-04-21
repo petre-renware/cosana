@@ -5,18 +5,20 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230410
+* Last update: 230421
 </small>
 
 ***
 
 [TOC]
 
+
 # Open Issues (OPISS)
+=================================================
 
 
 
-## OPISS.008 - bug @ ARE main page loader, no ADS data in a business domain
+## **CLOSED @** OPISS.008 - bug @ ARE main page loader, no ADS data in a business domain
 
 * *Severity level:* low (can continue work by choosing right project)
 * *Target component:* `are/are_main.py`
@@ -62,7 +64,29 @@
 
 
 
+
+
+
+
 # Roadmap (RMAP)
+=================================================
+
+
+## RMAP.010 - Report with all ADS current data
+
+* Objective: make a report containing all ADS current data
+* Implementation proposal:
+    * to use MarkDown format and send `jinja_data` at rendering (`Md2HTML` library) to be able to use in markdown document Jinja fields
+    * ie, to remember, `jinja_data` is sent as any query parameters and sent as `jinja_data` Jinja variable to markdown file - use them exactly as any Jinja variables in HTML files rendering
+    * calling report is made exactly as any markdown file, ie, by specifying `<path>/markdown_file?query_param1=...,query_param2=...`, but convenience consolidate all params in one "big" dictionary and send it as one query parameter instead of more parameters - then in markdown use it as `double brackets` containing
+        ```
+        jinja_data.<your_query_parameter_name>['your_dict_keyword']
+        ```
+* Location: not firmly established but proposal is in `ads` module / components
+* Status info: open [piu] @ 230421
+
+
+
 
 
 ## RMAP.009 - System health check functionality
@@ -72,7 +96,7 @@
 * Location:
     * server-side: in `health_check` component as separated module-file
     * client-side: NOT YET DEFINED
-* Status info: open [piu]@@230324
+* Status info: open [piu] @ 230324
 
 
 ## RMAP.008 - System configuration functionality
@@ -82,7 +106,7 @@
 * Location:
     * server-side: in `sys_core` component as separated module-file
     * client-side: NOT YET DEFINED
-* Status info: open [piu]@230315
+* Status info: open [piu] @ 230315
 
 
 ## RMAP.007 - ADS Decision Criteria "save all" feature
@@ -92,7 +116,7 @@
     * function should be written in `ads_decision_criteria.html` in specific scripts section and called by `ads_start_page.html` function `get_new_ads_decision_criteria()`
     * optional, the API should be updated to implement a *bulk save* or use existing save in a for loop record-by-record
 * Location: client-side `ads_start_page.html` & `ads_solution.html`, server-side `ads_decision_criteria_api_models.py`
-* Status info: open [piu]@230302, updated [piu]@230302
+* Status info: open [piu] @ 230302, updated [piu] @ 230302
 
 
 ## RMAP.006 - ADS Solution "save all" feature
@@ -102,7 +126,7 @@
     * function should be written in `ads_solution.html` in specific scripts section and called by `ads_start_page.html` function `get_new_ads_solution()`
     * optional, the API should be updated to implement a *bulk save* or use existing save in a for loop record-by-record
 * Location: client-side `ads_start_page.html` & `ads_solution.html`, server-side `ads_solution_api_models.py`
-* Status info: open [piu]@230222, updated [piu]@@230222
+* Status info: open [piu] @ 230222, updated [piu] @ @230222
 
 
 ## RMAP.005 - ADS Relationships Approach "save all" feature
@@ -112,7 +136,7 @@
     * function should be written in `ads_relationships.html` in specific scripts section and called by `ads_start_page.html` function `get_new_ads_relationships()`
     * optional, the API should be updated to implement a *bulk save* or use existing save in a for loop record-by-record
 * Location: client-side `ads_start_page.html` & `ads_relationships.html`, server-side `ads_relationships_api_models.py`
-* Status info: open [piu]@230222, updated [piu]@@230222
+* Status info: open [piu] @ 230222, updated [piu] @ @230222
 
 
 ## RMAP.004 - ADS Organization Map "save all" feature
@@ -122,7 +146,7 @@
     * function should be written in `ads_org_map.html` in specific scripts section and called by `ads_start_page.html` function `get_new_ads_org_map()`
     * optional, the API should be updated to implement a *bulk save* or use existing save in a for loop record-by-record
 * Location: client-side `ads_start_page.html` & `ads_org_map.html`, server-side `ads_org_map_api_models.py`
-* Status info: open [piu]@230119, updated [piu]@230121
+* Status info: open [piu] @ 230119, updated [piu] @ 230121
 
 
 
@@ -135,21 +159,21 @@
     * [x] badges on each tab content
     * [ ] *badge displayed score:* **Poor** (`<= 30%`), **Acceptable** (`> 30% and <= 60%`), **Good** (`> 60% and <= 90%`), **Very good** (`> 90%`)
 * Location: all ADS ORM data models
-* Status info: open [piu]@230119, updated [piu]@230121
+* Status info: open [piu] @ 230119, updated [piu] @ 230121
 
 
 ## RMAP.002 - Sales Projects administration, UI align to standard practices
 
 * Objective: CRUD admin Data table interface improvements
 * Location: `APP_ROOT/>crud_data_admin/crud_data_admin_main.py` function `get_data(only_keys=None)` add a general action button for all supplementary actions imitating standardized interface: DASHES button or 3 horizontal LINE or WHEEL button (in fact acts like a dropdown)
-* Status info: open [piu]@230104
+* Status info: open [piu] @ 230104
 
 
 ## **OBSOLETE @230322** RMAP.001 - CRUD Data Table server side filtering and search
 
 * Objective: Data Table data endpoint - AJAX data provider - build functionalities for *server side data filtering* and *server side data search*
 * Location: `APP_ROOT/>crud_data_admin/crud_data_admin_main.py` function `crud_data_feeder()` (view function of route `/crud_table_data_feeder/salesproject`)
-* Status info: open [piu]@221222
+* Status info: open [piu] @ 221222
 
 
 ## RMAP.000 - user / role level protection
