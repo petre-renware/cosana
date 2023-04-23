@@ -48,7 +48,7 @@
     * [x] 1. decision criteria
     * [x] 2. evaluation
     * [x] 3. general data
-    * [ ] 4. org_map
+    * [x] 4. org_map
     * [ ] 5. relationships
     * [ ] 6. revenue
     * [ ] 7. solution

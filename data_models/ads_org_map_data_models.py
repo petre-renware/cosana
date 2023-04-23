@@ -92,8 +92,14 @@ class ads_org_map(BaseModel, BaseInfoMixin):
                 "financial_evaluation": _MAX_OF_FINANCIAL_EVALUATION,
                 "technical_evaluation": _MAX_OF_TECHNICAL_EVALUATION,
                 "consultant": _MAX_OF_CONSULTANT,
-            }
+            },
+            "progress_percent": 0, #!#FIXME_#FIXME - new code - CLEAN UP ON FINISH ALL (kept for cloning purposes)
         }
+        # calculate % of score #!#FIXME_#FIXME - new code - CLEAN UP ON FINISH ALL (kept for cloning purposes)
+        if (not _tmp['max_score']) or (_tmp['max_score'] == 0):
+            _tmp['progress_percent'] = _tmp['crt_score']
+        else:
+            _tmp['progress_percent'] = round(100 * _tmp['crt_score'] / _tmp['max_score'], 1)
         return _tmp
     def as_dict(self):
         # first part of dictionary is with base columns
