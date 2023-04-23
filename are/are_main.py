@@ -207,11 +207,6 @@ def are_builder():
     if len(decision_criteria_summary_info['data']) > 0:
         decision_criteria_summary_info = decision_criteria_summary_info['data'][0] # [0] is the last and only one record
         _tmp_date = pendulum.parse(decision_criteria_summary_info['_updated_at']) # format date to a more "humanized" string
-        # calculate % of score
-        if (not decision_criteria_summary_info['score']['max_score']) or (decision_criteria_summary_info['score']['max_score'] == 0):
-            decision_criteria_summary_info['score']['progress_percent'] = decision_criteria_summary_info['score']['crt_score']
-        else:
-            decision_criteria_summary_info['score']['progress_percent'] = round(100 * decision_criteria_summary_info['score']['crt_score'] / decision_criteria_summary_info['score']['max_score'], 1)
         _tmp_date = _tmp_date.to_day_datetime_string()
         decision_criteria_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
     else:
