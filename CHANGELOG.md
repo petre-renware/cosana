@@ -50,7 +50,7 @@
     * [x] 3. general data
     * [x] 4. org_map
     * [x] 5. relationships
-    * [ ] 6. revenue
+    * [x] 6. revenue
     * [ ] 7. solution
 
 * (B) 230419piu_d `salesproject_data_models.py` fixed `to_dict()` method to return right data for `ads_evaluation` key (was returning a duplicate of `ads_general_data`)

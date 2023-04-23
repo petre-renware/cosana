@@ -113,11 +113,6 @@ def are_builder():
     if len(revenue_summary_info['data']) > 0:
         revenue_summary_info = revenue_summary_info['data'][0] # [0] is the last and only one record
         _tmp_date = pendulum.parse(revenue_summary_info['_updated_at']) # format date to a more "humanized" string
-        # calculate % of score
-        if (not revenue_summary_info['score']['max_score']) or (revenue_summary_info['score']['max_score'] == 0):
-            revenue_summary_info['score']['progress_percent'] = revenue_summary_info['score']['crt_score']
-        else:
-            revenue_summary_info['score']['progress_percent'] = round(100 * revenue_summary_info['score']['crt_score'] / revenue_summary_info['score']['max_score'], 1)
         _tmp_date = _tmp_date.to_day_datetime_string()
         revenue_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
     else:
