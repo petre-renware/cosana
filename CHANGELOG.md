@@ -49,7 +49,7 @@
     * [x] 2. evaluation
     * [x] 3. general data
     * [x] 4. org_map
-    * [ ] 5. relationships
+    * [x] 5. relationships
     * [ ] 6. revenue
     * [ ] 7. solution
 

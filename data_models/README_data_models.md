@@ -5,7 +5,7 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230403
+* Last update: 230423
 </small>
 
 **Data models for system objects**
@@ -403,6 +403,7 @@ Every **ADS ...business...domain...** object has and expose a *`score`* attribut
 "score" = {
     "crt_score": 111111,
     "max_score": 999999,
+    "progress_percent": 0,
 }
 ```
 
@@ -410,6 +411,8 @@ The score (both current and maximum) is calculated ***distinct and specific*** f
 
 * **equally weighted** where each ***current*** item from respective domain has the same weight, equivalent of `score = number of items`; ***maximum*** is given by "number of items"
 * **differently weighted** where each ***current*** item from respective domain has ith own points (in not equal values) and so has its contribution to score; ***maximum*** is given by `sum od max points of each item`; for these domains, if exists, is used also associated *LOV* code-file
+
+Progress percennt is also calculated as `float` and *rounded to 1 decimal*.
 
 
 ## LOV data
