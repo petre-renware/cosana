@@ -364,7 +364,13 @@ class ads_evaluation(BaseModel, BaseInfoMixin):
         _tmp = {
             "crt_score": _crt_score,
             "max_score": _MAX_SCORE,
+            "progress_percent": 0, #!#FIXME_#FIXME - new code - CLEAN UP ON FINISH ALL (kept for cloning purposes)
         }
+        # calculate % of score #!#FIXME_#FIXME - new code - CLEAN UP ON FINISH ALL (kept for cloning purposes)
+        if (not _tmp['max_score']) or (_tmp['max_score'] == 0):
+            _tmp['progress_percent'] = _tmp['crt_score']
+        else:
+            _tmp['progress_percent'] = round(100 * _tmp['crt_score'] / _tmp['max_score'], 1)
         return _tmp
 
     def as_dict(self):

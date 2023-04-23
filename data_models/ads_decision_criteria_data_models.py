@@ -69,9 +69,9 @@ class ads_decision_criteria(BaseModel, BaseInfoMixin):
         _tmp = {
             "crt_score": crt_score,
             "max_score": _MAX_SCORE,
-            "progress_percent": 0, #!#FIXME_#FIXME - new code - CLEAN UP ON FINISH ALL (kept for cloning purposes)
+            "progress_percent": 0,
         }
-        # calculate % of score #!#FIXME_#FIXME - new code - CLEAN UP ON FINISH ALL (kept for cloning purposes)
+        # calculate % of score
         if (not _tmp['max_score']) or (_tmp['max_score'] == 0):
             _tmp['progress_percent'] = _tmp['crt_score']
         else:

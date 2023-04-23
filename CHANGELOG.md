@@ -46,7 +46,7 @@
 
 * wip... 230423piu_a update all ORM data models - methods `score()` to calculate the % score EXACTLY as did in `are/are_main.py` - refactor `are_main.py` to use new calculation:
     * [x] 1. decision criteria
-    * [ ] 2. evaluation
+    * [x] 2. evaluation
     * [ ] 3. general data
     * [ ] 4. org_map
     * [ ] 5. relationships
