@@ -83,11 +83,6 @@ def are_builder():
         _tmp_date = pendulum.parse(general_data_summary_info['_updated_at']) # format date to a more "humanized" string
         _tmp_date = _tmp_date.to_day_datetime_string()
         general_data_summary_info['fmt_updated_at'] = _tmp_date # put formatted date in a different keyword to preserve original one as str of timestamp
-        # calculate % of score
-        if (not general_data_summary_info['score']['max_score']) or (general_data_summary_info['score']['max_score'] == 0):
-            general_data_summary_info['score']['progress_percent'] = general_data_summary_info['score']['crt_score']
-        else:
-            general_data_summary_info['score']['progress_percent'] = round(100 * general_data_summary_info['score']['crt_score'] / general_data_summary_info['score']['max_score'], 1)
     else:
         general_data_summary_info = _empty_bss_domain_response
     are_general_data = render_template_string(_str_of_are_template_html,
