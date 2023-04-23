@@ -8,7 +8,7 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230421
+* Last update: 230423
 </small>
 
 ***
@@ -31,7 +31,7 @@
 
 * tbd... ARE generating charts route - get real data directly from history table `ads_general_data_version` (pls `see are_main.py` comment ref object name and check WHAT detail object is accessed or is enough main object as it could have all score history in `score` property by accessing corresponding historical records from details)
 
-* tbd... all bss domains data models crate a method to return *historical score* starting from current data back to `last_no_of_days` ar all. PROPOSALS:
+* tbd... all bss domains data models create a method to return *historical score* starting from current data back to `last_no_of_days` ar all. PROPOSALS:
     * `last_no_of_days` is optional parameter for `None` value returning all history;
     * to move all calculation in a separated method written in `ads...data_model` getting at least `sales_project_FK` as parameter
     * tracking implementation:
@@ -42,6 +42,9 @@
         * [ ] relationships
         * [ ] revenue
         * [ ] solution
+
+
+* tbd... 2304_??_piu_? update all ORM data models - methods `score()` to calculate the % score EXACTLY as did in `are/are_main.py` - refactor `are_main.py` to use new calculation
 
 
 * (B) 230419piu_d `salesproject_data_models.py` fixed `to_dict()` method to return right data for `ads_evaluation` key (was returning a duplicate of `ads_general_data`)
