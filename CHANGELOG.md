@@ -23,7 +23,7 @@
 
 ## 0.12.0 - `are` details and charts
 
-### 077.wip
+### 078.wip
 
 * wip... --- [ ASAP ACTION PLAN: ]-------------------------------------------------------------
 
@@ -43,6 +43,8 @@
         * [ ] revenue
         * [ ] solution
 
+
+### 077.alpha (230423 07:00)
 
 * 230423piu_a update all ORM data models - methods `score()` to calculate the % score EXACTLY as did in `are/are_main.py` - refactor `are_main.py` to use new calculation:
     * [x] 1. decision criteria
