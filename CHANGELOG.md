@@ -43,7 +43,8 @@
         * [ ] revenue
         * [ ] solution
 
-* 230426piu_a revisit *SalesProject API* (`data_models/salesproject_api_models.py`) and prepare to get ADS history: route: `/api/salesproject_history`,  function: `salesproject_history_api(...)`
+* 230426piu_b `data_models` update README specs ref new incoming route `/api/salesproject_history/<sales_project_pk></sales_project_pk>` (iss 230426piu_a)
+* 230426piu_a revisit *SalesProject API* (`data_models/salesproject_api_models.py`) and prepare to get ADS history: route: `/api/salesproject_history/<sales_project_pk></sales_project_pk>`,  function: `salesproject_history_api(sales_project_pk)`
 
 
 ### 077.alpha (230423 07:00)

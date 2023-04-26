@@ -84,14 +84,25 @@ def salesproject_api(operation_or_pk=None):
 # * GET history of a SalesProject (or history parts)
 #TODO ROADMAP.RMAP.000 login-protect route
 
-@app.route('/api/salesproject_history', methods=['GET'])
-@app.route('/api/salesproject_history/<_tbd_params>', methods=['GET']) #!#FIXME replace `_tbd_params` with desired route params
-def salesproject_history_api(_tbd_params = None):
+@app.route('/api/salesproject_history/<sales_project_pk>', methods=['GET'])
+def salesproject_history_api(sales_project_pk=None):
     """ api GET routes for GET history of SalesProject
-        - /api/salesproject_history - get all data
-        - ... #!#FIXME replace `_tbd_params` with desired route params
+        - /api/salesproject_history/<sales_project_pk> - SalsesProject to get history data
     """
     #
-    #!#FIXME_#FIXME_#FIXME ----------------------------------------------------------------------- work in progress here @ 20230426 05:00 ------------------
-    # * on all other cases returns a 500 error
-    return jsonify('Internal error in function *salesproject_history_api*. Logic is bad - this code should not be reached', 500)
+    #
+    _db_data = SalesProject.query.filter(SalesProject._pk == sales_project_pk).first()
+    # * if a sales project not found
+    if not _db_data:
+        return jsonify('Internal error in function *salesproject_history_api*. Logic is bad - this code should not be reached', 500)
+    #
+    #!#TODO - intended to be done @ 240426 @ 05:00
+    '''#NOTE - #! drop this comment when finish
+        - loop for all ADS domains... RECOMANDATION: use an array to keep ADS objects identificaton as needed in `are/are_main.py` function `are_chart(...)`
+        - to get history use SQLAlchecmy Continuum data accesiong `__version__` library methods (array with history and exists designed methods to traverse history)
+        - maybe should be usefull to get also for only one domain? could be "a lot of data" for all (?)
+    '''
+    ... #!CODE HERE ...
+
+
+

@@ -5,7 +5,7 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230423
+* Last update: 230426
 </small>
 
 **Data models for system objects**
@@ -99,9 +99,10 @@ The following rules apply for all COSANA objects:
 ## SalesProject object
 
 * **GET routes**:
-    * `/api/salesproject` - get all data
-    * `/api/salesproject/columns_definition`  - get only columns definition
-    * `/api/salesproject/<_pk>` -  data only for requested _pk
+    * `/api/salesproject` - get all salaes projects CURRENT data
+    * `/api/salesproject/columns_definition`  - get only columns definition (in `crud_data_admin` component)
+    * `/api/salesproject/<_pk>` - get CURRENT data only for one requested salses project (by its `_pk`)
+    * `/api/salesproject_history/<sales_project_pk>` - get ADS domains scores HISTORY for one requested salses project (by its `_pk`)
 
 
 
