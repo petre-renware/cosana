@@ -92,17 +92,21 @@ def salesproject_history_api(sales_project_pk=None):
     #
     #
     _db_data = SalesProject.query.filter(SalesProject._pk == sales_project_pk).first()
-    # * if a sales project not found
+    print('------------da data is: ', _db_data) #!#FIXME debugging purposes / drop me
+    # * if a sales project not found then just simply return an empty data with no error indication
     if not _db_data:
-        return jsonify('Internal error in function *salesproject_history_api*. Logic is bad - this code should not be reached', 500)
+        return jsonify({'data':[]})
     #
     #!#TODO - intended to be done @ 240426 @ 05:00
     '''#NOTE - #! drop this comment when finish
         - loop for all ADS domains... RECOMANDATION: use an array to keep ADS objects identificaton as needed in `are/are_main.py` function `are_chart(...)`
         - to get history use SQLAlchecmy Continuum data accesiong `__version__` library methods (array with history and exists designed methods to traverse history)
         - maybe should be usefull to get also for only one domain? could be "a lot of data" for all (?)
+        - asa arata cum faci datele (copy din cealalta ruta):
+                ` _data_out = {'data': [_item.as_dict() for _item in _db_data.all()]}`
     '''
-    ... #!CODE HERE ...
+    #!CODE HERE ...
+    #!#NOTE: as is now, testing will raise error if sakes project is valid because there is no return !!!
 
 
 
