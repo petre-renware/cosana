@@ -8,7 +8,7 @@
 <small>
 
 * Version: 0.12.0
-* Last update: 230423
+* Last update: 230426
 </small>
 
 ***
@@ -42,6 +42,8 @@
         * [ ] relationships
         * [ ] revenue
         * [ ] solution
+
+* 230426piu_a revisit *SalesProject API* (`data_models/salesproject_api_models.py`) and prepare to get ADS history: route: `/api/salesproject_history`,  function: `salesproject_history_api(...)`
 
 
 ### 077.alpha (230423 07:00)

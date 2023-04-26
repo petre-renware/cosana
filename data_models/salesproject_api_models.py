@@ -76,5 +76,22 @@ def salesproject_api(operation_or_pk=None):
         else:
             return jsonify(_data_out, 404)
     #
-    # * on all other cases returns a 404 error
-    return jsonify(data_out, 404)
+    # * on all other cases returns a 500 error
+    return jsonify('Internal error in function *salesproject_api*. Logic is bad - this code should not be reached', 500)
+
+
+
+# * GET history of a SalesProject (or history parts)
+#TODO ROADMAP.RMAP.000 login-protect route
+
+@app.route('/api/salesproject_history', methods=['GET'])
+@app.route('/api/salesproject_history/<_tbd_params>', methods=['GET']) #!#FIXME replace `_tbd_params` with desired route params
+def salesproject_history_api(_tbd_params = None):
+    """ api GET routes for GET history of SalesProject
+        - /api/salesproject_history - get all data
+        - ... #!#FIXME replace `_tbd_params` with desired route params
+    """
+    #
+    #!#FIXME_#FIXME_#FIXME ----------------------------------------------------------------------- work in progress here @ 20230426 05:00 ------------------
+    # * on all other cases returns a 500 error
+    return jsonify('Internal error in function *salesproject_history_api*. Logic is bad - this code should not be reached', 500)
