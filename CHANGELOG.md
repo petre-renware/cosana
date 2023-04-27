@@ -43,6 +43,16 @@
         * [ ] revenue
         * [ ] solution
 
+
+* tbd... 230427piu_a `salesproject` data model, function `salesproject_history_api(...)` route `/api/salesproject_history/<sales_project_pk></sales_project_pk>` made a model that first get score of current record (intent to extended to historical score):
+        * [ ] decision criteria
+        * [ ] evaluation
+        * [ ] general data
+        * [ ] org_map
+        * [ ] relationships
+        * [ ] revenue
+        * [ ] solution
+
 * 230426piu_b `data_models` update README specs ref new incoming route `/api/salesproject_history/<sales_project_pk></sales_project_pk>` (iss 230426piu_a)
 * 230426piu_a revisit *SalesProject API* (`data_models/salesproject_api_models.py`) and prepare to get ADS history: route: `/api/salesproject_history/<sales_project_pk></sales_project_pk>`,  function: `salesproject_history_api(sales_project_pk)`
 
